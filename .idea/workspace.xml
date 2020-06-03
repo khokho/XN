@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="spring-beans.schema" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Aleksandre Khokhiashvili &lt;alkhok18@freeuni.edu.ge&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1codlztNgE1u2IYNWkOiavTGUSX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ge" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="XN [tomcat7:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="tomcat7:run" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="" />
+      <created>1591199034154</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1591199034154</updated>
+      <workItem from="1591199037495" duration="3311000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well">
+      <created>1591204819453</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591204819453</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view." />
+    <MESSAGE value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="418" y="169" width="1088" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591199632478">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="418" y="169" width="1088" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1591199632478" />
+    <state x="626" y="401" width="668" height="317" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1591200646856">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="626" y="401" width="668" height="317" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.24.1920.1056@0.24.1920.1056" timestamp="1591200646856" />
+    <state x="626" y="432" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1591200307109">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="626" y="432" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.24.1920.1056@0.24.1920.1056" timestamp="1591200307109" />
+    <state x="354" y="24" width="1201" height="1054" key="CommitChangelistDialog2" timestamp="1591205011084">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="354" y="24" width="1201" height="1054" key="CommitChangelistDialog2/0.24.1920.1056@0.24.1920.1056" timestamp="1591205011084" />
+    <state width="1850" height="249" key="GridCell.Tab.0.bottom" timestamp="1591204682153">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state width="1850" height="249" key="GridCell.Tab.0.bottom/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
+    <state width="1850" height="249" key="GridCell.Tab.0.center" timestamp="1591204682152">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state width="1850" height="249" key="GridCell.Tab.0.center/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682152" />
+    <state width="1850" height="249" key="GridCell.Tab.0.left" timestamp="1591204682150">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state width="1850" height="249" key="GridCell.Tab.0.left/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682150" />
+    <state width="1850" height="249" key="GridCell.Tab.0.right" timestamp="1591204682153">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state width="1850" height="249" key="GridCell.Tab.0.right/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
+    <state x="355" y="163" width="1200" height="776" key="Vcs.Push.Dialog.v2" timestamp="1591204860140">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="355" y="163" width="1200" height="776" key="Vcs.Push.Dialog.v2/0.24.1920.1056@0.24.1920.1056" timestamp="1591204860140" />
+    <state x="642" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591204699193">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="642" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1920.1056@0.24.1920.1056" timestamp="1591204699193" />
+    <state x="453" y="22" width="1009" height="1470" key="search.everywhere.popup" timestamp="1591199989533">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="453" y="22" width="1009" height="1470" key="search.everywhere.popup/0.24.1920.1056@0.24.1920.1056" timestamp="1591199989533" />
+    <state x="497" y="72" width="915" height="958" key="spring file set editor" timestamp="1591200122448">
+      <screen x="0" y="24" width="1920" height="1056" />
+    </state>
+    <state x="497" y="72" width="915" height="958" key="spring file set editor/0.24.1920.1056@0.24.1920.1056" timestamp="1591200122448" />
+  </component>
+</project>
