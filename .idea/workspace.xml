@@ -19,16 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/XN.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/exam/newExam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/examCreator-servlet.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/newExam.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="საწყისი newExam.jsp&#10;მუშაობს /newExam გვერდზე&#10;სერვლეტების გარეშე">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/newExam.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/newExam.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +127,7 @@
       <option name="presentableId" value="Default" />
       <updated>1591199034154</updated>
       <workItem from="1591199037495" duration="3311000" />
-      <workItem from="1591370335508" duration="3375000" />
+      <workItem from="1591370335508" duration="5119000" />
     </task>
     <task id="LOCAL-00001" summary="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well">
       <created>1591204819453</created>
@@ -143,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591204819453</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="საწყისი newExam.jsp&#10;მუშაობს /newExam გვერდზე&#10;სერვლეტების გარეშე">
+      <created>1591374073062</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1591374073062</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,7 +164,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view." />
     <MESSAGE value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well" />
+    <MESSAGE value="საწყისი newExam.jsp&#10;მუშაობს /newExam გვერდზე&#10;სერვლეტების გარეშე" />
+    <option name="LAST_COMMIT_MESSAGE" value="საწყისი newExam.jsp&#10;მუშაობს /newExam გვერდზე&#10;სერვლეტების გარეშე" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -196,25 +197,25 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1591361832790" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1591369799275">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1591374027153">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1591369799275" />
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1591374027153" />
     <state width="1850" height="249" key="GridCell.Tab.0.bottom/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1591369799275">
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1591374027153">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1591369799275" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1591374027153" />
     <state width="1850" height="249" key="GridCell.Tab.0.center/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682152" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1591369799275">
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1591374027152">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1591369799275" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1591374027152" />
     <state width="1850" height="249" key="GridCell.Tab.0.left/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682150" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1591369799275">
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1591374027153">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1591369799275" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1591374027153" />
     <state width="1850" height="249" key="GridCell.Tab.0.right/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
     <state x="102" y="0" key="SettingsEditor" timestamp="1591367847136">
       <screen x="0" y="0" width="1366" height="728" />

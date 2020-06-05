@@ -31,36 +31,39 @@
     <script>
         addFiles();
         const inp = document.getElementById("variants");
-        inp.addEventListener('change', (event) => {
+        inp.addEventListener('change', () => {
             addFiles()
         });
 
         function addFiles() {
-            var container = document.getElementById("statements");
-            var number = document.getElementById("variants").value;
-            console.log(number);
-            while (container.hasChildNodes()) {
-                container.removeChild(container.lastChild);
+            let container = document.getElementById("statements");
+            let newSize = document.getElementById("variants").value;
+
+            let oldSize = (container.childNodes.length);
+
+            if (oldSize < newSize)
+                for (let i = oldSize + 1; i <= newSize; i++) {
+                    let subContainer = document.createElement("div");
+                    let label = document.createElement("label");
+                    label.for = "statement " + i;
+                    label.textContent = "ვარიანტი #" + i + ": ";
+                    subContainer.appendChild(label);
+
+                    let input = document.createElement("input");
+                    input.type = "file";
+                    input.id = "statement " + i;
+                    input.name = "statement " + i;
+
+                    subContainer.appendChild(input);
+                    subContainer.appendChild(document.createElement("br"));
+                    container.appendChild(subContainer);
+                }
+            else {
+                while (oldSize > newSize) {
+                    container.removeChild(container.lastChild);
+                    oldSize--;
+                }
             }
-            var styler = document.createElement("p");
-            styler.classList.add("medium");
-
-
-            for (var i = 1; i <= number; i++) {
-                var label = document.createElement("label");
-                label.for = "statement " + i;
-                label.textContent = "ვარიანტი #" + i + ": ";
-                styler.appendChild(label);
-
-                var input = document.createElement("input");
-                input.type = "file";
-                input.id = "statement " + i;
-                input.name = "statement " + i;
-
-                styler.appendChild(input);
-                styler.appendChild(document.createElement("br"));
-            }
-            container.appendChild(styler);
         }
     </script>
 
