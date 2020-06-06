@@ -19,10 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="საწყისი newExam.jsp&#10;მუშაობს /newExam გვერდზე&#10;სერვლეტების გარეშე">
-      <change beforePath="$PROJECT_DIR$/src/main/java/exam/newExam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/exen/newExam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/examCreator-servlet.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="ზედმეტი სერვლეტი მოვაშორე">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Objects/Exam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/newExam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/exen/newExam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/newExam.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/newExam.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +134,7 @@
       <updated>1591199034154</updated>
       <workItem from="1591199037495" duration="3311000" />
       <workItem from="1591370335508" duration="5119000" />
-      <workItem from="1591430671402" duration="82000" />
+      <workItem from="1591430671402" duration="8782000" />
     </task>
     <task id="LOCAL-00001" summary="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well">
       <created>1591204819453</created>
@@ -146,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591374073062</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="ზედმეტი სერვლეტი მოვაშორე">
+      <created>1591430871051</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1591430871051</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,7 +179,8 @@
     <MESSAGE value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view." />
     <MESSAGE value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well" />
     <MESSAGE value="საწყისი newExam.jsp&#10;მუშაობს /newExam გვერდზე&#10;სერვლეტების გარეშე" />
-    <option name="LAST_COMMIT_MESSAGE" value="საწყისი newExam.jsp&#10;მუშაობს /newExam გვერდზე&#10;სერვლეტების გარეშე" />
+    <MESSAGE value="ზედმეტი სერვლეტი მოვაშორე" />
+    <option name="LAST_COMMIT_MESSAGE" value="ზედმეტი სერვლეტი მოვაშორე" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -180,6 +192,10 @@
       <screen x="0" y="24" width="1920" height="1056" />
     </state>
     <state x="418" y="169" width="1088" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1591199632478" />
+    <state x="488" y="65" key="#com.intellij.ide.util.MemberChooser" timestamp="1591439209453">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="65" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1591439209453" />
     <state x="416" y="53" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1591367793544">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -201,25 +217,25 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1591361832790" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1591374027153">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1591436983521">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1591374027153" />
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1591436983521" />
     <state width="1850" height="249" key="GridCell.Tab.0.bottom/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1591374027153">
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1591436983521">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1591374027153" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1591436983521" />
     <state width="1850" height="249" key="GridCell.Tab.0.center/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682152" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1591374027152">
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1591436983521">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1591374027152" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1591436983521" />
     <state width="1850" height="249" key="GridCell.Tab.0.left/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682150" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1591374027153">
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1591436983521">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1591374027153" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1591436983521" />
     <state width="1850" height="249" key="GridCell.Tab.0.right/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
     <state x="102" y="0" key="SettingsEditor" timestamp="1591367847136">
       <screen x="0" y="0" width="1366" height="728" />
@@ -237,10 +253,10 @@
       <screen x="0" y="24" width="1920" height="1056" />
     </state>
     <state x="642" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1920.1056@0.24.1920.1056" timestamp="1591204699193" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1591373305796">
+    <state x="339" y="162" key="run.anything.popup" timestamp="1591439783571">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1591373305796" />
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1591439783571" />
     <state x="322" y="-1" width="718" height="1014" key="search.everywhere.popup" timestamp="1591373196699">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

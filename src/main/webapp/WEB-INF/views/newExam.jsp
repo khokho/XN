@@ -8,22 +8,22 @@
 </style>
 
 <body>
-<form accept-charset="UTF-8">
+<form accept-charset="UTF-8" enctype="multipart/form-data">
     <p class="medium">
         <label for="fullName"> გამოცდის სახელი: </label>
-        <input type="text" id="fullName" name="fullName" accept-charset="UTF-8"></input><br>
+        <input type="text" id="fullName" name="fullName"><br>
 
         <label for="startDate"> დაწყების დრო: </label>
-        <input type="datetime-local" id="startDate" name="startDate"></input><br>
+        <input type="datetime-local" id="startDate" name="startDate"><br>
 
         <label for="duration_hr"> ხანგრძლივობა: </label>
-        <input type="number" id="duration_hr" name="hours" style="width: 40px;" min="0" max="9"></input>
+        <input type="number" id="duration_hr" name="hours" style="width: 40px;" min="0" max="9">
         <label> სთ. </label>
-        <input type="number" id="duration_mn" name="minutes" style="width: 40px;" min="0" max="60"></input>
+        <input type="number" id="duration_mn" name="minutes" style="width: 40px;" min="0" max="60">
         <label> წთ. </label><br>
 
         <label for="variants"> ვარიანტების რაოდენობა: </label>
-        <input type="number" id="variants" name="variants" min="1" max="10" value="1"></input>
+        <input type="number" id="variants" name="variants" min="1" max="10" value="1">
 
     <div id="statements"></div>
 
