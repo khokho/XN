@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="added Database model classes, introduced packages: models, tests, DAO">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/Chat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/Exam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/ExamLecturers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/ExamMaterials.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/Posts.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/StudentExam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/Upload.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="DatabaseView">
-    <option name="SHOW_INTERMEDIATE" value="true" />
-    <option name="GROUP_DATA_SOURCES" value="true" />
-    <option name="GROUP_SCHEMA" value="true" />
-    <option name="GROUP_CONTENTS" value="false" />
-    <option name="SORT_POSITIONED" value="false" />
-    <option name="SHOW_EMPTY_GROUPS" value="false" />
-    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <option name="HIDDEN_KINDS">
-      <set />
-    </option>
-    <expand />
-    <select />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -45,16 +61,23 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1codlztNgE1u2IYNWkOiavTGUSX" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RecentsManager">
@@ -103,6 +126,7 @@
       <option name="presentableId" value="Default" />
       <updated>1591199034154</updated>
       <workItem from="1591199037495" duration="3311000" />
+      <workItem from="1591630178287" duration="3482000" />
     </task>
     <task id="LOCAL-00001" summary="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well">
       <created>1591204819453</created>
@@ -115,18 +139,32 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view." />
     <MESSAGE value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well" />
+    <MESSAGE value="added Database model classes, introduced packages: models, tests, DAO" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Database model classes, introduced packages: models, tests, DAO" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="418" y="169" width="1088" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591199632478">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="304" y="104" width="1088" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591633430674">
+      <screen x="0" y="23" width="1280" height="715" />
     </state>
+    <state x="304" y="104" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.715@0.23.1280.715" timestamp="1591633430674" />
     <state x="418" y="169" width="1088" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1591199632478" />
     <state x="626" y="401" width="668" height="317" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1591200646856">
       <screen x="0" y="24" width="1920" height="1056" />
@@ -140,22 +178,34 @@
       <screen x="0" y="24" width="1920" height="1056" />
     </state>
     <state x="354" y="24" width="1201" height="1054" key="CommitChangelistDialog2/0.24.1920.1056@0.24.1920.1056" timestamp="1591205011084" />
-    <state width="1850" height="249" key="GridCell.Tab.0.bottom" timestamp="1591204682153">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state width="841" height="176" key="GridCell.Tab.0.bottom" timestamp="1591633593020">
+      <screen x="0" y="23" width="1280" height="715" />
     </state>
+    <state width="841" height="176" key="GridCell.Tab.0.bottom/0.23.1280.715@0.23.1280.715" timestamp="1591633593020" />
     <state width="1850" height="249" key="GridCell.Tab.0.bottom/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
-    <state width="1850" height="249" key="GridCell.Tab.0.center" timestamp="1591204682152">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state width="841" height="176" key="GridCell.Tab.0.center" timestamp="1591633593019">
+      <screen x="0" y="23" width="1280" height="715" />
     </state>
+    <state width="841" height="176" key="GridCell.Tab.0.center/0.23.1280.715@0.23.1280.715" timestamp="1591633593019" />
     <state width="1850" height="249" key="GridCell.Tab.0.center/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682152" />
-    <state width="1850" height="249" key="GridCell.Tab.0.left" timestamp="1591204682150">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state width="841" height="176" key="GridCell.Tab.0.left" timestamp="1591633593018">
+      <screen x="0" y="23" width="1280" height="715" />
     </state>
+    <state width="841" height="176" key="GridCell.Tab.0.left/0.23.1280.715@0.23.1280.715" timestamp="1591633593018" />
     <state width="1850" height="249" key="GridCell.Tab.0.left/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682150" />
-    <state width="1850" height="249" key="GridCell.Tab.0.right" timestamp="1591204682153">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state width="841" height="176" key="GridCell.Tab.0.right" timestamp="1591633593020">
+      <screen x="0" y="23" width="1280" height="715" />
     </state>
+    <state width="841" height="176" key="GridCell.Tab.0.right/0.23.1280.715@0.23.1280.715" timestamp="1591633593020" />
     <state width="1850" height="249" key="GridCell.Tab.0.right/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
+    <state x="174" y="41" key="Maven.ArtifactSearchDialog" timestamp="1591633853312">
+      <screen x="0" y="23" width="1280" height="715" />
+    </state>
+    <state x="174" y="41" key="Maven.ArtifactSearchDialog/0.23.1280.715@0.23.1280.715" timestamp="1591633853312" />
+    <state x="538" y="134" key="RollbackChangesDialog" timestamp="1591634942490">
+      <screen x="0" y="23" width="1280" height="715" />
+    </state>
+    <state x="538" y="134" key="RollbackChangesDialog/0.23.1280.715@0.23.1280.715" timestamp="1591634942490" />
     <state x="355" y="163" width="1200" height="776" key="Vcs.Push.Dialog.v2" timestamp="1591204860140">
       <screen x="0" y="24" width="1920" height="1056" />
     </state>
@@ -164,9 +214,10 @@
       <screen x="0" y="24" width="1920" height="1056" />
     </state>
     <state x="642" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1920.1056@0.24.1920.1056" timestamp="1591204699193" />
-    <state x="453" y="22" width="1009" height="1470" key="search.everywhere.popup" timestamp="1591199989533">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state x="302" y="23" width="673" height="715" key="search.everywhere.popup" timestamp="1591634354634">
+      <screen x="0" y="23" width="1280" height="715" />
     </state>
+    <state x="302" y="23" width="673" height="715" key="search.everywhere.popup/0.23.1280.715@0.23.1280.715" timestamp="1591634354634" />
     <state x="453" y="22" width="1009" height="1470" key="search.everywhere.popup/0.24.1920.1056@0.24.1920.1056" timestamp="1591199989533" />
     <state x="497" y="72" width="915" height="958" key="spring file set editor" timestamp="1591200122448">
       <screen x="0" y="24" width="1920" height="1056" />
