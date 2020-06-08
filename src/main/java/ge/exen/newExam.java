@@ -1,10 +1,8 @@
 package ge.exen;
 
-import ge.exen.Model.ExamFactory;
 
 
-import ge.exen.Model.FileWorker;
-import ge.exen.Objects.Exam;
+import ge.exen.models.ExamFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -47,22 +45,19 @@ public class newExam {
         List<MultipartFile> rawFiles = new ArrayList<>();
         Map<String, MultipartFile> files = req.getFileMap();
 
-        for (int i = 0; i <= variantCount; i++) {
+        for (int i = 0; i < variantCount; i++) {
             rawFiles.add(null);
         }
 
         for (Map.Entry<String, MultipartFile> ent : files.entrySet()) {
             if (ent.getKey().contains("statement ")) {
-                System.out.println("!>");
-                int idx = Integer.parseInt(ent.getKey().substring(10));
+                int idx = Integer.parseInt(ent.getKey().substring(10)) - 1;
                 rawFiles.set(idx, ent.getValue());
             }
         }
-        long code = examFactory.process(name, startDt, durHours, durMinutes, variantStr, rawFiles);
+        String message = examFactory.process(name, startDt, durHours, durMinutes, variantStr, rawFiles);
 
-        if (code == ExamFactory.STATUS_ERR) System.out.println("ERROR");
-        if (code == ExamFactory.STATUS_DB_ERR) System.out.println("DB ERROR");
-        if (code == ExamFactory.STATUS_FILE_DB_ERR) System.out.println("File storing error");
+        System.out.println(message);
         return "/newExam";
     }
 }

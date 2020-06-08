@@ -9,7 +9,7 @@
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     </bean>
 
-    <bean class="ge.exen.dao.ExamDao"></bean>
+    <bean class="ge.exen.DAO.SQLExamDao"></bean>
     <!-- <bean id="createDB"
            class="ge.exen.Init.InitializeDB"></bean> -->
 

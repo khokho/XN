@@ -1,4 +1,4 @@
-package ge.exen.Model;
+package ge.exen.models;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,8 +34,6 @@ public class FileWorker {
         try {
             OutputStream os = new FileOutputStream(material);
             os.write(file.getBytes());
-        } catch (FileNotFoundException e) {
-            return null;
         } catch (IOException e) {
             return null;
         }
@@ -50,15 +48,12 @@ public class FileWorker {
      * @param dir
      * @return list of paths of stored files.
      */
-    static List<String> storeFiles(List<MultipartFile> files, String dir) {
+    public static List<String> storeFiles(List<MultipartFile> files, String dir) {
         List<String> ret = new ArrayList<>();
-        Iterator<MultipartFile> it = files.iterator();
 
-        while (it.hasNext()) {
-            MultipartFile file = it.next();
+        for (MultipartFile file : files) {
             if (file == null) {
                 ret.add(null);
-                continue;
             } else {
                 String path = storeMultiPartFile(dir, file);
                 if (path == null) return null;

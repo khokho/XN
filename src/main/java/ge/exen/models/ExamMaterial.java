@@ -1,12 +1,18 @@
 package ge.exen.models;
 
 
-public class ExamMaterials {
+public class ExamMaterial {
 
   private long materialId;
-  private long materialLink;
+  private String materialLink;
   private long var;
   private long examId;
+
+  public ExamMaterial(String link, long var, long examId) {
+    this.materialLink = link;
+    this.var = var;
+    this.examId = examId;
+  }
 
 
   public long getMaterialId() {
@@ -18,11 +24,11 @@ public class ExamMaterials {
   }
 
 
-  public long getMaterialLink() {
+  public String getMaterialLink() {
     return materialLink;
   }
 
-  public void setMaterialLink(long materialLink) {
+  public void setMaterialLink(String materialLink) {
     this.materialLink = materialLink;
   }
 

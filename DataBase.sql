@@ -16,7 +16,7 @@ create table IF NOT EXISTS exam_materials
 (
 	material_id int auto_increment
 		primary key,
-	material_link int not null,
+	material_link varchar (200) not null,
 	var int not null,
 	exam_id int not null,
 	constraint exam_materials_exam_exam_id_fk
