@@ -19,27 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="work-in-progress&#10;Exam კლასი და მუშა ფაილის ატვირთვის სერვლეტი">
-      <change afterPath="$PROJECT_DIR$/files/exam28/exam_materials/CV1.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/files/exam29/exam_materials/CV.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/files/exam30/exam_materials/CV.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/files/exam30/exam_materials/CV1.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/DAO/ExamDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/DAO/ExamMaterialDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/DAO/SQLExamDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/DAO/SQLExamMaterialDao.java" afterDir="false" />
+    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="+დაოს ინტერფეისები">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataBase.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/Init/InitializeDB.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/Model/ExamFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/ExamFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/Model/FileWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/FileWorker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/Objects/Exam.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/dao/ExamDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/dao/ExamMaterialDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/models/Exam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/Exam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/models/ExamMaterials.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/exen/models/ExamMaterial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ge/exen/newExam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/exen/newExam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591440300779</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="+დაოს ინტერფეისები">
+      <created>1591653955128</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1591653955128</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +187,8 @@
     <MESSAGE value="საწყისი newExam.jsp&#10;მუშაობს /newExam გვერდზე&#10;სერვლეტების გარეშე" />
     <MESSAGE value="ზედმეტი სერვლეტი მოვაშორე" />
     <MESSAGE value="work-in-progress&#10;Exam კლასი და მუშა ფაილის ატვირთვის სერვლეტი" />
-    <option name="LAST_COMMIT_MESSAGE" value="work-in-progress&#10;Exam კლასი და მუშა ფაილის ატვირთვის სერვლეტი" />
+    <MESSAGE value="+დაოს ინტერფეისები" />
+    <option name="LAST_COMMIT_MESSAGE" value="+დაოს ინტერფეისები" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">

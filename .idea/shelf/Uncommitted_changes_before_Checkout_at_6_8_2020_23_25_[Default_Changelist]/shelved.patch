@@ -1,0 +1,186 @@
+Index: src/main/webapp/WEB-INF/dispatcher-servlet.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<beans xmlns=\"http://www.springframework.org/schema/beans\"\r\n       xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n       xmlns:context=\"http://www.springframework.org/schema/context\"\r\n       xsi:schemaLocation=\"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd\">\r\n\r\n    <bean id=\"db\" destroy-method=\"close\" class=\"org.apache.commons.dbcp.BasicDataSource\">\r\n        <property name=\"driverClassName\" value=\"com.mysql.jdbc.Driver\"/>\r\n        <property name=\"url\" value=\"jdbc:mysql://localhost/exen\"/>\r\n        <property name=\"username\" value=\"root\"/>\r\n\r\n        <!-- change this for you  -->\r\n        <property name=\"password\" value=\"testtest\"/>\r\n\r\n        <property name=\"initialSize\" value=\"3\"/>\r\n    </bean>\r\n\r\n    <context:component-scan base-package=\"ge.exen\"/>\r\n\r\n\r\n    <bean class=\"org.springframework.web.servlet.view.InternalResourceViewResolver\">\r\n        <property name=\"prefix\" value=\"/WEB-INF/views/\"/>\r\n        <property name=\"suffix\" value=\".jsp\"/>\r\n    </bean>\r\n\r\n</beans>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/webapp/WEB-INF/dispatcher-servlet.xml	(revision 131392078cc98da8dedcfcac767e4a9b58440104)
++++ src/main/webapp/WEB-INF/dispatcher-servlet.xml	(date 1591643012729)
+@@ -10,7 +10,7 @@
+         <property name="username" value="root"/>
+ 
+         <!-- change this for you  -->
+-        <property name="password" value="testtest"/>
++        <property name="password" value="pass1234"/>
+ 
+         <property name="initialSize" value="3"/>
+     </bean>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"BranchesTreeState\">\r\n    <expand>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </expand>\r\n    <select />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"d9a13fc2-04a4-451f-879e-e26bd08d69ca\" name=\"Default Changelist\" comment=\"added Message DAO classes, introduced packages: models, tests, DAO&#10;&#10;AbstractSQLDAO needs fixing\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/sqldialects.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/Tests/ge/exen/DAO/MessageDAOTest.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ge/exen/DAO/AbstractSQLDAO.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ge/exen/DAO/MessageDAO.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/ge/exen/DAO/MessageSQLDAO.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"spring-beans.schema\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"JUnit4 Test Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PREVIOUS_COMMIT_AUTHORS\">\r\n      <list>\r\n        <option value=\"Aleksandre Khokhiashvili &lt;alkhok18@freeuni.edu.ge&gt;\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1codlztNgE1u2IYNWkOiavTGUSX\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"showMembers\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"ASKED_ADD_EXTERNAL_FILES\" value=\"true\" />\r\n    <property name=\"DatabaseDriversLRU\" value=\"mysql\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary\" value=\"JUnit4\" />\r\n    <property name=\"com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4\" value=\"\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.tslint\" value=\"project\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.15\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"configurable.group.appearance\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateTestDialog.RecentsKey\">\r\n      <recent name=\"ge.exen.DAO\" />\r\n    </key>\r\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\r\n      <recent name=\"ge\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.Recents.Supers\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CreateClassDialog.RecentsKey\">\r\n      <recent name=\"ge.exen.DAO\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"$PROJECT_DIR$/src/main/webapp/WEB-INF/views\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"JUnit.MessageDAOTest\">\r\n    <configuration name=\"DataBase.sql\" type=\"DatabaseScript\" editBeforeRun=\"true\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <script-file value=\"$PROJECT_DIR$/DataBase.sql\" />\r\n      <script-mode>FILE</script-mode>\r\n      <data-source id=\"d0c8921d-81db-423e-b887-5223d12476cb\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"MessageDAOTest\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"XN\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"ge.exen.DAO.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"ge.exen.DAO\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"ge.exen.DAO.MessageDAOTest\" />\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MessageDAOTest.create\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"XN\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"ge.exen.DAO.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"ge.exen.DAO\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"ge.exen.DAO.MessageDAOTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"create\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"XN [tomcat7:run]\" type=\"MavenRunConfiguration\" factoryName=\"Maven\" nameIsGenerated=\"true\">\r\n      <MavenSettings>\r\n        <option name=\"myGeneralSettings\" />\r\n        <option name=\"myRunnerSettings\" />\r\n        <option name=\"myRunnerParameters\">\r\n          <MavenRunnerParameters>\r\n            <option name=\"profiles\">\r\n              <set />\r\n            </option>\r\n            <option name=\"goals\">\r\n              <list>\r\n                <option value=\"tomcat7:run\" />\r\n              </list>\r\n            </option>\r\n            <option name=\"pomFileName\" />\r\n            <option name=\"profilesMap\">\r\n              <map />\r\n            </option>\r\n            <option name=\"resolveToWorkspace\" value=\"false\" />\r\n            <option name=\"workingDirPath\" value=\"$PROJECT_DIR$\" />\r\n          </MavenRunnerParameters>\r\n        </option>\r\n      </MavenSettings>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JUnit.MessageDAOTest\" />\r\n        <item itemvalue=\"JUnit.MessageDAOTest.create\" />\r\n        <item itemvalue=\"Database Script.DataBase.sql\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SvnConfiguration\">\r\n    <configuration />\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"d9a13fc2-04a4-451f-879e-e26bd08d69ca\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1591199034154</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1591199034154</updated>\r\n      <workItem from=\"1591199037495\" duration=\"3311000\" />\r\n      <workItem from=\"1591630178287\" duration=\"3482000\" />\r\n      <workItem from=\"1591635805319\" duration=\"6072000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well\">\r\n      <created>1591204819453</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1591204819453</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"2\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.\" />\r\n    <MESSAGE value=\"Initialized the project&#10;web.xml starts dispatcher which is configured in dispatcher-servlet.xml&#10;which in itself uses index controller(annotation) to serve index.jsp view.&#10;also set up maven with tomcat as well\" />\r\n    <MESSAGE value=\"added Database model classes, introduced packages: models, tests, DAO\" />\r\n    <MESSAGE value=\"added Message DAO classes, introduced packages: models, tests, DAO&#10;&#10;AbstractSQLDAO needs fixing\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"added Message DAO classes, introduced packages: models, tests, DAO&#10;&#10;AbstractSQLDAO needs fixing\" />\r\n    <option name=\"REFORMAT_BEFORE_PROJECT_COMMIT\" value=\"true\" />\r\n  </component>\r\n  <component name=\"WindowStateProjectService\">\r\n    <state x=\"543\" y=\"23\" key=\"#DataBase.sql\" timestamp=\"1591637741552\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"543\" y=\"23\" key=\"#DataBase.sql/0.23.1920.972@0.23.1920.972\" timestamp=\"1591637741552\" />\r\n    <state x=\"192\" y=\"23\" key=\"#Project_Structure\" timestamp=\"1591639547698\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"192\" y=\"23\" key=\"#Project_Structure/0.23.1920.972@0.23.1920.972\" timestamp=\"1591639547698\" />\r\n    <state x=\"67\" y=\"267\" key=\"#SQL_Dialects\" timestamp=\"1591637812838\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"67\" y=\"267\" key=\"#SQL_Dialects/0.23.1920.972@0.23.1920.972\" timestamp=\"1591637812838\" />\r\n    <state x=\"304\" y=\"104\" width=\"1088\" height=\"766\" key=\"#com.intellij.execution.impl.EditConfigurationsDialog\" timestamp=\"1591633430674\">\r\n      <screen x=\"0\" y=\"23\" width=\"1280\" height=\"715\" />\r\n    </state>\r\n    <state x=\"304\" y=\"104\" key=\"#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.715@0.23.1280.715\" timestamp=\"1591633430674\" />\r\n    <state x=\"418\" y=\"169\" width=\"1088\" height=\"766\" key=\"#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591199632478\" />\r\n    <state x=\"679\" y=\"91\" key=\"#com.intellij.ide.util.MemberChooser\" timestamp=\"1591641444272\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"679\" y=\"91\" key=\"#com.intellij.ide.util.MemberChooser/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641444272\" />\r\n    <state x=\"626\" y=\"401\" width=\"668\" height=\"317\" key=\"#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes\" timestamp=\"1591200646856\">\r\n      <screen x=\"0\" y=\"24\" width=\"1920\" height=\"1056\" />\r\n    </state>\r\n    <state x=\"626\" y=\"401\" width=\"668\" height=\"317\" key=\"#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591200646856\" />\r\n    <state x=\"626\" y=\"432\" key=\"#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages\" timestamp=\"1591200307109\">\r\n      <screen x=\"0\" y=\"24\" width=\"1920\" height=\"1056\" />\r\n    </state>\r\n    <state x=\"626\" y=\"432\" key=\"#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591200307109\" />\r\n    <state x=\"354\" y=\"24\" width=\"1201\" height=\"1054\" key=\"CommitChangelistDialog2\" timestamp=\"1591205011084\">\r\n      <screen x=\"0\" y=\"24\" width=\"1920\" height=\"1056\" />\r\n    </state>\r\n    <state x=\"354\" y=\"24\" width=\"1201\" height=\"1054\" key=\"CommitChangelistDialog2/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591205011084\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1591641827549\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state width=\"841\" height=\"176\" key=\"GridCell.Tab.0.bottom/0.23.1280.715@0.23.1280.715\" timestamp=\"1591633593020\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.0.bottom/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641827549\" />\r\n    <state width=\"1850\" height=\"249\" key=\"GridCell.Tab.0.bottom/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591204682153\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.0.center\" timestamp=\"1591641827548\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state width=\"841\" height=\"176\" key=\"GridCell.Tab.0.center/0.23.1280.715@0.23.1280.715\" timestamp=\"1591633593019\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.0.center/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641827548\" />\r\n    <state width=\"1850\" height=\"249\" key=\"GridCell.Tab.0.center/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591204682152\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.0.left\" timestamp=\"1591641827547\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state width=\"841\" height=\"176\" key=\"GridCell.Tab.0.left/0.23.1280.715@0.23.1280.715\" timestamp=\"1591633593018\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.0.left/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641827547\" />\r\n    <state width=\"1850\" height=\"249\" key=\"GridCell.Tab.0.left/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591204682150\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.0.right\" timestamp=\"1591641827549\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state width=\"841\" height=\"176\" key=\"GridCell.Tab.0.right/0.23.1280.715@0.23.1280.715\" timestamp=\"1591633593020\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.0.right/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641827549\" />\r\n    <state width=\"1850\" height=\"249\" key=\"GridCell.Tab.0.right/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591204682153\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.1.bottom\" timestamp=\"1591641827552\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.1.bottom/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641827552\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.1.center\" timestamp=\"1591641827551\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.1.center/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641827551\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.1.left\" timestamp=\"1591641827550\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.1.left/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641827550\" />\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.1.right\" timestamp=\"1591641827551\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state width=\"1858\" height=\"296\" key=\"GridCell.Tab.1.right/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641827551\" />\r\n    <state x=\"261\" y=\"23\" key=\"Maven.ArtifactSearchDialog\" timestamp=\"1591639606989\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"174\" y=\"41\" key=\"Maven.ArtifactSearchDialog/0.23.1280.715@0.23.1280.715\" timestamp=\"1591633853312\" />\r\n    <state x=\"261\" y=\"23\" key=\"Maven.ArtifactSearchDialog/0.23.1920.972@0.23.1920.972\" timestamp=\"1591639606989\" />\r\n    <state x=\"538\" y=\"134\" key=\"RollbackChangesDialog\" timestamp=\"1591634942490\">\r\n      <screen x=\"0\" y=\"23\" width=\"1280\" height=\"715\" />\r\n    </state>\r\n    <state x=\"538\" y=\"134\" key=\"RollbackChangesDialog/0.23.1280.715@0.23.1280.715\" timestamp=\"1591634942490\" />\r\n    <state x=\"192\" y=\"23\" key=\"SettingsEditor\" timestamp=\"1591640302174\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"192\" y=\"23\" key=\"SettingsEditor/0.23.1920.972@0.23.1920.972\" timestamp=\"1591640302174\" />\r\n    <state x=\"355\" y=\"163\" width=\"1200\" height=\"776\" key=\"Vcs.Push.Dialog.v2\" timestamp=\"1591204860140\">\r\n      <screen x=\"0\" y=\"24\" width=\"1920\" height=\"1056\" />\r\n    </state>\r\n    <state x=\"355\" y=\"163\" width=\"1200\" height=\"776\" key=\"Vcs.Push.Dialog.v2/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591204860140\" />\r\n    <state x=\"642\" y=\"437\" key=\"com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2\" timestamp=\"1591204699193\">\r\n      <screen x=\"0\" y=\"24\" width=\"1920\" height=\"1056\" />\r\n    </state>\r\n    <state x=\"642\" y=\"437\" key=\"com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591204699193\" />\r\n    <state x=\"629\" y=\"225\" width=\"662\" height=\"500\" key=\"com.intellij.testIntegration.createTest.CreateTestDialog\" timestamp=\"1591640404193\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"629\" y=\"225\" width=\"662\" height=\"500\" key=\"com.intellij.testIntegration.createTest.CreateTestDialog/0.23.1920.972@0.23.1920.972\" timestamp=\"1591640404193\" />\r\n    <state x=\"457\" y=\"227\" key=\"run.anything.popup\" timestamp=\"1591641600784\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"457\" y=\"227\" key=\"run.anything.popup/0.23.1920.972@0.23.1920.972\" timestamp=\"1591641600784\" />\r\n    <state x=\"453\" y=\"23\" width=\"1010\" height=\"972\" key=\"search.everywhere.popup\" timestamp=\"1591640422649\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"302\" y=\"23\" width=\"673\" height=\"715\" key=\"search.everywhere.popup/0.23.1280.715@0.23.1280.715\" timestamp=\"1591634354634\" />\r\n    <state x=\"453\" y=\"23\" width=\"1010\" height=\"972\" key=\"search.everywhere.popup/0.23.1920.972@0.23.1920.972\" timestamp=\"1591640422649\" />\r\n    <state x=\"453\" y=\"22\" width=\"1009\" height=\"1470\" key=\"search.everywhere.popup/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591199989533\" />\r\n    <state x=\"497\" y=\"67\" width=\"915\" height=\"958\" key=\"spring file set editor\" timestamp=\"1591636053467\">\r\n      <screen x=\"0\" y=\"23\" width=\"1920\" height=\"972\" />\r\n    </state>\r\n    <state x=\"497\" y=\"67\" key=\"spring file set editor/0.23.1920.972@0.23.1920.972\" timestamp=\"1591636053467\" />\r\n    <state x=\"497\" y=\"72\" width=\"915\" height=\"958\" key=\"spring file set editor/0.24.1920.1056@0.24.1920.1056\" timestamp=\"1591200122448\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/Tests/ge/exen/DAO/MessageDAOTest.java</url>\r\n          <line>27</line>\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/ge/exen/DAO/MessageSQLDAO.java</url>\r\n          <line>37</line>\r\n          <option name=\"timeStamp\" value=\"2\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision 131392078cc98da8dedcfcac767e4a9b58440104)
++++ .idea/workspace.xml	(date 1591644012852)
+@@ -19,14 +19,9 @@
+     <select />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="added Message DAO classes, introduced packages: models, tests, DAO&#10;&#10;AbstractSQLDAO needs fixing">
+-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/Tests/ge/exen/DAO/MessageDAOTest.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/DAO/AbstractSQLDAO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/DAO/MessageDAO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ge/exen/DAO/MessageSQLDAO.java" afterDir="false" />
++    <list default="true" id="d9a13fc2-04a4-451f-879e-e26bd08d69ca" name="Default Changelist" comment="დაემატა:&#10;ახალი გამოცის დამატების ფორმა ფრონტენდი, კონტროლერი და მოდელი;&#10;exam-ის დაო;&#10;exam_materials-ის დაო;&#10;ფაილების შემნახავი კლასი FileWorker;">
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -56,6 +51,7 @@
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+   <component name="ProjectId" id="1codlztNgE1u2IYNWkOiavTGUSX" />
+   <component name="ProjectLevelVcsManager">
+@@ -91,6 +87,9 @@
+   <component name="RecentsManager">
+     <key name="CreateTestDialog.RecentsKey">
+       <recent name="ge.exen.DAO" />
++    </key>
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
+     </key>
+     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+       <recent name="ge" />
+@@ -101,11 +100,8 @@
+     <key name="CreateClassDialog.RecentsKey">
+       <recent name="ge.exen.DAO" />
+     </key>
+-    <key name="MoveFile.RECENT_KEYS">
+-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
+-    </key>
+   </component>
+-  <component name="RunManager" selected="JUnit.MessageDAOTest">
++  <component name="RunManager" selected="Maven.XN [tomcat7:run]">
+     <configuration name="DataBase.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+       <script-file value="$PROJECT_DIR$/DataBase.sql" />
+       <script-mode>FILE</script-mode>
+@@ -237,9 +233,10 @@
+       <screen x="0" y="23" width="1920" height="972" />
+     </state>
+     <state x="67" y="267" key="#SQL_Dialects/0.23.1920.972@0.23.1920.972" timestamp="1591637812838" />
+-    <state x="304" y="104" width="1088" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591633430674">
+-      <screen x="0" y="23" width="1280" height="715" />
++    <state x="204" y="0" width="1162" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591642749225">
++      <screen x="0" y="0" width="1366" height="728" />
+     </state>
++    <state x="204" y="0" width="1162" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1591642749225" />
+     <state x="304" y="104" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.715@0.23.1280.715" timestamp="1591633430674" />
+     <state x="418" y="169" width="1088" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1591199632478" />
+     <state x="679" y="91" key="#com.intellij.ide.util.MemberChooser" timestamp="1591641444272">
+@@ -258,27 +255,31 @@
+       <screen x="0" y="24" width="1920" height="1056" />
+     </state>
+     <state x="354" y="24" width="1201" height="1054" key="CommitChangelistDialog2/0.24.1920.1056@0.24.1920.1056" timestamp="1591205011084" />
+-    <state width="1858" height="296" key="GridCell.Tab.0.bottom" timestamp="1591641827549">
+-      <screen x="0" y="23" width="1920" height="972" />
++    <state width="1045" height="178" key="GridCell.Tab.0.bottom" timestamp="1591643775232">
++      <screen x="0" y="0" width="1366" height="728" />
+     </state>
++    <state width="1045" height="178" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1591643775232" />
+     <state width="841" height="176" key="GridCell.Tab.0.bottom/0.23.1280.715@0.23.1280.715" timestamp="1591633593020" />
+     <state width="1858" height="296" key="GridCell.Tab.0.bottom/0.23.1920.972@0.23.1920.972" timestamp="1591641827549" />
+     <state width="1850" height="249" key="GridCell.Tab.0.bottom/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
+-    <state width="1858" height="296" key="GridCell.Tab.0.center" timestamp="1591641827548">
+-      <screen x="0" y="23" width="1920" height="972" />
++    <state width="1045" height="178" key="GridCell.Tab.0.center" timestamp="1591643775232">
++      <screen x="0" y="0" width="1366" height="728" />
+     </state>
++    <state width="1045" height="178" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1591643775232" />
+     <state width="841" height="176" key="GridCell.Tab.0.center/0.23.1280.715@0.23.1280.715" timestamp="1591633593019" />
+     <state width="1858" height="296" key="GridCell.Tab.0.center/0.23.1920.972@0.23.1920.972" timestamp="1591641827548" />
+     <state width="1850" height="249" key="GridCell.Tab.0.center/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682152" />
+-    <state width="1858" height="296" key="GridCell.Tab.0.left" timestamp="1591641827547">
+-      <screen x="0" y="23" width="1920" height="972" />
++    <state width="1045" height="178" key="GridCell.Tab.0.left" timestamp="1591643775232">
++      <screen x="0" y="0" width="1366" height="728" />
+     </state>
++    <state width="1045" height="178" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1591643775232" />
+     <state width="841" height="176" key="GridCell.Tab.0.left/0.23.1280.715@0.23.1280.715" timestamp="1591633593018" />
+     <state width="1858" height="296" key="GridCell.Tab.0.left/0.23.1920.972@0.23.1920.972" timestamp="1591641827547" />
+     <state width="1850" height="249" key="GridCell.Tab.0.left/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682150" />
+-    <state width="1858" height="296" key="GridCell.Tab.0.right" timestamp="1591641827549">
+-      <screen x="0" y="23" width="1920" height="972" />
++    <state width="1045" height="178" key="GridCell.Tab.0.right" timestamp="1591643775232">
++      <screen x="0" y="0" width="1366" height="728" />
+     </state>
++    <state width="1045" height="178" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1591643775232" />
+     <state width="841" height="176" key="GridCell.Tab.0.right/0.23.1280.715@0.23.1280.715" timestamp="1591633593020" />
+     <state width="1858" height="296" key="GridCell.Tab.0.right/0.23.1920.972@0.23.1920.972" timestamp="1591641827549" />
+     <state width="1850" height="249" key="GridCell.Tab.0.right/0.24.1920.1056@0.24.1920.1056" timestamp="1591204682153" />
+@@ -298,6 +299,10 @@
+       <screen x="0" y="23" width="1920" height="972" />
+     </state>
+     <state width="1858" height="296" key="GridCell.Tab.1.right/0.23.1920.972@0.23.1920.972" timestamp="1591641827551" />
++    <state width="196" height="457" key="HiddenNamespacesPopup" timestamp="1591642930534">
++      <screen x="0" y="0" width="1366" height="728" />
++    </state>
++    <state width="196" height="457" key="HiddenNamespacesPopup/0.0.1366.728@0.0.1366.728" timestamp="1591642930534" />
+     <state x="261" y="23" key="Maven.ArtifactSearchDialog" timestamp="1591639606989">
+       <screen x="0" y="23" width="1920" height="972" />
+     </state>
+@@ -315,9 +320,10 @@
+       <screen x="0" y="24" width="1920" height="1056" />
+     </state>
+     <state x="355" y="163" width="1200" height="776" key="Vcs.Push.Dialog.v2/0.24.1920.1056@0.24.1920.1056" timestamp="1591204860140" />
+-    <state x="642" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591204699193">
+-      <screen x="0" y="24" width="1920" height="1056" />
++    <state x="457" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591643064065">
++      <screen x="0" y="0" width="1366" height="728" />
+     </state>
++    <state x="457" y="285" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1591643064065" />
+     <state x="642" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1920.1056@0.24.1920.1056" timestamp="1591204699193" />
+     <state x="629" y="225" width="662" height="500" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1591640404193">
+       <screen x="0" y="23" width="1920" height="972" />
+@@ -346,11 +352,6 @@
+           <url>file://$PROJECT_DIR$/src/main/Tests/ge/exen/DAO/MessageDAOTest.java</url>
+           <line>27</line>
+           <option name="timeStamp" value="1" />
+-        </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>file://$PROJECT_DIR$/src/main/java/ge/exen/DAO/MessageSQLDAO.java</url>
+-          <line>37</line>
+-          <option name="timeStamp" value="2" />
+         </line-breakpoint>
+       </breakpoints>
+     </breakpoint-manager>
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DataSourceManagerImpl\" format=\"xml\" multifile-model=\"true\">\r\n    <data-source source=\"LOCAL\" name=\"@localhost\" uuid=\"d0c8921d-81db-423e-b887-5223d12476cb\">\r\n      <driver-ref>mysql.8</driver-ref>\r\n      <synchronize>true</synchronize>\r\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\r\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\r\n    </data-source>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/dataSources.xml	(revision 131392078cc98da8dedcfcac767e4a9b58440104)
++++ .idea/dataSources.xml	(date 1591642750771)
+@@ -7,5 +7,11 @@
+       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+     </data-source>
++    <data-source source="LOCAL" name="@localhost [2]" uuid="22958f5d-7669-4baa-a35f-3b066d86dc6c">
++      <driver-ref>mysql.8</driver-ref>
++      <synchronize>true</synchronize>
++      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
++      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
++    </data-source>
+   </component>
+ </project>
+\ No newline at end of file

@@ -1,0 +1,6 @@
+ge\exen\newExam.class
+ge\exen\models\ExamFactory.class
+ge\exen\models\ExamMaterial.class
+ge\exen\DAO\ExamMaterialDao.class
+ge\exen\DAO\ExamDao.class
+ge\exen\models\FileWorker.class
