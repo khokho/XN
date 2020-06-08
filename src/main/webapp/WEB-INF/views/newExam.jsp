@@ -11,19 +11,19 @@
 <form accept-charset="UTF-8" enctype="multipart/form-data">
     <p class="medium">
         <label for="fullName"> გამოცდის სახელი: </label>
-        <input type="text" id="fullName" name="fullName"><br>
+        <input type="text" id="fullName" name="fullName" required><br>
 
         <label for="startDate"> დაწყების დრო: </label>
-        <input type="datetime-local" id="startDate" name="startDate"><br>
+        <input type="datetime-local" id="startDate" name="startDate" required><br>
 
         <label for="duration_hr"> ხანგრძლივობა: </label>
-        <input type="number" id="duration_hr" name="hours" style="width: 40px;" min="0" max="9">
+        <input type="number" id="duration_hr" name="hours" style="width: 40px;" min="0" max="9" required>
         <label> სთ. </label>
-        <input type="number" id="duration_mn" name="minutes" style="width: 40px;" min="0" max="60">
+        <input type="number" id="duration_mn" name="minutes" style="width: 40px;" min="0" max="60" required>
         <label> წთ. </label><br>
 
         <label for="variants"> ვარიანტების რაოდენობა: </label>
-        <input type="number" id="variants" name="variants" min="1" max="10" value="1">
+        <input type="number" id="variants" name="variants" min="1" max="10" value="1" required>
 
     <div id="statements"></div>
 
@@ -71,5 +71,9 @@
     <input type="submit" value="შექმნა" formmethod="post"><br>
     <p>
 </form>
+
+<c:if test="${not empty resultmessage}">
+    <h1>${resultmessage}</h1>
+</c:if>
 </body>
 </html>

@@ -2,17 +2,17 @@
 
 create database exen;
 use exen;
-create table exam
+create table IF NOT EXISTS exam
 (
 	exam_id int auto_increment
 		primary key,
 	start_time date not null,
-	end_time date not null,
+	duration number not null,
 	var_num int not null,
 	exam_subj varchar(60) not null
 );
 
-create table exam_materials
+create table IF NOT EXISTS exam_materials
 (
 	material_id int auto_increment
 		primary key,
@@ -23,7 +23,7 @@ create table exam_materials
 		foreign key (exam_id) references exam (exam_id)
 );
 
-create table user
+create table IF NOT EXISTS user
 (
 	Id int auto_increment
 		primary key,
@@ -38,7 +38,7 @@ create table user
 		unique (password_hash)
 );
 
-create table chat
+create table IF NOT EXISTS chat
 (
 	chat_id int auto_increment
 		primary key,
@@ -50,7 +50,7 @@ create table chat
 		foreign key (`To`) references user (Id)
 );
 
-create table exam_lecturers
+create table IF NOT EXISTS exam_lecturers
 (
 	exam_id int not null,
 	lecturer_id int not null,
@@ -60,7 +60,7 @@ create table exam_lecturers
 		foreign key (lecturer_id) references user (Id)
 );
 
-create table message
+create table IF NOT EXISTS message
 (
 	message_id int auto_increment
 		primary key,
@@ -75,7 +75,7 @@ create table message
 		foreign key (`from`) references user (Id)
 );
 
-create table posts
+create table IF NOT EXISTS posts
 (
 	post_id int auto_increment
 		primary key,
@@ -87,7 +87,7 @@ create table posts
 		foreign key (from_id) references user (Id)
 );
 
-create table student_exam
+create table IF NOT EXISTS student_exam
 (
 	student_id int not null,
 	exam_id int null,
@@ -99,7 +99,7 @@ create table student_exam
 		foreign key (student_id) references user (Id)
 );
 
-create table upload
+create table IF NOT EXISTS upload
 (
 	upload_id int auto_increment
 		primary key,
