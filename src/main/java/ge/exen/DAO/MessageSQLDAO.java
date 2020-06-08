@@ -63,7 +63,7 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
             ps = db.getConnection().prepareStatement("SELECT * FROM message where message_id = ?");
             ps.setLong(1, messageId);
             ResultSet rs = ps.executeQuery();
-            if (rs.isLast()) {
+            if (!rs.next()) {
                 throw new SQLException("Message couldn't be retrieved");
             }
             return resultSetToMessage(rs);
@@ -81,9 +81,6 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
             ps = db.getConnection().prepareStatement("SELECT * FROM message where chat_id = ?");
             ps.setLong(1, chatId);
             ResultSet rs = ps.executeQuery();
-            if (rs.isLast()) {
-                throw new SQLException("Message couldn't be retrieved");
-            }
             List<Message> messages = new ArrayList<>();
             while (rs.next()) {
                 messages.add(resultSetToMessage(rs));

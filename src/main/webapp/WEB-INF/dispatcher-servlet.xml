@@ -6,7 +6,7 @@
 
     <bean id="db" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost/exen"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/exen"/>
         <property name="username" value="root"/>
 
         <!-- change this for you  -->
