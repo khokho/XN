@@ -7,9 +7,9 @@
     <context:component-scan base-package="ge.exen"/>
     <bean id="db" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost/exen"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/exen"/>
         <property name="username" value="root"/>
-        <property name="password" value="selka18"/>
+        <property name="password" value="testtest"/>
         <property name="initialSize" value="3"/>
     </bean>
 

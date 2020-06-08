@@ -9,6 +9,7 @@ public interface MessageDAO {
     /**
      * @param msg Message to add in DB
      *            when successful sets msg.messageId after insert
+     *            when fails id is -1
      */
     void create(Message msg);
 
