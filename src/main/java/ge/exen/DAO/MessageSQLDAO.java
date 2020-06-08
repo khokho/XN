@@ -52,6 +52,7 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            msg.setMessageId(-1);
         }
     }
 
