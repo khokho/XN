@@ -1,4 +1,4 @@
-package ge.exen;
+package ge.exen.controllers;
 
 import ge.exen.DAO.MessageSQLDAO;
 import org.springframework.beans.factory.annotation.Autowired;

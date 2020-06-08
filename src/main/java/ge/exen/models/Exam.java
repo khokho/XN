@@ -1,57 +1,58 @@
 package ge.exen.models;
 
-
 public class Exam {
-
-  private long examId;
-  private java.sql.Date startTime;
-  private java.sql.Date endTime;
-  private long varNum;
-  private String examSubj;
-
-
-  public long getExamId() {
-    return examId;
-  }
-
-  public void setExamId(long examId) {
-    this.examId = examId;
-  }
+    private String fullName;
+    private String startDate;
+    private Integer durationInMinutes;
+    private Integer variants;
+    private long db_ID;
 
 
-  public java.sql.Date getStartTime() {
-    return startTime;
-  }
-
-  public void setStartTime(java.sql.Date startTime) {
-    this.startTime = startTime;
-  }
-
-
-  public java.sql.Date getEndTime() {
-    return endTime;
-  }
-
-  public void setEndTime(java.sql.Date endTime) {
-    this.endTime = endTime;
-  }
+    public Exam(String name, String startDate, int durationInMinutes, int variants) {
+        this.fullName = name;
+        this.startDate = startDate;
+        this.durationInMinutes = durationInMinutes;
+        this.variants = variants;
+    }
 
 
-  public long getVarNum() {
-    return varNum;
-  }
+    public String getFullName() {
+        return fullName;
+    }
 
-  public void setVarNum(long varNum) {
-    this.varNum = varNum;
-  }
+    public String getStartDate() {
+        return startDate;
+    }
 
+    public Integer getDurationInMinutes() {
+        return durationInMinutes;
+    }
 
-  public String getExamSubj() {
-    return examSubj;
-  }
+    public Integer getVariants() {
+        return variants;
+    }
 
-  public void setExamSubj(String examSubj) {
-    this.examSubj = examSubj;
-  }
+    public void setName(String fullName) {
+        this.fullName = fullName;
+    }
 
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setDuration(Integer durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public void setVariants(int newSize) {
+        variants = newSize;
+    }
+
+    public void setID(long ID) {
+        this.db_ID = ID;
+    }
+
+    public long getID() {
+        return db_ID;
+    }
 }
