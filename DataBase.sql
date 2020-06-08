@@ -4,12 +4,12 @@ create database exen;
 use exen;
 create table IF NOT EXISTS exam
 (
-	exam_id int auto_increment
-		primary key,
-	start_time date not null,
-	duration number not null,
-	var_num int not null,
-	exam_subj varchar(60) not null
+    exam_id    int auto_increment
+        primary key,
+    start_time date        not null,
+    duration   int         not null,
+    var_num    int         not null,
+    exam_subj  varchar(60) not null
 );
 
 create table IF NOT EXISTS exam_materials
