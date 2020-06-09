@@ -25,7 +25,6 @@ public interface ChatDAO {
 
     /**
      * Returns given user's chats.
-     * Returns null if User with userId does not exist.
      *
      * @param userId long representing the User's ID
      * @return List<Chat> Chats of the User with userId
