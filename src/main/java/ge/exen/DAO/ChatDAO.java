@@ -12,7 +12,7 @@ public interface ChatDAO {
      *
      * @param chat Chat to be added in the DB.
      */
-    void add(Chat chat);
+    void create(Chat chat);
 
     /**
      * Returns a Chat with given chatId.
