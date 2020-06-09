@@ -21,13 +21,6 @@ public class newExam {
     @Autowired
     ExamFactory examFactory;
 
-    @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(100000);
-        return multipartResolver;
-    }
-
     @GetMapping("/newExam")
     public String getInfo() {
         return "newExam";
@@ -56,7 +49,6 @@ public class newExam {
             }
         }
         String message = examFactory.process(name, startDt, durHours, durMinutes, variantStr, rawFiles);
-
         System.out.println(message);
         return "/newExam";
     }
