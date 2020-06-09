@@ -42,12 +42,12 @@ create table IF NOT EXISTS chat
 (
 	chat_id int auto_increment
 		primary key,
-	`From` int not null,
-	`To` int not null,
+	`User1` int not null,
+	`User2` int not null,
 	constraint Chat_user_Id_fk
-		foreign key (`From`) references user (Id),
+		foreign key (`User1`) references user (Id),
 	constraint Chat_user_Id_fk_2
-		foreign key (`To`) references user (Id)
+		foreign key (`User2`) references user (Id)
 );
 
 create table IF NOT EXISTS exam_lecturers
