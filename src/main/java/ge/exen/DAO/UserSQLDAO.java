@@ -1,19 +1,24 @@
 package ge.exen.DAO;
 
 import ge.exen.models.User;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.SqlResultSetMapping;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@Controller
 public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
+
     @Override
     public void create(User user) {
         try {
-            PreparedStatement st = db.getConnection().prepareStatement("INSERT INTO user (Email,password_hash,status,name,last_name)  VALUES(?,?,?,?,?);");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO user (Email,password_hash,status,name,last_name)  VALUES(?,?,?,?,?);"
+                            , Statement.RETURN_GENERATED_KEYS);
             st.setString(1, user.getEmail());
             st.setString(2, user.getPasswordHash());
             st.setString(3, user.getStatus());
@@ -25,7 +30,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             long id = generatedKeys.getLong(1);
             user.setId(id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             user.setId(-1);
         }
     }
@@ -33,7 +38,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
     @Override
     public User getUser(Long userId) {
         try {
-            PreparedStatement st = db.getConnection().prepareStatement("SELECT* FROM user WHERE Id = ? ;");
+            PreparedStatement st = conn.prepareStatement("SELECT* FROM user WHERE Id = ? ;");
             st.setLong(1, userId);
             ResultSet resultSet = st.executeQuery();
             if (resultSet.isLast()) throw new SQLException("user with id = " + userId + "doesNotexist");
@@ -68,7 +73,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
     @Override
     public List<User> getUsersByStatus(String status) {
         try {
-            PreparedStatement st = db.getConnection().prepareStatement("SELECT* FROM user WHERE status = ?;");
+            PreparedStatement st = conn.prepareStatement("SELECT* FROM user WHERE status = ?;");
             st.setString(1, status);
             ResultSet resultSet = st.executeQuery();
             if (resultSet.isLast()) throw new SQLException("no one is in database with that kind of status");
