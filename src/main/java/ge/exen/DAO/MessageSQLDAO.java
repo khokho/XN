@@ -2,6 +2,7 @@ package ge.exen.DAO;
 
 import ge.exen.models.Message;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Controller
 public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
 
     /**
@@ -34,7 +35,6 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
     public void create(Message msg) {
         PreparedStatement ps;
         try {
-
             ps = db.getConnection().prepareStatement("INSERT into message (`from`, chat_id, sent_date, text, type) VALUES (?, ?, ?, ?, ?)");
             ps.setLong(1, msg.getFrom());
             ps.setLong(2, msg.getChatId());

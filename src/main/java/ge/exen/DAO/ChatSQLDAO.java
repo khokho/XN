@@ -1,6 +1,7 @@
 package ge.exen.DAO;
 
 import ge.exen.models.Chat;
+import org.springframework.stereotype.Controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Controller
 public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
 
     @Override
