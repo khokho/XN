@@ -17,7 +17,6 @@ public class HashService implements PasswordEncoder {
     private final String salt = "kho";
 
     public HashService() {
-        System.out.println("I've been run");
         encoder = new BCryptPasswordEncoder(11);
     }
 

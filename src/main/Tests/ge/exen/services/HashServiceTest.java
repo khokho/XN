@@ -2,29 +2,34 @@ package ge.exen.services;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class HashServiceTest {
 
-    private static final String SALT = "SALT";
+
+    @Autowired
+    private PasswordEncoder hashService;
 
 
-    @InjectMocks
-    private HashService hashService;
-
-
+    /**
+     * generates n hashes for each:
+     * checks that it matches with itself
+     * checks that it does not match with hashes already generated
+     */
     @Test
     public void basicHashing(){
         Random rnd = new Random();

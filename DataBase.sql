@@ -1,7 +1,8 @@
 
 
-create database exen;
-use exen;
+create database exen; #testexen
+use exen; #testexen
+
 create table IF NOT EXISTS exam
 (
     exam_id    int auto_increment
