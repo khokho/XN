@@ -59,8 +59,6 @@ public class FileWorker {
                 if (path == null) return null;
                 ret.add(path);
             }
-
-
         }
         return ret;
     }
