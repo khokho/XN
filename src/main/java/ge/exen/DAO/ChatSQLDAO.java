@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,8 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
     public void create(Chat chat) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("INSERT INTO chat ('User1', 'User2') VALUES(?, ?)");
+            prStmt = db.getConnection().prepareStatement("INSERT INTO chat ('User1', 'User2') VALUES(?, ?);",
+                    Statement.RETURN_GENERATED_KEYS);
             prStmt.setLong(1, chat.getUser1());
             prStmt.setLong(2, chat.getUser2());
             int executed = prStmt.executeUpdate();
