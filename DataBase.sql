@@ -1,13 +1,13 @@
 
 
-create database exen; #testexen
-use exen; #testexen
+create database testexen; #testexen
+use testexen; #testexen
 
 create table IF NOT EXISTS exam
 (
     exam_id    int auto_increment
         primary key,
-    start_time date        not null,
+    start_time timestamp   not null,
     duration   int         not null,
     var_num    int         not null,
     exam_subj  varchar(60) not null
