@@ -2,7 +2,6 @@ package ge.exen.DAO;
 
 import ge.exen.models.Chat;
 import org.springframework.stereotype.Controller;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +16,7 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
     public void create(Chat chat) {
         PreparedStatement prStmt;
         try {
+
             prStmt = db.getConnection().prepareStatement("INSERT INTO chat ('User1', 'User2') VALUES(?, ?);",
                     Statement.RETURN_GENERATED_KEYS);
             prStmt.setLong(1, chat.getUser1());
