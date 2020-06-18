@@ -82,6 +82,8 @@ create table IF NOT EXISTS posts
 		primary key,
 	exam_id int not null,
 	from_id int not null,
+	text text not null,
+	date date not null,
 	constraint posts_exam_exam_id_fk
 		foreign key (exam_id) references exam (exam_id),
 	constraint posts_user_Id_fk

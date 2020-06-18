@@ -58,7 +58,7 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
     public List<Chat> getUserChats(long userId) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM chat WHERE 'User1' = ? OR 'User2' = ?");
+            prStmt = db.getConnection().prepareStatement("SELECT * FROM chat WHERE User1 = ? OR User2 = ?");
             prStmt.setLong(1, userId);
             prStmt.setLong(2, userId);
             ResultSet rs = prStmt.executeQuery();
