@@ -65,25 +65,6 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
         return getStudentExamListFromDb(condition, columnValues);
     }
 
-    @Override
-    public int changeComputer(long studentId, long examId, long newCompIndex) {
-        PreparedStatement prStmt;
-        try {
-            prStmt = conn.prepareStatement("UPDATE student_exam SET comp_index = ? WHERE student_id = ? AND exam_id = ?");
-            prStmt.setLong(1, newCompIndex);
-            prStmt.setLong(2, studentId);
-            prStmt.setLong(3, examId);
-
-            if (prStmt.executeUpdate() != 0) {
-                throw new SQLException("Studen's computer on this exam could not be changed.");
-            }
-            return 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
-
     /**
      * Given a condition and arguments, returns corresponding StudentExam.
      *
