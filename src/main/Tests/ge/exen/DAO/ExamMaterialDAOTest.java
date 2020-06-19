@@ -19,31 +19,24 @@ import static org.junit.Assert.*;
 public class ExamMaterialDAOTest {
     @Autowired
     ExamMaterialDao dao;
-    @Autowired
-    ExamDao exdao;
+
 
 
     @Test
     public void testMaterials(){
-        Exam testEx = new Exam( "foo Exam",
-                "2015/01/02 17:22",
-                12,
-                6);
-        long exStatus = exdao.create(testEx);
-        assertEquals(SQLExamDao.OK, exStatus);
 
 
         ExamMaterial testMat = new ExamMaterial("./foo.txt",
                                                 2,
-                                                testEx.getID());
+                                                1);
         int status = dao.create(testMat);
         assertEquals(ExamMaterialDao.OK, status);
 
-        ExamMaterial got = dao.get(testEx.getID(), 2);
+        ExamMaterial got = dao.get(1, 2);
         assertNotNull(got);
         assertEquals("./foo.txt", got.getMaterialLink());
         assertEquals(2, got.getVar());
-        assertEquals(testEx.getID(), got.getExamId());
+        assertEquals(1, got.getExamId());
     }
 
     @Test

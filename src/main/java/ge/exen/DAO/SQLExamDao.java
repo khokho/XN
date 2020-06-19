@@ -44,11 +44,7 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
             throwables.printStackTrace();
         }
 
-        try {
-            conn.commit();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
         return OK;
     }
 
