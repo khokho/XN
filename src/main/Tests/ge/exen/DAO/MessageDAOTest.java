@@ -21,7 +21,7 @@ public class MessageDAOTest {
     @Autowired
     MessageDAO messageSQLDAO;
 
-
+/*
     @Test
     public void create() {
         //TODO
@@ -45,4 +45,5 @@ public class MessageDAOTest {
     public void getChatMessages() {
         //TODO
     }
+    */
 }

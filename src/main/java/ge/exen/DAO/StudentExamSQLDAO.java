@@ -16,7 +16,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public void create(StudentExam studentExam) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("INSERT INTO student_exam VALUES(?, ?, ?, ?)");
+            prStmt = conn.prepareStatement("INSERT INTO student_exam VALUES(?, ?, ?, ?)");
             prStmt.setLong(1, studentExam.getStudentId());
             prStmt.setLong(2, studentExam.getExamId());
             prStmt.setLong(3, studentExam.getVariant());
@@ -69,7 +69,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public int changeComputer(long studentId, long examId, long newCompIndex) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("UPDATE student_exam SET comp_index = ? WHERE student_id = ? AND exam_id = ?");
+            prStmt = conn.prepareStatement("UPDATE student_exam SET comp_index = ? WHERE student_id = ? AND exam_id = ?");
             prStmt.setLong(1, newCompIndex);
             prStmt.setLong(2, studentId);
             prStmt.setLong(3, examId);
@@ -94,7 +94,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     private StudentExam getStudentExamFromDb(String condition, long[] columnValues) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE " + condition);
+            prStmt = conn.prepareStatement("SELECT * FROM student_exam WHERE " + condition);
             for (int i = 0; i < columnValues.length; i++)
                 prStmt.setLong(i + 1, columnValues[i]);
             ResultSet rs = prStmt.executeQuery();
@@ -119,7 +119,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     private List<StudentExam> getStudentExamListFromDb(String condition, long[] columnValues) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE " + condition);
+            prStmt = conn.prepareStatement("SELECT * FROM student_exam WHERE " + condition);
             for (int i = 0; i < columnValues.length; i++)
                 prStmt.setLong(i + 1, columnValues[i]);
             ResultSet rs = prStmt.executeQuery();
@@ -135,6 +135,25 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
         }
     }
 
+    @Override
+    public int changeComputer(long studentId, long examId, long newCompIndex) {
+        PreparedStatement prStmt;
+        try {
+            prStmt = conn.prepareStatement("UPDATE student_exam SET comp_index = ? WHERE student_id = ? AND exam_id = ?");
+            prStmt.setLong(1, newCompIndex);
+            prStmt.setLong(2, studentId);
+            prStmt.setLong(3, examId);
+
+            if (prStmt.executeUpdate() != 0) {
+                throw new SQLException("Studen's computer on this exam could not be changed.");
+            }
+            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+  
     /**
      * Given a ResultSet, returns corresponding StudentExam.
      *

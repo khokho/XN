@@ -14,8 +14,12 @@ public class ExamMaterial {
     this.examId = examId;
   }
 
+    public ExamMaterial() {
 
-  public long getMaterialId() {
+    }
+
+
+    public long getMaterialId() {
     return materialId;
   }
 

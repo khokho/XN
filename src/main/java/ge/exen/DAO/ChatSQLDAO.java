@@ -17,7 +17,7 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
         PreparedStatement prStmt;
         try {
 
-            prStmt = db.getConnection().prepareStatement("INSERT INTO chat ('User1', 'User2') VALUES(?, ?);",
+            prStmt = conn.prepareStatement("INSERT INTO chat ('User1', 'User2') VALUES(?, ?);",
                     Statement.RETURN_GENERATED_KEYS);
             prStmt.setLong(1, chat.getUser1());
             prStmt.setLong(2, chat.getUser2());
@@ -40,7 +40,7 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
     public Chat get(long chatId) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM chat WHERE chat_id = ?");
+            prStmt = conn.prepareStatement("SELECT * FROM chat WHERE chat_id = ?");
             prStmt.setLong(1, chatId);
             ResultSet rs = prStmt.executeQuery();
 
@@ -58,7 +58,7 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
     public List<Chat> getUserChats(long userId) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM chat WHERE 'User1' = ? OR 'User2' = ?");
+            prStmt = conn.prepareStatement("SELECT * FROM chat WHERE 'User1' = ? OR 'User2' = ?");
             prStmt.setLong(1, userId);
             prStmt.setLong(2, userId);
             ResultSet rs = prStmt.executeQuery();

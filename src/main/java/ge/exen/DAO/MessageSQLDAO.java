@@ -32,7 +32,7 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
     public void create(Message msg) {
         PreparedStatement ps;
         try {
-            ps = db.getConnection().prepareStatement("INSERT into message (`from`, chat_id, sent_date, text, type) VALUES (?, ?, ?, ?, ?)",
+            ps = conn.prepareStatement("INSERT into message (from_id, chat_id, sent_date, text, type) VALUES (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, msg.getFrom());
             ps.setLong(2, msg.getChatId());
@@ -59,7 +59,7 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
         PreparedStatement ps;
         try {
 
-            ps = db.getConnection().prepareStatement("SELECT * FROM message where message_id = ?");
+            ps = conn.prepareStatement("SELECT * FROM message where message_id = ?");
             ps.setLong(1, messageId);
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
@@ -77,7 +77,7 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
         PreparedStatement ps;
         try {
 
-            ps = db.getConnection().prepareStatement("SELECT * FROM message where chat_id = ?");
+            ps = conn.prepareStatement("SELECT * FROM message where chat_id = ?");
             ps.setLong(1, chatId);
             ResultSet rs = ps.executeQuery();
             List<Message> messages = new ArrayList<>();

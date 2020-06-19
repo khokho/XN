@@ -1,13 +1,13 @@
 
-
-create database exen; #testexen
-use exen; #testexen
+drop database if exists testexen; #exen or testexen
+create database testexen; #exen or testexen
+use testexen; #exen or testexen
 
 create table IF NOT EXISTS exam
 (
     exam_id    int auto_increment
         primary key,
-    start_time date        not null,
+    start_time timestamp   not null,
     duration   int         not null,
     var_num    int         not null,
     exam_subj  varchar(60) not null
@@ -43,12 +43,12 @@ create table IF NOT EXISTS chat
 (
 	chat_id int auto_increment
 		primary key,
-	`User1` int not null,
-	`User2` int not null,
+	user1 int not null,
+	user2 int not null,
 	constraint Chat_user_Id_fk
-		foreign key (`User1`) references user (Id),
+		foreign key (user1) references user (Id),
 	constraint Chat_user_Id_fk_2
-		foreign key (`User2`) references user (Id)
+		foreign key (user2) references user (Id)
 );
 
 create table IF NOT EXISTS exam_lecturers
@@ -65,15 +65,15 @@ create table IF NOT EXISTS message
 (
 	message_id int auto_increment
 		primary key,
-	`from` int not null,
+	from_id int not null,
 	chat_id int not null,
-	sent_date date not null,
+	sent_date timestamp not null,
 	text text not null,
 	type varchar(60) not null,
 	constraint message_chat_chat_id_fk
 		foreign key (chat_id) references chat (chat_id),
 	constraint message_user_Id_fk
-		foreign key (`from`) references user (Id)
+		foreign key (from_id) references user (Id)
 );
 
 create table IF NOT EXISTS posts
@@ -114,3 +114,23 @@ create table IF NOT EXISTS upload
         foreign key (from_id) references user (Id)
 );
 
+insert into exam (exam_id, start_time, duration, var_num, exam_subj)
+           VALUES(1, STR_TO_DATE('2019-05-15 16:30', '%Y-%m-%d %H:%i'), 90, 3, 'test exam');
+insert into exam_materials (material_id, material_link, var, exam_id)
+           VALUES(1, './test.txt', 1, 1);
+insert into user (Email, password_hash, name, last_name)
+           VALUES('test1@freeuni.edu.ge', 1000, 'test1', 't1');
+insert into user (Email, password_hash, name, last_name)
+           VALUES('test2@freeuni.edu.ge', 1001, 'test2', 't2');
+insert into chat (chat_id, User1, User2)
+           VALUES(1, 1, 2);
+insert into exam_lecturers (exam_id, lecturer_id)
+           VALUES(1, 1);
+insert into message (from_id, chat_id, sent_date, text, type)
+           VALUES (1, 1, STR_TO_DATE('2020-07-05 03:50', '%Y-%m-%d %H:%i'), 'hello world', 'text');
+insert into posts (exam_id, from_id)
+           VALUES (1, 1);
+insert into student_exam (student_id, exam_id, variant, comp_index)
+           VALUES (1, 1, 1, 20);
+insert into upload (from_id, exam_id, var_id, file_link)
+           VALUES (1, 1, 1, './test.txt');

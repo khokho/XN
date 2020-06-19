@@ -15,6 +15,10 @@ public class Exam {
         this.variants = variants;
     }
 
+    public Exam() {
+
+    }
+
 
     public String getFullName() {
         return fullName;
