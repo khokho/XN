@@ -25,11 +25,13 @@ public class FileWorkerTest {
 
     @Test
     public void testUnnamed(){
-        Path path = Paths.get("./foo.txt");
+        Path path = Paths.get("classpath:tests/foo.txt");
         byte[] content = null;
         try {
             content = Files.readAllBytes(path);
         } catch (final IOException e) {
+            e.printStackTrace();
+            fail();
         }
         MultipartFile testFile = new MockMultipartFile("foo.txt",
                 "foo.txt", "text/plain", content);
@@ -42,18 +44,19 @@ public class FileWorkerTest {
     public void testNamed(){
 
         File index = new File("./files/testFolder");
-        String[]entries = index.list();
+        String[] entries = index.list();
         for(String s: entries){
             File currentFile = new File(index.getPath(),s);
             currentFile.delete();
         }
         index.delete();
 
-        Path path = Paths.get("./foo.txt");
+        Path path = Paths.get("classpath:tests/foo.txt");
         byte[] content = null;
         try {
             content = Files.readAllBytes(path);
         } catch (final IOException e) {
+            fail();
         }
         MultipartFile testFile = new MockMultipartFile("foo.txt",
                 "foo.txt", "text/plain", content);

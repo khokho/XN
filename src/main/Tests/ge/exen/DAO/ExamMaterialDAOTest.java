@@ -24,9 +24,7 @@ public class ExamMaterialDAOTest {
 
     @Test
     public void testMaterials(){
-
-
-        ExamMaterial testMat = new ExamMaterial("./foo.txt",
+        ExamMaterial testMat = new ExamMaterial("classpath:tests/foo.txt",
                                                 2,
                                                 1);
         int status = dao.create(testMat);
@@ -34,13 +32,13 @@ public class ExamMaterialDAOTest {
 
         ExamMaterial got = dao.get(1, 2);
         assertNotNull(got);
-        assertEquals("./foo.txt", got.getMaterialLink());
+        assertEquals("classpath:tests/foo.txt", got.getMaterialLink());
         assertEquals(2, got.getVar());
         assertEquals(1, got.getExamId());
     }
 
     @Test
-    public void testFaulty() throws SQLException {
+    public void testFaulty() {
         ExamMaterial got = dao.get(100000, 100000);
         assertNull(got);
 

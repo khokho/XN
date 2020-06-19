@@ -8,6 +8,8 @@ import ge.exen.models.ExamMaterial;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +37,10 @@ public class ExamServiceTest {
     ExamDao examDao;
     @Autowired
     ExamMaterialDao examMaterialDao;
+
+    @Value("classpath:tests/foo.txt")
+    Resource fooFile;
+
     @Test
     public void testExamService(){
         ExamDTO dto = new ExamDTO();
@@ -54,6 +61,38 @@ public class ExamServiceTest {
         assertEquals(got.getVariants(), (Integer)3);
     }
 
+
+    @Test
+    public void testFileStoring(){
+        long id = 1;
+
+        File folder = new File("./");
+        File[] listOfFiles = folder.listFiles();
+
+
+        byte[] content = null;
+        try {
+            File test = fooFile.getFile();
+            content = Files.readAllBytes(test.toPath());
+        } catch (final IOException e) {
+            fail();
+            e.printStackTrace();
+        }
+        MultipartFile result = new MockMultipartFile("foo.txt",
+                "foo.txt", "text/plain", content);
+        Map<String, MultipartFile> mp = new HashMap<>();
+        mp.put("2", result);
+
+        testObject.setFiles(mp, (int)id);
+        ExamMaterial got = examMaterialDao.get(id, 2);
+
+        assertNotNull(got);
+        assertEquals(2, got.getVar());
+        assertEquals(id, got.getExamId());
+        assertEquals(ExamMaterialService.directory.replace("%id%", "" + id) + "/foo.txt", got.getMaterialLink());
+    }
+
+/*
     @Test
     public void testFileStoring(){
         ExamDTO dto = new ExamDTO();
@@ -65,15 +104,15 @@ public class ExamServiceTest {
         long id = testObject.process(dto);
         assertTrue(id > 0);
 
-        File folder = new File("./");
-        File[] listOfFiles = folder.listFiles();
 
 
-        Path path = Paths.get("./foo.txt");
         byte[] content = null;
         try {
-            content = Files.readAllBytes(path);
+            File test = fooFile.getFile();
+            content = Files.readAllBytes(test.toPath());
         } catch (final IOException e) {
+            fail();
+            e.printStackTrace();
         }
         MultipartFile result = new MockMultipartFile("foo.txt",
                 "foo.txt", "text/plain", content);
@@ -86,6 +125,9 @@ public class ExamServiceTest {
         assertNotEquals(null, got);
         assertEquals(1, got.getVar());
         assertEquals(id, got.getExamId());
-        assertEquals(ExamMaterialService.directory.replace("%id%", new Integer((int)id).toString()) + "/foo.txt", got.getMaterialLink());
+        assertEquals(ExamMaterialService.directory.replace("%id%", ""+id) + "/foo.txt", got.getMaterialLink());
     }
+*/
+
+
 }

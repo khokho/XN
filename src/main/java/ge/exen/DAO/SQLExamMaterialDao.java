@@ -27,8 +27,8 @@ public class SQLExamMaterialDao extends AbstractSQLDAO implements ExamMaterialDa
 
         try {
             stat.setString(1, material.getMaterialLink());
-            stat.setInt(2, (int) material.getVar());
-            stat.setInt(3, (int) material.getExamId());
+            stat.setLong(2, material.getVar());
+            stat.setLong(3, material.getExamId());
             stat.executeUpdate();
             ResultSet res = stat.getGeneratedKeys();
             if (res.next()) material.setExamId(res.getLong(1));

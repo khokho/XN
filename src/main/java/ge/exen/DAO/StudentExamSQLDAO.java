@@ -16,7 +16,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public void create(StudentExam studentExam) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("INSERT INTO student_exam VALUES(?, ?, ?, ?)");
+            prStmt = conn.prepareStatement("INSERT INTO student_exam VALUES(?, ?, ?, ?)");
             prStmt.setLong(1, studentExam.getStudentId());
             prStmt.setLong(2, studentExam.getExamId());
             prStmt.setLong(3, studentExam.getVariant());
@@ -34,7 +34,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public StudentExam get(long studentId, long examId) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE student_id = ? AND exam_id = ?");
+            prStmt = conn.prepareStatement("SELECT * FROM student_exam WHERE student_id = ? AND exam_id = ?");
             prStmt.setLong(1, studentId);
             prStmt.setLong(2, examId);
             ResultSet rs = prStmt.executeQuery();
@@ -53,7 +53,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public StudentExam getByComputer(long examId, long compIndex) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE exam_id = ? AND comp_index = ?");
+            prStmt = conn.prepareStatement("SELECT * FROM student_exam WHERE exam_id = ? AND comp_index = ?");
             prStmt.setLong(1, examId);
             prStmt.setLong(2, compIndex);
             ResultSet rs = prStmt.executeQuery();
@@ -72,7 +72,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public List<StudentExam> getByStudent(long studentId) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE student_id = ?");
+            prStmt = conn.prepareStatement("SELECT * FROM student_exam WHERE student_id = ?");
             prStmt.setLong(1, studentId);
             ResultSet rs = prStmt.executeQuery();
 
@@ -91,7 +91,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public List<StudentExam> getByExam(long examId) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE exam_id = ?");
+            prStmt = conn.prepareStatement("SELECT * FROM student_exam WHERE exam_id = ?");
             prStmt.setLong(1, examId);
             ResultSet rs = prStmt.executeQuery();
 
@@ -110,7 +110,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public List<StudentExam> getByVariant(long examId, long variantId) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE exam_id = ? AND variant = ?");
+            prStmt = conn.prepareStatement("SELECT * FROM student_exam WHERE exam_id = ? AND variant = ?");
             prStmt.setLong(1, examId);
             prStmt.setLong(2, variantId);
             ResultSet rs = prStmt.executeQuery();
@@ -130,7 +130,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public int changeComputer(long studentId, long examId, long newCompIndex) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("UPDATE student_exam SET comp_index = ? WHERE student_id = ? AND exam_id = ?");
+            prStmt = conn.prepareStatement("UPDATE student_exam SET comp_index = ? WHERE student_id = ? AND exam_id = ?");
             prStmt.setLong(1, newCompIndex);
             prStmt.setLong(2, studentId);
             prStmt.setLong(3, examId);
