@@ -2,6 +2,8 @@ package ge.exen.services;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,15 +25,18 @@ public class FileWorkerTest {
     @Autowired
     FileWorkerInterface worker;
 
+    @Value("classpath:tests/foo.txt")
+    Resource fooFile;
+
     @Test
     public void testUnnamed(){
-        Path path = Paths.get("classpath:tests/foo.txt");
         byte[] content = null;
         try {
-            content = Files.readAllBytes(path);
+            File test = fooFile.getFile();
+            content = Files.readAllBytes(test.toPath());
         } catch (final IOException e) {
-            e.printStackTrace();
             fail();
+            e.printStackTrace();
         }
         MultipartFile testFile = new MockMultipartFile("foo.txt",
                 "foo.txt", "text/plain", content);
@@ -43,20 +48,15 @@ public class FileWorkerTest {
     @Test
     public void testNamed(){
 
-        File index = new File("./files/testFolder");
-        String[] entries = index.list();
-        for(String s: entries){
-            File currentFile = new File(index.getPath(),s);
-            currentFile.delete();
-        }
-        index.delete();
 
-        Path path = Paths.get("classpath:tests/foo.txt");
+
         byte[] content = null;
         try {
-            content = Files.readAllBytes(path);
+            File test = fooFile.getFile();
+            content = Files.readAllBytes(test.toPath());
         } catch (final IOException e) {
             fail();
+            e.printStackTrace();
         }
         MultipartFile testFile = new MockMultipartFile("foo.txt",
                 "foo.txt", "text/plain", content);
