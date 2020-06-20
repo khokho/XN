@@ -45,7 +45,7 @@
                 for (let i = oldSize + 1; i <= newSize; i++) {
                     let subContainer = document.createElement("div");
                     let label = document.createElement("label");
-                    label.for = "statement " + i;
+                    label.for = "" + i;
                     label.textContent = "ვარიანტი #" + i + ": ";
                     subContainer.appendChild(label);
 

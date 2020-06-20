@@ -46,4 +46,5 @@ public class MessageDAOTest {
     public void getChatMessages() {
         //TODO
     }
+
 }
