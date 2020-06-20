@@ -29,7 +29,10 @@
         <property name="defaultAutoCommit" value="false"/>
     </bean>
 
-
+    <!--this helps perform multiple sql queries without locking ourselves out-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="testdb"/>
+    </bean>
 
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

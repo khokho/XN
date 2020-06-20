@@ -1,7 +1,8 @@
 
 
-create database exen; #testexen
-use exen; #testexen
+drop database if exists testexen;
+create database testexen; #testexen
+use testexen; #testexen
 
 create table IF NOT EXISTS exam
 (
@@ -34,21 +35,19 @@ create table IF NOT EXISTS user
 	name varchar(60) not null,
 	last_name varchar(60) not null,
 	constraint table_name_Email_uindex
-		unique (Email),
-	constraint table_name_password_hash_uindex
-		unique (password_hash)
+		unique (Email)
 );
 
 create table IF NOT EXISTS chat
 (
 	chat_id int auto_increment
 		primary key,
-	`User1` int not null,
-	`User2` int not null,
+	user1 int not null,
+	user2 int not null,
 	constraint Chat_user_Id_fk
-		foreign key (`User1`) references user (Id),
+		foreign key (user1) references user (Id),
 	constraint Chat_user_Id_fk_2
-		foreign key (`User2`) references user (Id)
+		foreign key (user2) references user (Id)
 );
 
 create table IF NOT EXISTS exam_lecturers
@@ -65,7 +64,7 @@ create table IF NOT EXISTS message
 (
 	message_id int auto_increment
 		primary key,
-	`from` int not null,
+	from_id int not null,
 	chat_id int not null,
 	sent_date date not null,
 	text text not null,
@@ -73,7 +72,7 @@ create table IF NOT EXISTS message
 	constraint message_chat_chat_id_fk
 		foreign key (chat_id) references chat (chat_id),
 	constraint message_user_Id_fk
-		foreign key (`from`) references user (Id)
+		foreign key (from_id) references user (Id)
 );
 
 create table IF NOT EXISTS posts
