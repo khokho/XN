@@ -44,7 +44,7 @@ public class newExam {
         }
         long ID = examFactory.process(values);
         if(ID > 0) {
-            examFactory.setFiles(files, (int)ID);
+            examFactory.setFiles(files, ID);
         }
         return "/newExam";
     }

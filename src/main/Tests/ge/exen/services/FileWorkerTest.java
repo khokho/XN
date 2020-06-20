@@ -1,11 +1,13 @@
 package ge.exen.services;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,10 +18,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
+
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class FileWorkerTest {
     @Autowired
@@ -29,6 +32,7 @@ public class FileWorkerTest {
     Resource fooFile;
 
     @Test
+    @DirtiesContext
     public void testUnnamed(){
         byte[] content = null;
         try {
@@ -46,6 +50,7 @@ public class FileWorkerTest {
     }
 
     @Test
+    @DirtiesContext
     public void testNamed(){
 
 

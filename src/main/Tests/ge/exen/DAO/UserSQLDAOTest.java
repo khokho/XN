@@ -10,8 +10,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -95,6 +93,7 @@ public class UserSQLDAOTest {
     }
 
     @Test
+    @DirtiesContext
     public void getUsersByStatus() {
         sample.setStatus("admin");
         sample.setName("admin1");
