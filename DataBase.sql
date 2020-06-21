@@ -34,9 +34,7 @@ create table IF NOT EXISTS user
 	name varchar(60) not null,
 	last_name varchar(60) not null,
 	constraint table_name_Email_uindex
-		unique (Email),
-	constraint table_name_password_hash_uindex
-		unique (password_hash)
+		unique (Email)
 );
 
 create table IF NOT EXISTS chat

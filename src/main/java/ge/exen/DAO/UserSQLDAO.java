@@ -38,10 +38,25 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
     @Override
     public User getUser(Long userId) {
         try {
-            PreparedStatement st = conn.prepareStatement("SELECT* FROM user WHERE Id = ? ;");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE Id = ? ;");
             st.setLong(1, userId);
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.isLast()) throw new SQLException("user with id = " + userId + "doesNotexist");
+            if (resultSet.isLast()) throw new SQLException("user with id = " + userId + "does not exist");
+            resultSet.next();
+            return parseToUser(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public User getUserByMail(String email) {
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE Email = ? ;");
+            st.setString(1, email);
+            ResultSet resultSet = st.executeQuery();
+            if (resultSet.isLast()) throw new SQLException("email = " + email + "does not exist");
             resultSet.next();
             return parseToUser(resultSet);
         } catch (SQLException e) {
