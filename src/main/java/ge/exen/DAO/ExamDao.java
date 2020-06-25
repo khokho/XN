@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
-@Component
+
 public interface ExamDao {
     public static final long ERR_CONNECTION_FAILURE = -1;
     public static final long ERR_UNKNOWN = -2;
