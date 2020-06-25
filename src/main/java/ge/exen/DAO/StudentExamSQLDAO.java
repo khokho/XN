@@ -16,7 +16,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public void create(StudentExam studentExam) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("INSERT INTO student_exam VALUES(?, ?, ?, ?)");
+            prStmt = conn.prepareStatement("INSERT INTO student_exam VALUES(?, ?, ?, ?)");
             prStmt.setLong(1, studentExam.getStudentId());
             prStmt.setLong(2, studentExam.getExamId());
             prStmt.setLong(3, studentExam.getVariant());
@@ -32,34 +32,56 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
 
     @Override
     public StudentExam get(long studentId, long examId) {
-        PreparedStatement prStmt;
-        try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE student_id = ? AND exam_id = ?");
-            prStmt.setLong(1, studentId);
-            prStmt.setLong(2, examId);
-            ResultSet rs = prStmt.executeQuery();
-
-            if (!rs.next()) {
-                throw new SQLException("StudentExam with given studentId and examId could not be retrieved.");
-            }
-            return resultSetToStudentExam(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        String condition = "student_id = ? AND exam_id = ?";
+        long[] columnValues = new long[]{studentId, examId};
+        return getStudentExamFromDb(condition, columnValues);
     }
 
     @Override
     public StudentExam getByComputer(long examId, long compIndex) {
+        String condition = "exam_id = ? AND comp_index = ?";
+        long[] columnValues = new long[]{examId, compIndex};
+        return getStudentExamFromDb(condition, columnValues);
+    }
+
+    @Override
+    public List<StudentExam> getByStudent(long studentId) {
+        String condition = "student_id = ?";
+        long[] columnValues = new long[]{studentId};
+        return getStudentExamListFromDb(condition, columnValues);
+    }
+
+    @Override
+    public List<StudentExam> getByExam(long examId) {
+        String condition = "exam_id = ?";
+        long[] columnValues = new long[]{examId};
+        return getStudentExamListFromDb(condition, columnValues);
+    }
+
+    @Override
+    public List<StudentExam> getByVariant(long examId, long variantId) {
+        String condition = "exam_id = ? AND variant = ?";
+        long[] columnValues = new long[]{examId, variantId};
+        return getStudentExamListFromDb(condition, columnValues);
+    }
+
+    /**
+     * Given a condition and arguments, returns corresponding StudentExam.
+     *
+     * @param condition    String representing which columns need to be checked
+     * @param columnValues long Array representing values of each column
+     * @return StudentExam with given column values
+     */
+    private StudentExam getStudentExamFromDb(String condition, long[] columnValues) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE exam_id = ? AND comp_index = ?");
-            prStmt.setLong(1, examId);
-            prStmt.setLong(2, compIndex);
+            prStmt = conn.prepareStatement("SELECT * FROM student_exam WHERE " + condition);
+            for (int i = 0; i < columnValues.length; i++)
+                prStmt.setLong(i + 1, columnValues[i]);
             ResultSet rs = prStmt.executeQuery();
 
             if (!rs.next()) {
-                throw new SQLException("StudentExam with given examId and compIndex could not be retrieved.");
+                throw new SQLException("Corresponding StudentExam could not be retrieved.");
             }
             return resultSetToStudentExam(rs);
         } catch (SQLException e) {
@@ -68,51 +90,19 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
         }
     }
 
-    @Override
-    public List<StudentExam> getByStudent(long studentId) {
+    /**
+     * Given a condition and arguments, returns corresponding StudentExams.
+     *
+     * @param condition    String representing which columns need to be checked
+     * @param columnValues long Array representing values of each column
+     * @return List<StudentExam> StudentExams with given column values
+     */
+    private List<StudentExam> getStudentExamListFromDb(String condition, long[] columnValues) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE student_id = ?");
-            prStmt.setLong(1, studentId);
-            ResultSet rs = prStmt.executeQuery();
-
-            List<StudentExam> studentExams = new ArrayList<>();
-            while (rs.next()) {
-                studentExams.add(resultSetToStudentExam(rs));
-            }
-            return studentExams;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public List<StudentExam> getByExam(long examId) {
-        PreparedStatement prStmt;
-        try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE exam_id = ?");
-            prStmt.setLong(1, examId);
-            ResultSet rs = prStmt.executeQuery();
-
-            List<StudentExam> studentExams = new ArrayList<>();
-            while (rs.next()) {
-                studentExams.add(resultSetToStudentExam(rs));
-            }
-            return studentExams;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public List<StudentExam> getByVariant(long examId, long variantId) {
-        PreparedStatement prStmt;
-        try {
-            prStmt = db.getConnection().prepareStatement("SELECT * FROM student_exam WHERE exam_id = ? AND variant = ?");
-            prStmt.setLong(1, examId);
-            prStmt.setLong(2, variantId);
+            prStmt = conn.prepareStatement("SELECT * FROM student_exam WHERE " + condition);
+            for (int i = 0; i < columnValues.length; i++)
+                prStmt.setLong(i + 1, columnValues[i]);
             ResultSet rs = prStmt.executeQuery();
 
             List<StudentExam> studentExams = new ArrayList<>();
@@ -130,7 +120,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
     public int changeComputer(long studentId, long examId, long newCompIndex) {
         PreparedStatement prStmt;
         try {
-            prStmt = db.getConnection().prepareStatement("UPDATE student_exam SET comp_index = ? WHERE student_id = ? AND exam_id = ?");
+            prStmt = conn.prepareStatement("UPDATE student_exam SET comp_index = ? WHERE student_id = ? AND exam_id = ?");
             prStmt.setLong(1, newCompIndex);
             prStmt.setLong(2, studentId);
             prStmt.setLong(3, examId);
@@ -144,7 +134,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
             return -1;
         }
     }
-
+  
     /**
      * Given a ResultSet, returns corresponding StudentExam.
      *

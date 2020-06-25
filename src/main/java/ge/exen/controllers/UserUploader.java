@@ -2,7 +2,7 @@ package ge.exen.controllers;
 
 import ge.exen.models.Upload;
 import ge.exen.models.User;
-import ge.exen.models.UserUploadFactory;
+import ge.exen.services.UserUploadFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -41,7 +41,7 @@ public class UserUploader {
         upload.setFromId((Integer) session.getAttribute("from_id"));
         upload.setExamId((Integer) session.getAttribute("exam_id"));
         upload.setVarId(var_id);
-        int result = UserUploadFactory.Process(file, upload);
+        int result = factory.Process(file, upload);
         return "/upload";
     }
 }

@@ -24,12 +24,15 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/testexen"/>
         <property name="username" value="root"/>
-        <property name="password" value="testtest"/>
+        <property name="password" value="dfrews"/>
         <property name="initialSize" value="3"/>
         <property name="defaultAutoCommit" value="false"/>
     </bean>
 
-
+    <!--this helps perform multiple sql queries without locking ourselves out-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="testdb"/>
+    </bean>
 
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

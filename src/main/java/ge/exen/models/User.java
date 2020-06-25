@@ -2,6 +2,17 @@ package ge.exen.models;
 
 
 public class User {
+  @Override
+  public String toString() {
+    return "User{" +
+            "id=" + id +
+            ", email='" + email + '\'' +
+            ", passwordHash='" + passwordHash + '\'' +
+            ", status='" + status + '\'' +
+            ", name='" + name + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
+  }
 
   private long id;
   private String email;

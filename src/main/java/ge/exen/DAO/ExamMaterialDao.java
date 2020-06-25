@@ -7,4 +7,6 @@ public interface ExamMaterialDao {
     public static final int OK = 0;
 
     int create(ExamMaterial material);
+
+    ExamMaterial get(long id, int var);
 }

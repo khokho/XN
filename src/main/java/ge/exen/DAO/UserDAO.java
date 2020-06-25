@@ -17,6 +17,12 @@ public interface UserDAO {
     User getUser(Long userId);
 
     /**
+     * @param email mail of user
+     * @return User if fount else null
+     */
+    User getUserByMail(String email);
+
+    /**
      * @param status specified status
      * @return List of users with specified status
      */
