@@ -22,7 +22,7 @@ public class PostsDaoSQLDao extends AbstractSQLDAO implements PostsDao{
             prStmt.setLong(1, post.getExamId());
             prStmt.setLong(2, post.getFromId());
             prStmt.setString(3, post.getText());
-            prStmt.setDate(4, post.getDate());
+            prStmt.setTimestamp(4, post.getDate());
             int executed = prStmt.executeUpdate();
 
             if (executed == 0) {
@@ -61,8 +61,8 @@ public class PostsDaoSQLDao extends AbstractSQLDAO implements PostsDao{
         post.setPostId(rs.getLong(1));
         post.setExamId(rs.getLong(2));
         post.setFromId(rs.getLong(3));
-        post.setText(rs.getString(3));
-        post.setDate(rs.getDate(4));
+        post.setText(rs.getString(4));
+        post.setDate(rs.getTimestamp(5));
         return post;
     }
 

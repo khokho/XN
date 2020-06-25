@@ -7,7 +7,7 @@ public class Post {
   private long examId;
   private long fromId;
   private String text;
-  private java.sql.Date date;
+  private java.sql.Timestamp date;
 
 
   public long getPostId() {
@@ -46,11 +46,11 @@ public class Post {
   }
 
 
-  public java.sql.Date getDate() {
+  public java.sql.Timestamp getDate() {
     return date;
   }
 
-  public void setDate(java.sql.Date date) {
+  public void setDate(java.sql.Timestamp date) {
     this.date = date;
   }
 

@@ -1,5 +1,5 @@
 
-
+drop database exen;
 create database exen; #testexen
 use exen; #testexen
 
