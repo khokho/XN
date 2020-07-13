@@ -8,15 +8,12 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -27,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 @ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class FileWorkerTest {
     @Autowired
-    FileWorkerInterface worker;
+    IFileWorker worker;
 
     @Value("classpath:tests/foo.txt")
     Resource fooFile;

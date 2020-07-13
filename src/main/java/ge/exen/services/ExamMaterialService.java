@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class ExamMaterialService implements ExamMaterialInterface {
+public class ExamMaterialService implements IExamMaterial {
     @Autowired
-    FileWorkerInterface fileWorker;
+    IFileWorker fileWorker;
     @Autowired
     SQLExamMaterialDao materials;
 
