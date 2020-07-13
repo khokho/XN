@@ -3,6 +3,7 @@ package ge.exen.services;
 import ge.exen.DAO.UserDAO;
 import ge.exen.dto.UserLoginDTO;
 import ge.exen.dto.UserRegisterDTO;
+import ge.exen.dto.UserUpdateDTO;
 import ge.exen.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,6 +76,39 @@ public class UserServiceTest {
         underTest.logout();
         assertNull(underTest.getCurrentUser());
     }
+
+    @Test
+    @DirtiesContext
+    public void badLogin() {
+        UserLoginDTO letBaqarIn = new UserLoginDTO();
+        letBaqarIn.setEmail("bgame19@freeuni.edu.ge");
+        letBaqarIn.setPassword("gambit");
+
+        assertFalse(underTest.login(letBaqarIn));
+    }
+
+    @Test
+    @DirtiesContext
+    public void updateTest(){
+        assertTrue(underTest.registerNewUser(baqar));
+        UserUpdateDTO update = new UserUpdateDTO();
+        update.setOldEmail("bgame19@freeuni.edu.ge");
+        update.setOldPassword("gambit");
+
+        update.setPassword("parolparol");
+        update.setName("baqarich");
+        assertTrue(underTest.updateUser(update));
+        underTest.logout();
+        UserLoginDTO letBaqarIn = new UserLoginDTO();
+
+        letBaqarIn.setEmail("bgame19@freeuni.edu.ge");
+        letBaqarIn.setPassword("gambit");
+        assertFalse(underTest.login(letBaqarIn));
+        letBaqarIn.setPassword("parolparol");
+        assertTrue(underTest.login(letBaqarIn));
+        assertEquals(update.getName(), underTest.getCurrentUser().getName());
+    }
+
 
 
 
