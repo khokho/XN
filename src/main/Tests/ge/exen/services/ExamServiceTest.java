@@ -31,6 +31,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
+@WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 @Transactional()
 public class ExamServiceTest {
@@ -86,7 +87,7 @@ public class ExamServiceTest {
         Map<String, MultipartFile> mp = new HashMap<>();
         mp.put("2", result);
 
-        testObject.setFiles(mp, (Long)id);
+        testObject.setFiles(mp, id);
         ExamMaterial got = examMaterialDao.get(id, 2);
 
         assertNotNull(got);

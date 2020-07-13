@@ -31,8 +31,9 @@ public class UserService implements IUserService {
 
     @Override
     public boolean registerNewUser(final UserRegisterDTO userDto){
-        //Email get's checked by DAO TODO ?
-        //TODO check other stuff(password maybe)
+        //TODO check proper status
+        if(checkMailExists(userDto.getEmail()))return false;
+        //TODO check other stuff(password maybe
         final User user = new User();
         user.setEmail(userDto.getEmail());
         user.setPasswordHash(hashService.encode(userDto.getPassword()));

@@ -40,8 +40,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE Id = ? ;");
             st.setLong(1, userId);
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.isLast()) throw new SQLException("user with id = " + userId + "does not exist");
-            resultSet.next();
+            if (!resultSet.next()) throw new SQLException("user with id = " + userId + "does not exist");
             return parseToUser(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,8 +54,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE Email = ? ;");
             st.setString(1, email);
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.isLast()) throw new SQLException("email = " + email + "does not exist");
-            resultSet.next();
+            if (!resultSet.next()) throw new SQLException("email = " + email + "does not exist");
             return parseToUser(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,7 +93,6 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             PreparedStatement st = conn.prepareStatement("SELECT* FROM user WHERE status = ?;");
             st.setString(1, status);
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.isLast()) throw new SQLException("no one is in database with that kind of status");
             List<User> users = new ArrayList<>();
             while (resultSet.next()) {
                 users.add(parseToUser(resultSet));
