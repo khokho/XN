@@ -106,6 +106,21 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
     }
 
     @Override
+    public String getStatusByUserId(Long userId) {
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT status FROM user WHERE id = ?;");
+            st.setLong(1, userId);
+            ResultSet resultSet = st.executeQuery();
+            if (resultSet.isLast()) throw new SQLException("no one is in database with that kind of id");
+            resultSet.next();
+            return resultSet.getString(1);
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public void updateRowById(User user) {
         try {
             PreparedStatement st = conn.prepareStatement("UPDATE user SET Email = ?,password_hash = ?,status = ?,name = ?,last_name = ? WHERE Id = ?;");
@@ -121,5 +136,6 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             user.setId(-1);
         }
     }
+
 
 }

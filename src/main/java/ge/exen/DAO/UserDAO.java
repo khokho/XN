@@ -30,9 +30,17 @@ public interface UserDAO {
 
 
     /**
+     * @param userId specified id
+     * @return status of a specifies user
+     * this function is for optimisation purposes
+     */
+    String getStatusByUserId(Long userId);
+
+    /**  
      * @param user User model to use for row update
      * id will be -1 if something went wrong
      */
     void updateRowById(User user);
+
 
 }

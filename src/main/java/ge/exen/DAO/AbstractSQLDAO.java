@@ -13,21 +13,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
 
-@Component()
+@Component
 public class AbstractSQLDAO {
 
-    protected DataSource db;
+    protected static DataSource db;
 
     /**
      * connection to exen scheme.
      */
-    protected Connection conn;
+    protected static Connection conn;
 
     @Autowired
     @Qualifier("testdb") // CHANGE THIS TO DB FOR PRODUCTION
-    public void setDb(DataSource db) {
-        this.db = db;
-        conn = DataSourceUtils.getConnection(db);
+    public static void setDb(DataSource dbb) {
+        db = dbb;
+        conn = DataSourceUtils.getConnection(dbb);
     }
 
 
@@ -35,7 +35,7 @@ public class AbstractSQLDAO {
      * This mostly gets called during tests with @DirtiesContext
      */
     @PreDestroy
-    public void destroy() {
+    public static void destroy() {
         try {
             conn.close();
         } catch (SQLException e) {
