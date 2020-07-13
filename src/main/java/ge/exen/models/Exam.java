@@ -5,7 +5,7 @@ public class Exam {
     private String startDate;
     private Integer durationInMinutes;
     private Integer variants;
-    private long db_ID;
+    private long id;
 
 
     public Exam(String name, String startDate, int durationInMinutes, int variants) {
@@ -53,10 +53,10 @@ public class Exam {
     }
 
     public void setID(long ID) {
-        this.db_ID = ID;
+        this.id = ID;
     }
 
     public long getID() {
-        return db_ID;
+        return id;
     }
 }

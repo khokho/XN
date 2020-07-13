@@ -2,7 +2,6 @@ package ge.exen.services;
 
 import ge.exen.models.Upload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserUploadFactory {
 
     @Autowired
-    FileWorkerInterface fileWorker;
+    IFileWorker fileWorker;
 
     /**
      * @param file   uploaded file

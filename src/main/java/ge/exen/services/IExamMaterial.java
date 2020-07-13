@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 
-public interface ExamMaterialInterface {
+public interface IExamMaterial {
 
     int storeFiles(HashMap<Integer, MultipartFile> fileMap, Long id);
 
