@@ -1,6 +1,7 @@
 package ge.exen.DAO;
 
 import ge.exen.models.User;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Component
 public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
 
     @Override
