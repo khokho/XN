@@ -39,7 +39,7 @@ public class UserServiceTest {
         baqar.setEmail("bgame19@freeuni.edu.ge");
         baqar.setName("Baqar");
         baqar.setLastName("Gamezardashvili");
-        baqar.setStatus("user");
+        baqar.setStatus("student");
         baqar.setPassword("gambit");
 
         zaal = new UserRegisterDTO();

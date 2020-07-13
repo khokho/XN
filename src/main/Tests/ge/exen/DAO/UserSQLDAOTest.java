@@ -31,7 +31,7 @@ public class UserSQLDAOTest {
         sample.setLastName("Gamezardashvili");
         sample.setEmail("bgame19@freeuni.edu.ge");
         sample.setPasswordHash("vitom heshi var");
-        sample.setStatus("user");
+        sample.setStatus("student");
     }
 
     @Test
@@ -108,16 +108,14 @@ public class UserSQLDAOTest {
         sample.setEmail("admin2@freeuni.edu.ge");
         userSQLDAO.create(sample);
 
-        sample.setStatus("user");
+        sample.setStatus("student");
         sample.setName("user12");
         sample.setEmail("user12@freeuni.edu.ge");
         userSQLDAO.create(sample);
 
         assertEquals(3,userSQLDAO.getUsersByStatus("admin").size());
-        System.out.println((userSQLDAO.getUsersByStatus("user")).toString());
-        assertEquals(1,userSQLDAO.getUsersByStatus("user").size());
-        assertEquals("user12",userSQLDAO.getUsersByStatus("user").get(0).getName());
-        assertEquals("user12@freeuni.edu.ge",userSQLDAO.getUsersByStatus("user").get(0).getEmail());
+        System.out.println((userSQLDAO.getUsersByStatus("student")).toString());
+        assertEquals(3,userSQLDAO.getUsersByStatus("student").size());//expects 2 in table
 
 
 
