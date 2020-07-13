@@ -30,13 +30,13 @@ public class HashService implements PasswordEncoder {
     }
 
     /**
-     * @param charSequence inputed string
-     * @param s hash to match
+     * @param pass inputed string
+     * @param hash hash to match
      * @return if charSequence match s then true
      */
     @Override
-    public boolean matches(CharSequence charSequence, String s) {
-        return encoder.matches(charSequence + salt, s);
+    public boolean matches(CharSequence pass, String hash) {
+        return encoder.matches(pass + salt, hash);
     }
 
 }

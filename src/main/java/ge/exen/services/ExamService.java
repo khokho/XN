@@ -13,12 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class ExamService implements ExamInterface {
+public class ExamService implements IExamService {
 
     @Autowired
     ExamDao exdao;
     @Autowired
-    ExamMaterialInterface materials;
+    IExamMaterial materials;
 
 
     public long process(ExamDTO values) {
