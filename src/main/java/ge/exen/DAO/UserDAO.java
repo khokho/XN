@@ -29,4 +29,11 @@ public interface UserDAO {
     List<User> getUsersByStatus(String status);
 
 
+    /**
+     * @param userId specified id
+     * @return status of a specifies user
+     * this function is for optimisation purposes
+     */
+    String getStatusByUserId(Long userId);
+
 }

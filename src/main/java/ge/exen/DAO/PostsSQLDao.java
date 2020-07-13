@@ -2,6 +2,8 @@ package ge.exen.DAO;
 
 import ge.exen.models.Chat;
 import ge.exen.models.Post;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +12,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostsDaoSQLDao extends AbstractSQLDAO implements PostsDao{
+@Component
+public class PostsSQLDao extends AbstractSQLDAO implements PostsDao{
 
     @Override
     public void create(Post post) {
@@ -30,10 +33,10 @@ public class PostsDaoSQLDao extends AbstractSQLDAO implements PostsDao{
                 rs.next();
                 post.setPostId(rs.getLong(1));
             } else {
-                throw new SQLException("Chat could not be added.");
+                throw new SQLException("Post could not be added.");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             post.setPostId(-1);
         }
     }
@@ -47,7 +50,7 @@ public class PostsDaoSQLDao extends AbstractSQLDAO implements PostsDao{
             ResultSet rs = prStmt.executeQuery();
 
             if (!rs.next()) {
-                throw new SQLException("Chat with given chatId could not be retrieved.");
+                throw new SQLException("Post with given PostId could not be retrieved.");
             }
             return resultSetToPost(rs);
         } catch (SQLException e) {

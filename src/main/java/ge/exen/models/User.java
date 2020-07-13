@@ -2,6 +2,11 @@ package ge.exen.models;
 
 
 public class User {
+
+  public static String LECTURER = "lector";
+  public static String STUDENT = "student";
+  public static String ADMIN = "admin";
+
   @Override
   public String toString() {
     return "User{" +
@@ -54,7 +59,17 @@ public class User {
   }
 
   public void setStatus(String status) {
-    this.status = status;
+    switch (status) {
+      case "student":
+        this.status = STUDENT;
+        break;
+      case "lector":
+        this.status = LECTURER;
+        break;
+      case "admin":
+        this.status = ADMIN;
+        break;
+    }
   }
 
 

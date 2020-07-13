@@ -128,8 +128,8 @@ insert into exam_lecturers (exam_id, lecturer_id)
            VALUES(1, 1);
 insert into message (from_id, chat_id, sent_date, text, type)
            VALUES (1, 1, STR_TO_DATE('2020-07-05 03:50', '%Y-%m-%d %H:%i'), 'hello world', 'text');
-insert into posts (exam_id, from_id)
-           VALUES (1, 1);
+insert into posts (exam_id, from_id, text, date)
+           VALUES (1, 1, 'post text', STR_TO_DATE('2019-06-14 10:00', '%Y-%m-%d %H:%i'));
 insert into student_exam (student_id, exam_id, variant, comp_index)
            VALUES (1, 1, 1, 20);
 insert into upload (from_id, exam_id, var_id, file_link)
