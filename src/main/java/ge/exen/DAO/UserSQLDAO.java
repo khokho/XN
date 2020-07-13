@@ -3,7 +3,6 @@ package ge.exen.DAO;
 import ge.exen.models.User;
 import org.springframework.stereotype.Controller;
 
-import javax.persistence.SqlResultSetMapping;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -85,6 +84,11 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
         }
     }
 
+
+    /**
+     * @param status specified status
+     * @return list of users by status
+     */
     @Override
     public List<User> getUsersByStatus(String status) {
         try {
@@ -102,4 +106,22 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             return null;
         }
     }
+
+    @Override
+    public void updateRowById(User user) {
+        try {
+            PreparedStatement st = conn.prepareStatement("UPDATE user SET Email = ?,password_hash = ?,status = ?,name = ?,last_name = ? WHERE Id = ?;");
+            st.setString(1, user.getEmail());
+            st.setString(2, user.getPasswordHash());
+            st.setString(3, user.getStatus());
+            st.setString(4, user.getName());
+            st.setString(5, user.getLastName());
+            st.setLong(6, user.getId());
+            if (st.executeUpdate() == 0) throw new SQLException("something went wrong while updating user");
+        } catch (SQLException e) {
+            //e.printStackTrace()
+            user.setId(-1);
+        }
+    }
+
 }

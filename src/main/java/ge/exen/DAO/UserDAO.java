@@ -29,4 +29,10 @@ public interface UserDAO {
     List<User> getUsersByStatus(String status);
 
 
+    /**
+     * @param user User model to use for row update
+     * id will be -1 if something went wrong
+     */
+    void updateRowById(User user);
+
 }
