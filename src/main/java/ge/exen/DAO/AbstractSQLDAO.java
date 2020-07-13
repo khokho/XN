@@ -13,35 +13,16 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
 
-@Component
-public class AbstractSQLDAO {
 
-    protected static DataSource db;
+public class AbstractSQLDAO {
 
     /**
      * connection to exen scheme.
      */
-    protected static Connection conn;
+    protected Connection conn;
 
     @Autowired
-    @Qualifier("testdb") // CHANGE THIS TO DB FOR PRODUCTION
-    public static void setDb(DataSource dbb) {
-        db = dbb;
-        conn = DataSourceUtils.getConnection(dbb);
-    }
-
-
-    /**
-     * This mostly gets called during tests with @DirtiesContext
-     */
-    @PreDestroy
-    public static void destroy() {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println(
-                "Callback triggered - @PreDestroy.");
+    public void setDBConnection(DBConnection db) {
+        this.conn = db.getConn();
     }
 }

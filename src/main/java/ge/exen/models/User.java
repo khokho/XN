@@ -59,6 +59,10 @@ public class User {
   }
 
   public void setStatus(String status) {
+    if(status==null){
+      this.status=null;
+      return;
+    }
     switch (status) {
       case "student":
         this.status = STUDENT;
@@ -69,6 +73,8 @@ public class User {
       case "admin":
         this.status = ADMIN;
         break;
+      default:
+        this.status = null;
     }
   }
 
