@@ -15,12 +15,9 @@ import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
 @Service
-public class PostsService {
+public class PostsService implements IPostsService{
     @Autowired
     private PostsDao postsDao;
-
-    @Autowired
-    private UserDAO userDao;
 
     @Autowired
     private UserService userService;
