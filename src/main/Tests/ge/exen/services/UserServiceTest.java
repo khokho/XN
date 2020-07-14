@@ -110,6 +110,12 @@ public class UserServiceTest {
     }
 
 
-
-
+    @Test
+    void removeUser() {
+        assertTrue(underTest.registerNewUser(baqar));
+        assertEquals("Gamezardashvili", underTest.getCurrentUser().getLastName());
+        assertTrue(underTest.removeUser());
+        assertNull(underTest.getCurrentUser());
+        assertFalse(underTest.removeUser());
+    }
 }

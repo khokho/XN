@@ -85,6 +85,15 @@ public class UserService implements IUserService {
         if(updateDTO.getStatus()!=null)
             user.setStatus(updateDTO.getStatus());
         userDAO.updateRowById(user);
+        return user.getId() != -1;
+    }
+
+    @Override
+    public boolean removeUser() {
+        User cur = getCurrentUser();
+        if(cur==null) return false;
+        userDAO.removeUserById(cur.getId());
+        httpSession.removeAttribute(userAttrName);
         return true;
     }
 
@@ -98,6 +107,5 @@ public class UserService implements IUserService {
     private boolean checkPassword(User toCheck, String password){
         return hashService.matches(password, toCheck.getPasswordHash());
     }
-
 
 }

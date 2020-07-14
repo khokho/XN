@@ -28,7 +28,7 @@ public interface IUserService {
     boolean login(UserLoginDTO loginDTO);
 
     /**
-     * @return returns current user is exists
+     * @return returns current user if exists
      * null otherwise
      */
     User getCurrentUser();
@@ -43,4 +43,11 @@ public interface IUserService {
      * @return true is successful
      */
     boolean updateUser(UserUpdateDTO updateDTO);
+
+
+    /**
+     * removes current user and logs out
+     * @return true for success
+     */
+    boolean removeUser();
 }

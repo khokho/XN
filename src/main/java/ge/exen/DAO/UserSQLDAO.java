@@ -2,7 +2,6 @@ package ge.exen.DAO;
 
 import ge.exen.models.User;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,7 +40,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE Id = ? ;");
             st.setLong(1, userId);
             ResultSet resultSet = st.executeQuery();
-            if (!resultSet.next()) throw new SQLException("user with id = " + userId + "does not exist");
+            if (!resultSet.next()) throw new SQLException("user with id = " + userId + " does not exist");
             return parseToUser(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,8 +110,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             PreparedStatement st = conn.prepareStatement("SELECT status FROM user WHERE id = ?;");
             st.setLong(1, userId);
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.isLast()) throw new SQLException("no one is in database with that kind of id");
-            resultSet.next();
+            if (!resultSet.next()) throw new SQLException("no one is in database with that kind of id");
             return resultSet.getString(1);
         } catch (SQLException e){
             e.printStackTrace();
@@ -137,5 +135,16 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
         }
     }
 
-
+    @Override
+    public boolean removeUserById(long userId) {
+        try {
+            PreparedStatement st = conn.prepareStatement("DELETE FROM user WHERE Id=?;");
+            st.setLong(1, userId);
+            if (st.executeUpdate() == 0) throw new SQLException("user with id: " + userId + " does not exist");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
