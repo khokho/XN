@@ -120,4 +120,40 @@ public class UserSQLDAOTest {
 
 
     }
+
+    @Test
+    @DirtiesContext
+    void updateRowById() {
+        userSQLDAO.create(sample);
+        assertEquals("student", userSQLDAO.getUser(sample.getId()).getStatus());
+        assertEquals("student", userSQLDAO.getUserByMail(sample.getEmail()).getStatus());
+        assertEquals("student", userSQLDAO.getStatusByUserId(sample.getId()));
+        sample.setStatus("admin");
+        userSQLDAO.updateRowById(sample);
+        assertNotEquals(-1, sample.getId());
+        assertEquals("admin", userSQLDAO.getUser(sample.getId()).getStatus());
+        assertEquals("admin", userSQLDAO.getUserByMail(sample.getEmail()).getStatus());
+        assertEquals("admin", userSQLDAO.getStatusByUserId(sample.getId()));
+        assertTrue(userSQLDAO.removeUserById(sample.getId()));
+        assertNull(userSQLDAO.getUserByMail(sample.getEmail()));
+        assertNull(userSQLDAO.getStatusByUserId(sample.getId()));
+
+
+    }
+
+    @Test
+    @DirtiesContext
+    void removeUserById() {
+
+        userSQLDAO.create(sample);
+        assertNotNull(userSQLDAO.getUser(sample.getId()));
+
+        assertTrue(userSQLDAO.removeUserById(sample.getId()));
+        assertNull(userSQLDAO.getUser(sample.getId()));
+
+        assertFalse(userSQLDAO.removeUserById(sample.getId()));
+        assertNull(userSQLDAO.getUser(sample.getId()));
+
+    }
+
 }
