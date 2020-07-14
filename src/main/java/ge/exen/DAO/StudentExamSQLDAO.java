@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
+public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
     @Override
     public void create(StudentExam studentExam) {
         PreparedStatement prStmt;
@@ -23,7 +23,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
             prStmt.setLong(3, studentExam.getVariant());
             prStmt.setLong(4, studentExam.getCompIndex());
 
-            if (prStmt.executeUpdate() != 0) {
+            if (prStmt.executeUpdate() == 0) {
                 throw new SQLException("StudentExam could not be added in the DB.");
             }
         } catch (SQLException e) {

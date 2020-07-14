@@ -21,7 +21,18 @@ public interface ChatDAO {
      * @param chatId long representing the Chat's ID
      * @return Chat Chat with given chatId
      */
-    Chat get(long chatId);
+    Chat getById(long chatId);
+
+    /**
+     * Returns a common Chat of given student and lector on the given exam.
+     * Returns null if corresponding Chat does not exist.
+     *
+     * @param studentId long representing student's userID
+     * @param lectorId  long representing lector's userID
+     * @param examId long representing exam's ID
+     * @return Chat corresponding Chat
+     */
+    Chat get(long studentId, long lectorId, long examId);
 
     /**
      * Returns given user's chats.
