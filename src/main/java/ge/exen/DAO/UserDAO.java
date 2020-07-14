@@ -29,4 +29,24 @@ public interface UserDAO {
     List<User> getUsersByStatus(String status);
 
 
+    /**
+     * @param userId specified id
+     * @return status of a specifies user
+     * this function is for optimisation purposes
+     */
+    String getStatusByUserId(Long userId);
+
+    /**  
+     * @param user User model to use for row update
+     * id will be -1 if something went wrong
+     */
+    void updateRowById(User user);
+
+
+    /**
+     * @param userId user id to remove
+     * @return true if successful
+     */
+    boolean removeUserById(long userId);
+
 }

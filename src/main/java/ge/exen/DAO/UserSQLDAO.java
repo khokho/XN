@@ -1,9 +1,8 @@
 package ge.exen.DAO;
 
 import ge.exen.models.User;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.SqlResultSetMapping;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Component
 public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
 
     @Override
@@ -30,7 +29,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             long id = generatedKeys.getLong(1);
             user.setId(id);
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             user.setId(-1);
         }
     }
@@ -41,8 +40,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE Id = ? ;");
             st.setLong(1, userId);
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.isLast()) throw new SQLException("user with id = " + userId + "does not exist");
-            resultSet.next();
+            if (!resultSet.next()) throw new SQLException("user with id = " + userId + " does not exist");
             return parseToUser(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,8 +54,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE Email = ? ;");
             st.setString(1, email);
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.isLast()) throw new SQLException("email = " + email + "does not exist");
-            resultSet.next();
+            if (!resultSet.next()) throw new SQLException("email = " + email + " does not exist");
             return parseToUser(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,13 +82,17 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
         }
     }
 
+
+    /**
+     * @param status specified status
+     * @return list of users by status
+     */
     @Override
     public List<User> getUsersByStatus(String status) {
         try {
             PreparedStatement st = conn.prepareStatement("SELECT* FROM user WHERE status = ?;");
             st.setString(1, status);
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.isLast()) throw new SQLException("no one is in database with that kind of status");
             List<User> users = new ArrayList<>();
             while (resultSet.next()) {
                 users.add(parseToUser(resultSet));
@@ -100,6 +101,50 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public String getStatusByUserId(Long userId) {
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT status FROM user WHERE id = ?;");
+            st.setLong(1, userId);
+            ResultSet resultSet = st.executeQuery();
+            if (!resultSet.next()) throw new SQLException("no one is in database with that kind of id");
+            return resultSet.getString(1);
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void updateRowById(User user) {
+        try {
+            PreparedStatement st = conn.prepareStatement("UPDATE user SET Email = ?,password_hash = ?,status = ?,name = ?,last_name = ? WHERE Id = ?;");
+            st.setString(1, user.getEmail());
+            st.setString(2, user.getPasswordHash());
+            st.setString(3, user.getStatus());
+            st.setString(4, user.getName());
+            st.setString(5, user.getLastName());
+            st.setLong(6, user.getId());
+            if (st.executeUpdate() == 0) throw new SQLException("something went wrong while updating user");
+        } catch (SQLException e) {
+            //e.printStackTrace()
+            user.setId(-1);
+        }
+    }
+
+    @Override
+    public boolean removeUserById(long userId) {
+        try {
+            PreparedStatement st = conn.prepareStatement("DELETE FROM user WHERE Id=?;");
+            st.setLong(1, userId);
+            if (st.executeUpdate() == 0) throw new SQLException("user with id: " + userId + " does not exist");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

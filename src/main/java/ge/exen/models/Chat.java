@@ -2,10 +2,10 @@ package ge.exen.models;
 
 
 public class Chat {
-
     private long chatId;
-    private long user1;
-    private long user2;
+    private long studentId;
+    private long lectorId;
+    private long examId;
 
 
     public long getChatId() {
@@ -17,21 +17,28 @@ public class Chat {
     }
 
 
-    public long getUser1() {
-        return user1;
+    public long getstudentId() {
+        return studentId;
     }
 
-    public void setUser1(long user1) {
-        this.user1 = user1;
+    public void setstudentId(long studentId) {
+        this.studentId = studentId;
     }
 
 
-    public long getUser2() {
-        return user2;
+    public long getlectorId() {
+        return lectorId;
     }
 
-    public void setUser2(long user2) {
-        this.user2 = user2;
+    public void setlectorId(long lectorId) {
+        this.lectorId = lectorId;
     }
 
+    public long getExamId(){
+        return examId;
+    }
+
+    public void setExamId(long examId){
+        this.examId = examId;
+    }
 }

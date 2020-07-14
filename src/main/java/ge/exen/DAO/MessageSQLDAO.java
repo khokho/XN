@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Component
 public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
 
     /**

@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
+@WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class UserSQLDAOTest {
 
@@ -29,7 +31,7 @@ public class UserSQLDAOTest {
         sample.setLastName("Gamezardashvili");
         sample.setEmail("bgame19@freeuni.edu.ge");
         sample.setPasswordHash("vitom heshi var");
-        sample.setStatus("user");
+        sample.setStatus("student");
     }
 
     @Test
@@ -106,18 +108,52 @@ public class UserSQLDAOTest {
         sample.setEmail("admin2@freeuni.edu.ge");
         userSQLDAO.create(sample);
 
-        sample.setStatus("user");
+        sample.setStatus("student");
         sample.setName("user12");
         sample.setEmail("user12@freeuni.edu.ge");
         userSQLDAO.create(sample);
 
         assertEquals(3,userSQLDAO.getUsersByStatus("admin").size());
-        System.out.println((userSQLDAO.getUsersByStatus("user")).toString());
-        assertEquals(1,userSQLDAO.getUsersByStatus("user").size());
-        assertEquals("user12",userSQLDAO.getUsersByStatus("user").get(0).getName());
-        assertEquals("user12@freeuni.edu.ge",userSQLDAO.getUsersByStatus("user").get(0).getEmail());
+        System.out.println((userSQLDAO.getUsersByStatus("student")).toString());
+        assertEquals(3,userSQLDAO.getUsersByStatus("student").size());//expects 2 in table
 
 
 
     }
+
+    @Test
+    @DirtiesContext
+    void updateRowById() {
+        userSQLDAO.create(sample);
+        assertEquals("student", userSQLDAO.getUser(sample.getId()).getStatus());
+        assertEquals("student", userSQLDAO.getUserByMail(sample.getEmail()).getStatus());
+        assertEquals("student", userSQLDAO.getStatusByUserId(sample.getId()));
+        sample.setStatus("admin");
+        userSQLDAO.updateRowById(sample);
+        assertNotEquals(-1, sample.getId());
+        assertEquals("admin", userSQLDAO.getUser(sample.getId()).getStatus());
+        assertEquals("admin", userSQLDAO.getUserByMail(sample.getEmail()).getStatus());
+        assertEquals("admin", userSQLDAO.getStatusByUserId(sample.getId()));
+        assertTrue(userSQLDAO.removeUserById(sample.getId()));
+        assertNull(userSQLDAO.getUserByMail(sample.getEmail()));
+        assertNull(userSQLDAO.getStatusByUserId(sample.getId()));
+
+
+    }
+
+    @Test
+    @DirtiesContext
+    void removeUserById() {
+
+        userSQLDAO.create(sample);
+        assertNotNull(userSQLDAO.getUser(sample.getId()));
+
+        assertTrue(userSQLDAO.removeUserById(sample.getId()));
+        assertNull(userSQLDAO.getUser(sample.getId()));
+
+        assertFalse(userSQLDAO.removeUserById(sample.getId()));
+        assertNull(userSQLDAO.getUser(sample.getId()));
+
+    }
+
 }

@@ -41,12 +41,17 @@ create table IF NOT EXISTS chat
 (
 	chat_id int auto_increment
 		primary key,
-	user1 int not null,
-	user2 int not null,
+	student_id int not null,
+	lector_id int not null,
+	exam_id int not null,
 	constraint Chat_user_Id_fk
-		foreign key (user1) references user (Id),
+		foreign key (student_id) references user (Id),
 	constraint Chat_user_Id_fk_2
-		foreign key (user2) references user (Id)
+		foreign key (lector_id) references user (Id),
+    constraint chat_exam_exam_id_fk
+        foreign key (exam_id) references exam (exam_id),
+    constraint chat_unique_combination
+        unique (student_id, lector_id, exam_id)
 );
 
 create table IF NOT EXISTS exam_lecturers
@@ -122,8 +127,8 @@ insert into user (Email, password_hash, name, last_name)
            VALUES('test1@freeuni.edu.ge', 1000, 'test1', 't1');
 insert into user (Email, password_hash, name, last_name)
            VALUES('test2@freeuni.edu.ge', 1001, 'test2', 't2');
-insert into chat (chat_id, User1, User2)
-           VALUES(1, 1, 2);
+insert into chat (student_id, lector_id, exam_id)
+           VALUES(1, 1, 1);
 insert into exam_lecturers (exam_id, lecturer_id)
            VALUES(1, 1);
 insert into message (from_id, chat_id, sent_date, text, type)

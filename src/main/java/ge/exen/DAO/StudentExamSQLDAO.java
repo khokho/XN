@@ -2,6 +2,7 @@ package ge.exen.DAO;
 
 import ge.exen.models.Chat;
 import ge.exen.models.StudentExam;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.sql.PreparedStatement;
@@ -10,8 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
+@Component
+public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
     @Override
     public void create(StudentExam studentExam) {
         PreparedStatement prStmt;
@@ -22,7 +23,7 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
             prStmt.setLong(3, studentExam.getVariant());
             prStmt.setLong(4, studentExam.getCompIndex());
 
-            if (prStmt.executeUpdate() != 0) {
+            if (prStmt.executeUpdate() == 0) {
                 throw new SQLException("StudentExam could not be added in the DB.");
             }
         } catch (SQLException e) {

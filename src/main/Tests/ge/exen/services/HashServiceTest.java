@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
+@WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class HashServiceTest {
 

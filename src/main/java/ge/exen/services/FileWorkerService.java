@@ -8,11 +8,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
-public class FileWorkerService implements FileWorkerInterface {
+public class FileWorkerService implements IFileWorker {
 
 
     public String storeMultiPartFile(String directory, MultipartFile file, String name) {

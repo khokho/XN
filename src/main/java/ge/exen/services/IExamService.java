@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
-public interface ExamInterface {
+public interface IExamService {
 
     /**
      * Processes given data and calls DAO to add exam data to DB.

@@ -1,7 +1,9 @@
 package ge.exen.DAO;
 
 import ge.exen.models.Chat;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,26 +11,26 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Component
 public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
 
     @Override
     public void create(Chat chat) {
-        PreparedStatement prStmt;
         try {
 
-            prStmt = conn.prepareStatement("INSERT INTO chat ('User1', 'User2') VALUES(?, ?);",
+            PreparedStatement prStmt = conn.prepareStatement("INSERT INTO chat (student_id, lector_id, exam_id) VALUES(?, ?, ?);",
                     Statement.RETURN_GENERATED_KEYS);
-            prStmt.setLong(1, chat.getUser1());
-            prStmt.setLong(2, chat.getUser2());
+            prStmt.setLong(1, chat.getstudentId());
+            prStmt.setLong(2, chat.getlectorId());
+            prStmt.setLong(3, chat.getExamId());
             int executed = prStmt.executeUpdate();
 
             if (executed == 0) {
+                throw new SQLException("Chat could not be added.");
+            } else {
                 ResultSet rs = prStmt.getGeneratedKeys();
                 rs.next();
                 chat.setChatId(rs.getLong(1));
-            } else {
-                throw new SQLException("Chat could not be added.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,7 +39,7 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
     }
 
     @Override
-    public Chat get(long chatId) {
+    public Chat getById(long chatId) {
         PreparedStatement prStmt;
         try {
             prStmt = conn.prepareStatement("SELECT * FROM chat WHERE chat_id = ?");
@@ -55,10 +57,30 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
     }
 
     @Override
+    public Chat get(long studentId, long lectorId, long examId) {
+        PreparedStatement prStmt;
+        try {
+            prStmt = conn.prepareStatement("SELECT * FROM chat WHERE student_id = ? AND lector_id = ? AND exam_id = ?");
+            prStmt.setLong(1, studentId);
+            prStmt.setLong(2, lectorId);
+            prStmt.setLong(3, examId);
+            ResultSet rs = prStmt.executeQuery();
+
+            if (!rs.next()) {
+                throw new SQLException("Chat with given data could not be retrieved.");
+            }
+            return resultSetToChat(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public List<Chat> getUserChats(long userId) {
         PreparedStatement prStmt;
         try {
-            prStmt = conn.prepareStatement("SELECT * FROM chat WHERE 'User1' = ? OR 'User2' = ?");
+            prStmt = conn.prepareStatement("SELECT * FROM chat WHERE student_id = ? OR lector_id = ?");
             prStmt.setLong(1, userId);
             prStmt.setLong(2, userId);
             ResultSet rs = prStmt.executeQuery();
@@ -84,8 +106,9 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
     private Chat resultSetToChat(ResultSet rs) throws SQLException {
         Chat chat = new Chat();
         chat.setChatId(rs.getLong(1));
-        chat.setUser1(rs.getLong(2));
-        chat.setUser2(rs.getLong(3));
+        chat.setstudentId(rs.getLong(2));
+        chat.setlectorId(rs.getLong(3));
+        chat.setExamId(rs.getLong(4));
         return chat;
     }
 }
