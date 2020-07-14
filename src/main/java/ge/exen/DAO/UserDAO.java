@@ -43,4 +43,10 @@ public interface UserDAO {
     void updateRowById(User user);
 
 
+    /**
+     * @param userId user id to remove
+     * @return true if successful
+     */
+    boolean removeUserById(long userId);
+
 }
