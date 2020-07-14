@@ -85,7 +85,7 @@ public class UserService implements IUserService {
         if(updateDTO.getStatus()!=null)
             user.setStatus(updateDTO.getStatus());
         userDAO.updateRowById(user);
-        return true;
+        return user.getId() != -1;
     }
 
     @Override
