@@ -145,7 +145,16 @@
             <path>/</path>
           </configuration>
         </plugin>
-
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.7.0</version>
+          <configuration>
+            <!-- specify current java version here: -->
+            <source>9</source>
+            <target>9</target> <!-- or edit these in your properties -->
+          </configuration>
+        </plugin>
       </plugins>
 
     </pluginManagement>
