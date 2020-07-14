@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 /**
  * This class is what we expect from post as an input during submition
  */
-public class writePostDTO {
+public class PostWriteDTO {
 
     @NotNull
     private int examId;
