@@ -18,7 +18,7 @@ public class ExamMaterialService implements ExamMaterialInterface {
 
     public static final String directory = "./files/exam%id%/exam_materials";
 
-    public int storeFiles(HashMap<Integer, MultipartFile> fileMap, Integer id){
+    public int storeFiles(HashMap<Integer, MultipartFile> fileMap, Long id){
         int faultyFiles = 0;
         String dir = directory.replace("%id%", id.toString());
 

@@ -43,12 +43,12 @@ public class ExamService implements ExamInterface {
     }
 
 
-    public int setFiles(Map<String, MultipartFile> input, Integer id){
+    public int setFiles(Map<String, MultipartFile> input, Long id){
         HashMap<Integer, MultipartFile> files = new HashMap<>();
         for(Map.Entry<String,MultipartFile> ent : input.entrySet()){
 
             if(!ent.getValue().isEmpty()){System.out.println(ent.getKey());
-                files.put(Integer.parseInt(ent.getKey()), ent.getValue());
+                files.put(Integer.parseInt(ent.getKey().substring(10)), ent.getValue());
             }
         }
 

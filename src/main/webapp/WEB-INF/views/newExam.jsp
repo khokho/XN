@@ -8,7 +8,7 @@
 </style>
 
 <body>
-<form accept-charset="UTF-8" enctype="multipart/form-data">
+<form enctype="multipart/form-data">
     <p class="medium">
         <label for="fullName"> გამოცდის სახელი: </label>
         <input type="text" id="fullName" name="fullName" required><br>

@@ -3,23 +3,22 @@ package ge.exen.services;
 import ge.exen.DAO.UserDAO;
 import ge.exen.dto.UserRegisterDTO;
 import ge.exen.models.User;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
+
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class UserServiceTest {
 
@@ -30,6 +29,7 @@ public class UserServiceTest {
     private UserService underTest;
 
     @Test
+    @DirtiesContext
     public void registerNewUser() {
         UserRegisterDTO input = new UserRegisterDTO();
         input.setEmail("alkhok18@freeuni.edu.ge");

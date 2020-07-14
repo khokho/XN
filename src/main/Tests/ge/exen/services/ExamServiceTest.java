@@ -5,15 +5,18 @@ import ge.exen.DAO.ExamMaterialDao;
 import ge.exen.dto.ExamDTO;
 import ge.exen.models.Exam;
 import ge.exen.models.ExamMaterial;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -25,11 +28,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
+@Transactional()
 public class ExamServiceTest {
     @Autowired
     ExamInterface testObject;
@@ -42,6 +45,7 @@ public class ExamServiceTest {
     Resource fooFile;
 
     @Test
+    @DirtiesContext
     public void testExamService(){
         ExamDTO dto = new ExamDTO();
         dto.setStartDate("2000/01/01 15:30");
@@ -63,11 +67,10 @@ public class ExamServiceTest {
 
 
     @Test
+    @DirtiesContext
     public void testFileStoring(){
         long id = 1;
 
-        File folder = new File("./");
-        File[] listOfFiles = folder.listFiles();
 
 
         byte[] content = null;
@@ -83,7 +86,7 @@ public class ExamServiceTest {
         Map<String, MultipartFile> mp = new HashMap<>();
         mp.put("2", result);
 
-        testObject.setFiles(mp, (int)id);
+        testObject.setFiles(mp, (Long)id);
         ExamMaterial got = examMaterialDao.get(id, 2);
 
         assertNotNull(got);
@@ -94,7 +97,9 @@ public class ExamServiceTest {
 
 /*
     @Test
-    public void testFileStoring(){
+    @DirtiesContext
+    @Transactional
+    public void lolTestFileStoring(){
         ExamDTO dto = new ExamDTO();
         dto.setStartDate("2000/01/01 15:30");
         dto.setFullName("foo");
@@ -119,15 +124,15 @@ public class ExamServiceTest {
         Map<String, MultipartFile> mp = new HashMap<>();
         mp.put("1", result);
 
-        testObject.setFiles(mp, (int)id);
+        testObject.setFiles(mp, id);
         ExamMaterial got = examMaterialDao.get(id, 1);
 
         assertNotEquals(null, got);
         assertEquals(1, got.getVar());
         assertEquals(id, got.getExamId());
         assertEquals(ExamMaterialService.directory.replace("%id%", ""+id) + "/foo.txt", got.getMaterialLink());
-    }
-*/
+    }*/
+
 
 
 }

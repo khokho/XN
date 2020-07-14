@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,8 +18,6 @@ public class AbstractSQLDAO {
 
     protected DataSource db;
 
-
-
     /**
      * connection to exen scheme.
      */
@@ -27,11 +27,21 @@ public class AbstractSQLDAO {
     @Qualifier("testdb") // CHANGE THIS TO DB FOR PRODUCTION
     public void setDb(DataSource db) {
         this.db = db;
-        try {
-            conn = db.getConnection();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        conn = DataSourceUtils.getConnection(db);
     }
 
+
+    /**
+     * This mostly gets called during tests with @DirtiesContext
+     */
+    @PreDestroy
+    public void destroy() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(
+                "Callback triggered - @PreDestroy.");
+    }
 }

@@ -36,8 +36,8 @@ public class ExamDTO {
         return Integer.parseInt(minutes);
     }
 
-    public void setVariants(Integer variants) {
-        this.variants = variants.toString();
+    public void setVariants(String variants) {
+        this.variants = variants;
     }
 
     public void setFullName(String fullName) {
@@ -50,11 +50,11 @@ public class ExamDTO {
         this.startDate = startDate;
     }
 
-    public void setHours(Integer hours) {
-        this.hours = hours.toString();
+    public void setHours(String hours) {
+        this.hours = hours;
     }
 
-    public void setMinutes(Integer minutes) {
-        this.minutes = minutes.toString();
+    public void setMinutes(String minutes) {
+        this.minutes = minutes;
     }
 }

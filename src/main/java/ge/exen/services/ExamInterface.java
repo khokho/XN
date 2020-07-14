@@ -20,5 +20,5 @@ public interface ExamInterface {
      * @param id exam ID
      * @return output message.
      */
-    int setFiles(Map<String, MultipartFile> input, Integer id);
+    int setFiles(Map<String, MultipartFile> input, Long id);
 }

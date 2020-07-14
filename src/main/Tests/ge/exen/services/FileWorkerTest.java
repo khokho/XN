@@ -1,9 +1,13 @@
 package ge.exen.services;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,24 +18,29 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
+
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class FileWorkerTest {
     @Autowired
     FileWorkerInterface worker;
 
+    @Value("classpath:tests/foo.txt")
+    Resource fooFile;
+
     @Test
+    @DirtiesContext
     public void testUnnamed(){
-        Path path = Paths.get("classpath:tests/foo.txt");
         byte[] content = null;
         try {
-            content = Files.readAllBytes(path);
+            File test = fooFile.getFile();
+            content = Files.readAllBytes(test.toPath());
         } catch (final IOException e) {
-            e.printStackTrace();
             fail();
+            e.printStackTrace();
         }
         MultipartFile testFile = new MockMultipartFile("foo.txt",
                 "foo.txt", "text/plain", content);
@@ -41,22 +50,18 @@ public class FileWorkerTest {
     }
 
     @Test
+    @DirtiesContext
     public void testNamed(){
 
-        File index = new File("./files/testFolder");
-        String[] entries = index.list();
-        for(String s: entries){
-            File currentFile = new File(index.getPath(),s);
-            currentFile.delete();
-        }
-        index.delete();
 
-        Path path = Paths.get("classpath:tests/foo.txt");
+
         byte[] content = null;
         try {
-            content = Files.readAllBytes(path);
+            File test = fooFile.getFile();
+            content = Files.readAllBytes(test.toPath());
         } catch (final IOException e) {
             fail();
+            e.printStackTrace();
         }
         MultipartFile testFile = new MockMultipartFile("foo.txt",
                 "foo.txt", "text/plain", content);

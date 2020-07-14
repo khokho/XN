@@ -14,7 +14,7 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
     @Override
     public long create(Exam ex) {
 
-        String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE(\"" + ex.getStartDate() + "\", \"%Y/%m/%d %H:%i\"), " + ex.getDurationInMinutes() + ", " +
+        String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE(\"" + ex.getStartDate() + "\", \"%d/%m/%Y %H:%i\"), " + ex.getDurationInMinutes() + ", " +
                 ex.getVariants() + ", '" + ex.getFullName() + "')";
 
 
