@@ -36,7 +36,7 @@
 
 
     <!-- Styles -->
-
+    <link href="./../../resources/css/chat.css">
     <style>
         .my-sidebar{
             position: fixed;
