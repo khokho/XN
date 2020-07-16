@@ -1,12 +1,6 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
-<style>
-    .my-sidebar{
-        position: fixed;
-        height: 100%;
-        top: 0;
-    }
-</style>
+
 
 <div class="bg-light border-right my-sidebar" id="sidebar-wrapper">
     <div class="sidebar-heading"  style="margin: 20px 10px; top: 0px"><a> <b>ადმინისტრატორი</b></a> </div>
