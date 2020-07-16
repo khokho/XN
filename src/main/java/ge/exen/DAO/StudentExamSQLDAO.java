@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
+public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
     @Override
     public int create(StudentExam studentExam) {
         PreparedStatement prStmt;
