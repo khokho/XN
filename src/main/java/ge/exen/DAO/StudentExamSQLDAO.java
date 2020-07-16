@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
+public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
     @Override
-    public void create(StudentExam studentExam) {
+    public int create(StudentExam studentExam) {
         PreparedStatement prStmt;
         try {
             prStmt = conn.prepareStatement("INSERT INTO student_exam VALUES(?, ?, ?, ?)");
@@ -26,8 +26,10 @@ public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO
             if (prStmt.executeUpdate() == 0) {
                 throw new SQLException("StudentExam could not be added in the DB.");
             }
+            return 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return -1;
         }
     }
 
@@ -121,13 +123,20 @@ public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO
     public int changeComputer(long studentId, long examId, long newCompIndex) {
         PreparedStatement prStmt;
         try {
+            if (getByComputer(examId, newCompIndex) != null) {
+                throw new SQLException("Computer is already taken.");
+            }
+
+            if(get(studentId, examId) == null) {
+                throw new SQLException("Student does not have this exam.");
+            }
             prStmt = conn.prepareStatement("UPDATE student_exam SET comp_index = ? WHERE student_id = ? AND exam_id = ?");
             prStmt.setLong(1, newCompIndex);
             prStmt.setLong(2, studentId);
             prStmt.setLong(3, examId);
 
-            if (prStmt.executeUpdate() != 0) {
-                throw new SQLException("Studen's computer on this exam could not be changed.");
+            if (prStmt.executeUpdate() == 0) {
+                throw new SQLException("Student's computer on this exam could not be changed.");
             }
             return 0;
         } catch (SQLException e) {
@@ -135,7 +144,7 @@ public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO
             return -1;
         }
     }
-  
+
     /**
      * Given a ResultSet, returns corresponding StudentExam.
      *
