@@ -9,15 +9,15 @@ import java.sql.Timestamp;
 public class PostWriteDTO {
 
     @NotNull
-    private int examId;
+    private Long examId;
     @NotNull
     private String text;
 
-    public int getExamId() {
+    public Long getExamId() {
         return examId;
     }
 
-    public void setExamId(int examId) {
+    public void setExamId(Long examId) {
         this.examId = examId;
     }
 

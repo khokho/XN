@@ -4,6 +4,7 @@ import ge.exen.DAO.PostsDao;
 import ge.exen.DAO.UserDAO;
 import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
+import ge.exen.models.Exam;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.Post;
 import ge.exen.models.User;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.PipedOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class PostsService implements IPostsService{
@@ -25,13 +27,26 @@ public class PostsService implements IPostsService{
     @Autowired
     private ExamLecturersDAO examLecturersDAO;
 
+    @Autowired
+    private ExamService examService;
+
     public Post writeNewPost(final PostWriteDTO postDTO){
         User user = userService.getCurrentUser();
         //check if from_id is a lecturer
-        if(!user.getStatus().equals(User.LECTURER)) return null;
+        if(!user.getStatus().equals(User.LECTURER)) {
+            System.out.println("NOT A LECTURER");
+            return null;
+        } else {
+            System.out.println("LECTURER");
+        }
 
         //check if given lecturer is assigned to the given exam
-        if(!examLecturersDAO.check(new ExamLecturers(postDTO.getExamId(), user.getId()))) return null;
+        if(!examLecturersDAO.check(new ExamLecturers(postDTO.getExamId(), user.getId()))) {
+            System.out.println("NOT ASSIGNED");
+            return null;
+        } else {
+            System.out.println("ASSIGNED");
+        }
 
         final Post post = new Post();
         post.setExamId(postDTO.getExamId());
@@ -71,4 +86,26 @@ public class PostsService implements IPostsService{
         return true;
     }
 
+    public List<Post> getPostsByUserId(){
+        User user = userService.getCurrentUser();
+        if(user.getStatus().equals(User.STUDENT))
+            return getPostsByStudentId();
+        else if(user.getStatus().equals(User.LECTURER))
+            return getPostsByLecturerId();
+        else return null;
+    }
+
+    private List<Post> getPostsByLecturerId() {
+        User user = userService.getCurrentUser();
+        return postsDao.getAllByPoster(user.getId());
+    }
+
+    private List<Post> getPostsByStudentId() {
+        /**
+         * remove comment when getCurrentExam() is written in ExamService
+        Exam currExam = examService.getCurrentExam(); //gives the exam curr user is writing
+        return postsDao.getAllByExamId(currExam.getID());
+         **/
+        return null;
+    }
 }
