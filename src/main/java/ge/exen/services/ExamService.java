@@ -1,8 +1,11 @@
 package ge.exen.services;
 
 import ge.exen.DAO.ExamDao;
+import ge.exen.DAO.StudentExamDAO;
 import ge.exen.dto.ExamDTO;
 import ge.exen.models.Exam;
+import ge.exen.models.StudentExam;
+import ge.exen.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -10,15 +13,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class ExamService implements IExamService {
 
     @Autowired
-    ExamDao exdao;
+    ExamDao dao;
     @Autowired
     IExamMaterial materials;
+    @Autowired
+    IUserService userService;
+    @Autowired
+    StudentExamDAO studentExamDao;
 
 
     public long process(ExamDTO values) {
@@ -33,7 +41,7 @@ public class ExamService implements IExamService {
                 values.getVariants());
 
 
-        long val = exdao.create(newex);
+        long val = dao.create(newex);
         if (val < 0) return val;
 
 
@@ -56,8 +64,15 @@ public class ExamService implements IExamService {
     }
 
 
-    public Exam getCurrentExam() {
-
+    public StudentExam getCurrentExam() {
+        User user = userService.getCurrentUser();
+        List<Exam> exams = dao.getAll();
+        for(int i = 0; i < exams.size(); i++) {
+            StudentExam exam = studentExamDao.get(user.getId(),exams.get(i).getID());
+            if(exam != null)    {
+                return exam;
+            }
+        }
         return null;
     }
 }
