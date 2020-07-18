@@ -14,7 +14,7 @@ public interface IQueueService {
     int getAnticipants();
 
     /**
-     * @returns true if current user's turn has come,
+     * @return true if current user's turn has come,
      * false if the user is still waiting
      */
     boolean checkQueueStatus();
@@ -37,4 +37,21 @@ public interface IQueueService {
      * mostly, in the end of an exam
      */
     void clearQueue();
+
+    /**
+     * returns whether the queue is empty
+     *
+     * @return true if no students are waiting, false otherwise
+     */
+    boolean isEmpty();
+
+    /**
+     * adds the QueueListener
+     */
+    void addListener(QueueListener listener);
+
+    /**
+     * removes the QueueListener
+     */
+    void removeListener(QueueListener listener);
 }
