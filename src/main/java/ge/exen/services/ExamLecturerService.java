@@ -26,6 +26,9 @@ public class ExamLecturerService implements IExamLecturerService{
 
     @Override
     public boolean assignLecturerToExam(ExamLecturersRegisterDTO registerDTO){
+        //check if the admin is assigning lecturer to the exam
+        if(!userService.getCurrentUser().getStatus().equals(User.ADMIN)) return false;
+
         //check if exam exists
         Exam exam =  examDao.get(registerDTO.getExamId());
         if(exam == null) return false;
@@ -40,7 +43,7 @@ public class ExamLecturerService implements IExamLecturerService{
 
         ExamLecturers examLecturer = new ExamLecturers(examId, lectId);
         if(!examLecturersDAO.create(examLecturer)) return false;
-
+        System.out.println(examLecturer.toString());
         return true;
     }
 }
