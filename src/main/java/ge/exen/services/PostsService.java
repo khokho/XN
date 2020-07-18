@@ -34,7 +34,7 @@ public class PostsService implements IPostsService{
         User user = userService.getCurrentUser();
         //check if from_id is a lecturer
         if(!user.getStatus().equals(User.LECTURER)) {
-            System.out.println("NOT A LECTURER");
+            System.out.println(user.getName() + " NOT A LECTURER: " + user.getStatus());
             return null;
         } else {
             System.out.println("LECTURER");
@@ -97,6 +97,7 @@ public class PostsService implements IPostsService{
 
     private List<Post> getPostsByLecturerId() {
         User user = userService.getCurrentUser();
+        System.out.println("LECTURER: " + user.getEmail() + "'s POSTS:");
         return postsDao.getAllByPoster(user.getId());
     }
 

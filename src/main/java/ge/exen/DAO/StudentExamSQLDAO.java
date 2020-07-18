@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
     @Override
-    public void create(StudentExam studentExam) {
+    public boolean create(StudentExam studentExam) {
         PreparedStatement prStmt;
         try {
             prStmt = conn.prepareStatement("INSERT INTO student_exam VALUES(?, ?, ?, ?)");
@@ -26,8 +26,10 @@ public class StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO 
             if (prStmt.executeUpdate() != 0) {
                 throw new SQLException("StudentExam could not be added in the DB.");
             }
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

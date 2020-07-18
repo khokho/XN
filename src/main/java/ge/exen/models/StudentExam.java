@@ -8,6 +8,14 @@ public class StudentExam {
   private long variant;
   private long compIndex;
 
+  /*
+  public StudentExam(long studentId, long examId, long variant, long compIndex) {
+    this.studentId = studentId;
+    this.examId = examId;
+    this.variant = variant;
+    this.compIndex = compIndex;
+  }
+*/
 
   public long getStudentId() {
     return studentId;
