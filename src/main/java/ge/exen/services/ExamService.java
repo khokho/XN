@@ -54,4 +54,10 @@ public class ExamService implements IExamService {
 
         return materials.storeFiles(files, id);
     }
+
+
+    public Exam getCurrentExam() {
+
+        return null;
+    }
 }
