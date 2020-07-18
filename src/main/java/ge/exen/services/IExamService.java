@@ -5,6 +5,7 @@ import ge.exen.models.Exam;
 import ge.exen.models.StudentExam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IExamService {
@@ -29,4 +30,10 @@ public interface IExamService {
      * @return current user's exam
      */
     StudentExam getCurrentExam();
+
+    /**
+     * Gets all live student exams
+     * @return all student live exams
+     */
+    List<Exam> getAllLiveExams();
 }

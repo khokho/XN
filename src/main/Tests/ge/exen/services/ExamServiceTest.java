@@ -60,6 +60,7 @@ public class ExamServiceTest {
         assertEquals(got.getFullName(), "foo");
         assertEquals(got.getStartDate(), "2000/01/01 15:30");
         assertEquals(got.getVariants(), (Integer)3);
+        testObject.getAllLiveExams();
     }
 
 

@@ -137,7 +137,24 @@ public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO
             return -1;
         }
     }
-  
+
+    @Override
+    public List<StudentExam> getAll() {
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM student_exam");
+            ResultSet rs = st.executeQuery();
+
+            List<StudentExam> studentExams = new ArrayList<>();
+            while (rs.next()) {
+                studentExams.add(resultSetToStudentExam(rs));
+            }
+            return studentExams;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * Given a ResultSet, returns corresponding StudentExam.
      *
