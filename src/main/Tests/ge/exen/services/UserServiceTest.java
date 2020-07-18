@@ -1,6 +1,5 @@
 package ge.exen.services;
 
-import ge.exen.DAO.UserDAO;
 import ge.exen.dto.UserLoginDTO;
 import ge.exen.dto.UserRegisterDTO;
 import ge.exen.dto.UserUpdateDTO;
