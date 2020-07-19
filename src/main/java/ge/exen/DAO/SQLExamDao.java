@@ -86,7 +86,7 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
             ResultSet res = st.executeQuery();
             while(res.next()) {
                 Exam exam = new Exam();
-                //exam.setID(res.getInt("exam_id"));
+                exam.setID(res.getInt("exam_id"));
                 exam.setDuration(res.getInt("duration"));
                 exam.setName(res.getString("exam_subj"));
                 exam.setStartDate(res.getString("start_time"));

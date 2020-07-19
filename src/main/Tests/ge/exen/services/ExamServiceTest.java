@@ -1,11 +1,12 @@
 package ge.exen.services;
 
-import ge.exen.DAO.ExamDao;
-import ge.exen.DAO.ExamMaterialDao;
-import ge.exen.DAO.SQLExamDao;
+import ge.exen.DAO.*;
 import ge.exen.dto.ExamDTO;
+import ge.exen.dto.UserLoginDTO;
+import ge.exen.dto.UserRegisterDTO;
 import ge.exen.models.Exam;
 import ge.exen.models.ExamMaterial;
+import ge.exen.models.StudentExam;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,15 @@ public class ExamServiceTest {
     @Autowired
     IExamService testObject;
     @Autowired
+    private IUserService userService;
+    @Autowired
     ExamDao examDao;
     @Autowired
+    UserDAO userDAO;
+    @Autowired
     ExamMaterialDao examMaterialDao;
+    @Autowired
+    StudentExamDAO studentExamDAO;
 
     @Value("classpath:tests/foo.txt")
     Resource fooFile;
@@ -64,7 +71,6 @@ public class ExamServiceTest {
         assertEquals(got.getFullName(), "foo");
         assertEquals(got.getStartDate(), "2000/01/01 15:30");
         assertEquals(got.getVariants(), (Integer)3);
-        testObject.getAllCurrentExams();
     }
 
 
@@ -95,6 +101,58 @@ public class ExamServiceTest {
         assertEquals(2, got.getVar());
         assertEquals(id, got.getExamId());
         assertEquals(ExamMaterialService.directory.replace("%id%", "" + id) + "/foo.txt", got.getMaterialLink());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testGetCurrentExam() {
+        UserRegisterDTO tedMosby = new UserRegisterDTO();
+        tedMosby.setEmail("selka18@freeuni.edu.ge");
+        tedMosby.setName("ted");
+        tedMosby.setLastName("mosby");
+        tedMosby.setStatus("student");
+        tedMosby.setPassword("IWantYouBackRobin");
+       assertTrue(userService.registerNewUser(tedMosby));
+        UserLoginDTO misterX = new UserLoginDTO();
+        misterX.setEmail("selka18@freeuni.edu.ge");
+        misterX.setPassword("IWantYouBackRobin");
+        userService.login(misterX);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        String currentTime = dtf.format(now);
+        String withoutHours = currentTime.substring(0,currentTime.indexOf(" "));
+        String onlyHours = currentTime.substring(currentTime.indexOf(" ")+1);
+        String newOnlyHours = onlyHours.charAt(0)+"";
+        if(onlyHours.charAt(1) != '0') {
+            newOnlyHours += onlyHours.charAt(1)-'0' -1+"" + onlyHours.substring(2);
+        }
+
+        String startDate = withoutHours + " " + newOnlyHours;
+        Exam testEx = new Exam( "foo Exam",
+                startDate, 120,
+                6);
+        long status =examDao.create(testEx);
+        assertEquals(status,SQLExamDao.OK);
+        StudentExam ex = new StudentExam();
+        ex.setExamId(testEx.getID());
+        ex.setStudentId(userService.getCurrentUser().getId());
+        ex.setCompIndex(23);
+        ex.setVariant(6);
+        assertEquals(studentExamDAO.create(ex),0);
+      //  System.out.println(userService.getCurrentUser().getEmail());
+        System.out.println(testEx.getID());
+        assertTrue(studentExamDAO.get(userService.getCurrentUser().getId(),ex.getExamId()) != null);
+        StudentExam ans = testObject.getExamForCurrentUser();
+        assertFalse(ans == null);
+        assertEquals(ex,ans);
+
+
+    }
+
+    @Test
+    @DirtiesContext
+    public void testGetExamsForHighStatus() {
+
     }
     @Test
     @DirtiesContext
@@ -154,8 +212,6 @@ public class ExamServiceTest {
         assertEquals(SQLExamDao.OK,status4);
         exams = testObject.getAllCurrentExams();  //still 3
         assertEquals(exams.size(),3);
-
-
 
     }
 

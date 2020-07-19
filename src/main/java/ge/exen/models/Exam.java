@@ -14,7 +14,7 @@ public class Exam {
         if (this == o) return true;
         if (!(o instanceof Exam)) return false;
         Exam exam = (Exam) o;
-        return fullName.equals(exam.fullName) &&
+        return  exam.getID() == id && fullName.equals(exam.fullName) &&
                 startDate.equals(exam.startDate) &&
                 durationInMinutes.equals(exam.durationInMinutes) &&
                 variants.equals(exam.variants);

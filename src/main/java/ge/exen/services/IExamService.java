@@ -29,11 +29,17 @@ public interface IExamService {
      * Gets current user and returns exam
      * @return current user's exam
      */
-    StudentExam getCurrentExam();
+    StudentExam getExamForCurrentUser();
 
     /**
      * Gets all live student exams
      * @return all student live exams
      */
     List<Exam> getAllCurrentExams();
+
+    /**
+     * Gets all exams related to lecturer, or all the exam for admin
+     * @return list of exams
+     */
+    List<Exam> getExamsForHighStatus();
 }

@@ -68,12 +68,4 @@ public interface StudentExamDAO {
      * @return 0 when successfully changed, -1 when fails.
      */
     int changeComputer(long studentId, long examId, long newCompIndex);
-
-
-    /**
-     * Returns StudentExams
-     *
-     * @return List<StudentExam> all studentexams
-     */
-    List<StudentExam> getAll();
 }
