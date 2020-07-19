@@ -33,11 +33,11 @@ public class ExamLecturerService implements IExamLecturerService{
         Exam exam =  examDao.get(registerDTO.getExamId());
         if(exam == null) return false;
 
-        Long examId = exam.getID();
+        long examId = exam.getID();
         //check if user with this mail exists
         if(!userService.checkMailExists(registerDTO.getLecturerMail())) return false;
 
-        Long lectId = userDAO.getUserByMail(registerDTO.getLecturerMail()).getId();
+        long lectId = userDAO.getUserByMail(registerDTO.getLecturerMail()).getId();
         //check if user with this mail is a lecturer
         if(!userDAO.getStatusByUserId(lectId).equals(User.LECTURER)) return false;
 

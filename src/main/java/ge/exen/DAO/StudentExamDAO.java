@@ -9,8 +9,9 @@ public interface StudentExamDAO {
      * Adds given studentExam(student's data on the exam) in the DB.
      *
      * @param studentExam data to be added in the DB.
+     * @return 0 When data is added successfully, -1 otherwise.
      */
-    boolean create(StudentExam studentExam);
+    int create(StudentExam studentExam);
 
     /**
      * Returns a StudentExam of given student on the given exam.
