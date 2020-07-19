@@ -26,14 +26,16 @@ public class StudentExam {
     return Objects.hash(studentId, examId, variant, compIndex);
   }
 
-  /*
+
   public StudentExam(long studentId, long examId, long variant, long compIndex) {
     this.studentId = studentId;
     this.examId = examId;
     this.variant = variant;
     this.compIndex = compIndex;
   }
-*/
+
+  public StudentExam() {
+  }
 
   public long getStudentId() {
     return studentId;
