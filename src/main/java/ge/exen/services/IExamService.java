@@ -35,5 +35,5 @@ public interface IExamService {
      * Gets all live student exams
      * @return all student live exams
      */
-    List<Exam> getAllLiveExams();
+    List<Exam> getAllCurrentExams();
 }

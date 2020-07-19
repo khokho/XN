@@ -16,7 +16,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -77,30 +79,21 @@ public class ExamService implements IExamService {
     }
 
 
-    public List<Exam> getAllLiveExams() {
+    public List<Exam> getAllCurrentExams() {
         List<Exam> exams = dao.getAll();
         List<Exam> ans = new ArrayList<>();
         for (int i = 0; i < exams.size(); i++) {
-            String startDate = exams.get(i).getStartDate();
             int duration = exams.get(i).getDurationInMinutes();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
             LocalDateTime now = LocalDateTime.now();
-            String currentTime = dtf.format(now);
-            int indexOfSpace1 = startDate.indexOf(" ");
-            int indexOfSpace2 = currentTime.indexOf(" ");
-            String date1 = startDate.substring(0, indexOfSpace1);
-            String date2 = currentTime.substring(0, indexOfSpace2);
-          //  System.out.println("axla droa: " + currentTime + "  axla: " + startDate + " shemcirebulebi " + date2 + " " + date1);
-            if (date1.equals(date2)) {
-                String inHours = startDate.substring(indexOfSpace1 + 1);
-                String inHours1 = currentTime.substring(indexOfSpace2 + 1);
-               // System.out.println(inHours + " " + inHours1);
-                int inMinutes = 60 * Integer.parseInt(inHours.substring(0, inHours.indexOf(":"))) +
-                        Integer.parseInt(inHours.substring(inHours.indexOf(":") + 1));
-                int inMinutesNow = 60 * Integer.parseInt(inHours1.substring(0, inHours1.indexOf(":"))) +
-                        Integer.parseInt(inHours1.substring(inHours1.indexOf(":") + 1));
-               // System.out.println("match moxda : " + date1 + " " + date2 + " " + inMinutes + " " + inMinutesNow);
-                if (inMinutes + duration <= inMinutesNow) ans.add(exams.get(i));
+            try {
+                Date date = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(exams.get(i).getStartDate());
+                LocalDateTime date1 = date.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDateTime();
+                Long diff = ChronoUnit.MINUTES.between(date1, now);
+                if (diff>=0 && diff <= duration) ans.add(exams.get(i));
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
         }
         return ans;
