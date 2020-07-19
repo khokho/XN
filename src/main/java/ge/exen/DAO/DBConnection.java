@@ -13,17 +13,14 @@ import java.sql.SQLException;
 @Component
 public class DBConnection {
 
-    private DataSource db;
-
     /**
      * connection to exen scheme.
      */
     private Connection conn;
 
     @Autowired
-    @Qualifier("testdb") // CHANGE THIS TO DB FOR PRODUCTION
+    @Qualifier("db") // CHANGE THIS TO DB FOR PRODUCTION
     public void setDb(DataSource db) {
-        this.db = db;
         conn = DataSourceUtils.getConnection(db);
     }
 

@@ -2,12 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <mvc:annotation-driven/>
-    <context:component-scan base-package="ge.exen"/>
+    <context:component-scan base-package="ge.exen.DAO"/>
+    <context:component-scan base-package="ge.exen.services"/>
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -16,10 +15,11 @@
 
     <bean id="db" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/exen"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/testexen"/>
         <property name="username" value="root"/>
         <property name="password" value="dfrews"/>
         <property name="initialSize" value="3"/>
+        <property name="defaultAutoCommit" value="false"/>
     </bean>
 
     <!--this helps perform multiple sql queries without locking ourselves out-->
