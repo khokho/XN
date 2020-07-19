@@ -1,9 +1,6 @@
 package ge.exen.services;
 
-import ge.exen.dto.ExamDTO;
-import ge.exen.dto.ExamLecturersRegisterDTO;
-import ge.exen.dto.PostWriteDTO;
-import ge.exen.dto.UserRegisterDTO;
+import ge.exen.dto.*;
 import ge.exen.models.Exam;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,6 +41,16 @@ public class ExamLecturerServiceTest {
     @BeforeEach
     @DirtiesContext
     public void setup(){
+        UserRegisterDTO admin = new UserRegisterDTO();
+        admin.setEmail("alkhok18@freeuni.edu.ge");
+        admin.setName("Grinch");
+        admin.setLastName("Khokhiashvili");
+        admin.setPassword("okidok");
+        admin.setStatus("admin");
+        userService.registerNewUser(admin);
+
+
+
         lekva = new UserRegisterDTO();
         lekva.setEmail("g.lekveishvili@freeuni.edu.ge");
         lekva.setName("Giorgi");
@@ -75,6 +82,11 @@ public class ExamLecturerServiceTest {
         oopTamta = new ExamLecturersRegisterDTO();
         oopTamta.setExamId(oopId);
         oopTamta.setLecturerMail(tamta.getEmail());
+
+        UserLoginDTO adminLogin = new UserLoginDTO();
+        adminLogin.setEmail("alkhok18@freeuni.edu.ge");
+        adminLogin.setPassword("okidok");
+        userService.login(adminLogin);//login as admin
     }
 
     @Test
