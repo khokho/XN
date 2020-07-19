@@ -1,8 +1,6 @@
 package ge.exen.services;
 
 import ge.exen.dto.*;
-import ge.exen.models.StudentExam;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,11 +11,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration // this annotation creates sessions and stuff
-@ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
+@ContextConfiguration(locations = { "classpath:testing-setup.xml" })
 public class PostServiceTest {
 
     @Autowired
