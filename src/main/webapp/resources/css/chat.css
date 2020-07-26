@@ -1,3 +1,18 @@
+.mybox {
+    position: relative;
+    width: 100%;
+}
+
+.mytextfield {
+    position: fixed !important;
+    bottom: 0;
+    width: 100% !important;
+    right: 0px;
+    left: inherit;
+    z-index: 1;
+    background-color: rgba(365, 365,365, 1);
+}
+
 .container{max-width:1170px; margin:auto;}
 img{ max-width:100%;}
 .inbox_people {
@@ -7,7 +22,7 @@ img{ max-width:100%;}
     width: 40%; border-right:1px solid #c4c4c4;
 }
 .inbox_msg {
-    border: 1px solid #c4c4c4;
+/*    border: 1px solid #c4c4c4;*/
     clear: both;
     overflow: hidden;
 }
@@ -88,7 +103,7 @@ img{ max-width:100%;}
 .received_withd_msg { width: 57%;}
 .mesgs {
     float: left;
-    padding: 30px 15px 0 25px;
+    padding: 10px 15px 0 0;
     width: 100%;
 }
 
@@ -130,6 +145,7 @@ img{ max-width:100%;}
 }
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
-    height: 516px;
+    min-height: 100px;
+    height: 100%;
     overflow-y: auto;
 }

@@ -51,6 +51,7 @@
       <a class="nav-link navbar-nav" style="margin-right: 190px" href="#">გასვლა</a>
 
     </nav>
+    <div style="height: 60px"></div>
     <!-- Page Content-->
     <jsp:include page="${content}"></jsp:include>
 

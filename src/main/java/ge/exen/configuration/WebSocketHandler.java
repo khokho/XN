@@ -34,7 +34,6 @@ public class WebSocketHandler implements WebSocketConfigurer {
         @Override
         protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
             TextMessage modifiedMessage = new TextMessage(session.getId() + "#" + message.getPayload());
-            System.out.println("!!!" + modifiedMessage.getPayload());
             for(WebSocketSession ss: sessions){
                 if(session.getId() == ss.getId())
                     ss.sendMessage(new TextMessage("1" + message.getPayload()));

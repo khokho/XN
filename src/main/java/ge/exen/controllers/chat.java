@@ -16,6 +16,7 @@ public class chat {
         session.setAttribute("sidebar", "adminSidebar.jsp");
         session.setAttribute("content", "chatContent.jsp");
         session.setAttribute("title", "ჩათი");
+        session.setAttribute("chat_id", 111);
         return "template";
     }
 
