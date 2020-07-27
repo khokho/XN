@@ -90,4 +90,45 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
             return null;
         }
     }
+
+    @Override
+    public List<Message> getMessagesByRange(Long chatId, int from, int to){
+        List<Message> ans = new ArrayList<>();
+        PreparedStatement prStmt;
+        try {
+            prStmt = conn.prepareStatement("SELECT * FROM message WHERE chat_id = ? order by sent_date desc limit ?, ?");
+            prStmt.setLong(1, chatId);
+            prStmt.setLong(2, from);
+            prStmt.setLong(3, to - from + 1);
+            ResultSet rs = prStmt.executeQuery();
+            while (rs.next()){
+                ans.add(resultSetToMessage(rs));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ans;
+    }
+
+    @Override
+    public List<Message> getMessageByChatAndText(Long chatId, String pattern) {
+        PreparedStatement ps;
+        try {
+            ps = conn.prepareStatement("SELECT * FROM message where chat_id = ? AND text = ? AND type = ?");
+            ps.setLong(1, chatId);
+            ps.setString(2, pattern);
+            ps.setString(2, "text");
+            ResultSet rs = ps.executeQuery();
+            List<Message> messages = new ArrayList<>();
+            while (rs.next()) {
+                messages.add(resultSetToMessage(rs));
+            }
+            return messages;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

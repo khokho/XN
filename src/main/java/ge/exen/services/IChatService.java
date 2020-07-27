@@ -15,7 +15,7 @@ public interface IChatService {
      * @param chat_id get last $limit amount of messages in chat_id
      * @return list with size <=limit of last messages
      */
-    List<Message> getMessages(long chat_id, int limit);
+    List<Message> getMessages(long chat_id, int from, int to);
 
     /**
      * @param chat_id chat to search
@@ -26,10 +26,9 @@ public interface IChatService {
 
     /**
      * @param target_id user to chat with
-     * @param exam_id exam which should be checked TODO maybe exam should be in session?
      * @return new Chat(success) or null(not successful)
      */
-    Chat startChat(long target_id, long exam_id);
+    Chat startChat(long target_id);
 
     //TODO add message sending methods
 }
