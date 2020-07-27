@@ -1,9 +1,7 @@
 package ge.exen.DAO;
 
-import ge.exen.models.Chat;
 import ge.exen.models.StudentExam;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -144,6 +142,7 @@ public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO
             return -1;
         }
     }
+
 
     /**
      * Given a ResultSet, returns corresponding StudentExam.

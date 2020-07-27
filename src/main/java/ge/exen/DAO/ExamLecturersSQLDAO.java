@@ -10,7 +10,7 @@ public class ExamLecturersSQLDAO extends AbstractSQLDAO implements ExamLecturers
     @Override
     public boolean create(ExamLecturers examLecturers) {
         try {
-            PreparedStatement st = conn.prepareStatement("INSERT INTO exam_lecturers (exam_id,lecturer_id)  VALUES(?,?);");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO exam_lecturers  VALUES(?,?);");
             st.setLong(1, examLecturers.getExamId());
             st.setLong(2, examLecturers.getLecturerId());
             if (st.executeUpdate() == 0) throw new SQLException("something went wrong while inserting a pair of exam and a lecturer");

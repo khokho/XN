@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 
 public interface ExamDao {
@@ -20,4 +21,10 @@ public interface ExamDao {
     long create(Exam ex);
 
     Exam get(long ID);
+
+    /**
+     * returns all the info in exam table
+     * @return list of exams.
+     */
+    List<Exam> getAll();
 }
