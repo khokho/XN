@@ -30,7 +30,7 @@ public class newExam {
     @Autowired
     ExamService examFactory;
 
-    @GetMapping("/newExam")
+    @GetMapping("/admin/newExam")
     public String getInfo(HttpSession session) {
         session.setAttribute("sidebar", "adminSidebar.jsp");
         session.setAttribute("content", "examForm.jsp");

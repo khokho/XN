@@ -14,7 +14,7 @@
 
 <body>
 <div class="container" style="padding-top: 70px">
-    <form class="form-horizontal" id="form" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
+    <form id="form" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
 
         <div class="form-group row">
             <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
