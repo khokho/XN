@@ -1,10 +1,7 @@
 package ge.exen.DAO;
 
 import ge.exen.models.Exam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 
@@ -27,9 +24,4 @@ public interface ExamDao {
      * @return list of exams.
      */
     List<Exam> getAll();
-
-
-
-
-
 }

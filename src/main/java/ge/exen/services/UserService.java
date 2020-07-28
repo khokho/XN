@@ -47,7 +47,7 @@ public class UserService implements IUserService {
 
 
     @Override
-    public boolean  login(final UserLoginDTO loginDTO){
+    public boolean login(final UserLoginDTO loginDTO){
         User user = userDAO.getUserByMail(loginDTO.getEmail());
         if(user == null)return false;
         if(!checkPassword(user, loginDTO.getPassword())) return false;

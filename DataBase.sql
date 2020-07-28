@@ -1,7 +1,7 @@
 
-drop database if exists exen; #exen or testexen
-create database exen; #exen or testexen
-use exen; #exen or testexen
+drop database if exists testexen; #exen or testexen
+create database testexen; #exen or testexen
+use testexen; #exen or testexen
 
 create table IF NOT EXISTS exam
 (
@@ -97,12 +97,16 @@ create table IF NOT EXISTS student_exam
 (
 	student_id int not null,
 	exam_id int null,
-	variant int not null,
-	comp_index int not null,
+	variant int not null CHECK (variant> 0),
+	comp_index int not null CHECK (comp_index > 0),
 	constraint student_exam_exam_exam_id_fk
 		foreign key (exam_id) references exam (exam_id),
 	constraint student_exam_user_Id_fk
-		foreign key (student_id) references user (Id)
+		foreign key (student_id) references user (Id),
+    constraint student_exam_unique_stud_exam
+        unique (student_id, exam_id),
+    constraint student_exam_unique_exam_comp
+        unique (exam_id, comp_index)
 );
 
 create table IF NOT EXISTS upload
@@ -134,7 +138,7 @@ insert into exam_lecturers (exam_id, lecturer_id)
 insert into message (from_id, chat_id, sent_date, text, type)
            VALUES (1, 1, STR_TO_DATE('2020-07-05 03:50', '%Y-%m-%d %H:%i'), 'hello world', 'text');
 insert into posts (exam_id, from_id, text, date)
-           VALUES (1, 1, 'p0st', STR_TO_DATE('2020-07-05 03:50', '%Y-%m-%d %H:%i'));
+           VALUES (1, 1, 'post text', STR_TO_DATE('2019-06-14 10:00', '%Y-%m-%d %H:%i'));
 insert into student_exam (student_id, exam_id, variant, comp_index)
            VALUES (1, 1, 1, 20);
 insert into upload (from_id, exam_id, var_id, file_link)

@@ -54,7 +54,7 @@ public class UserSQLDAO extends AbstractSQLDAO implements UserDAO {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE Email = ? ;");
             st.setString(1, email);
             ResultSet resultSet = st.executeQuery();
-            if (!resultSet.next()) return null;
+            if (!resultSet.next()) throw new SQLException("email = " + email + " does not exist");
             return parseToUser(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();

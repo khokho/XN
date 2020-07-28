@@ -1,11 +1,12 @@
 package ge.exen.DAO;
 
 import ge.exen.models.Exam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
     @Override
     public long create(Exam ex) {
 
-        String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE(\"" + ex.getStartDate() + "\", \"%d/%m/%Y %H:%i\"), " + ex.getDurationInMinutes() + ", " +
+        String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE(\"" + ex.getStartDate() + "\", \"%Y/%m/%d %H:%i\"), " + ex.getDurationInMinutes() + ", " +
                 ex.getVariants() + ", '" + ex.getFullName() + "')";
 
 
@@ -98,5 +99,4 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
         }
         return ans;
     }
-
 }

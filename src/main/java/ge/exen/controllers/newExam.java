@@ -1,23 +1,22 @@
 package ge.exen.controllers;
 
 
-
 import ge.exen.dto.ExamDTO;
-import ge.exen.models.Exam;
 import ge.exen.services.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class newExam {
@@ -50,7 +49,7 @@ public class newExam {
         Map<String, MultipartFile> files = req.getFileMap();
         ExamDTO values = new ExamDTO();
 
-        values.setVariants(variants.toString());
+        values.setVariants(""+variants);
         values.setStartDate(startDate);
         values.setFullName(fullName);
         values.setHours(duration_hr.toString());
