@@ -1,3 +1,4 @@
+<%--@elvariable id="chat_id" type=""--%>
 <style>
     .mybox {
         position: relative;
@@ -16,7 +17,7 @@
 </style>
 <html>
 <head>
-    <link href="../../resources/css/chat.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/chat.css" type="text/css" rel="stylesheet">
 </head>
 <body onload="initWebSocket()">
 <div class="container">
@@ -36,7 +37,7 @@
                 <button class="msg_send_btn" type="button" style="margin-right: 40px" onclick="document.getElementById('image-input').click();"><i class="fa fa-camera" aria-hidden="true"></i></button>
 
                 <input id="image-input" type="file" name="name" style="display: none;">
-                <button class="msg_send_btn" type="button" onclick="sendMessage()" onkeypress=""><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                <button class="msg_send_btn" type="button" onclick="sendMessage()" onkeypress="checkPress(e)"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
             </div>
         </div>
 

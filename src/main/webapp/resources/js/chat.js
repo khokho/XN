@@ -1,4 +1,9 @@
 /**
+ * Check for pressed key
+ */
+func
+
+/**
  * Possibly paste feature, but now nothing.
  * @param event
  */

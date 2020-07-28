@@ -27,4 +27,9 @@ public interface ExamDao {
      * @return list of exams.
      */
     List<Exam> getAll();
+
+
+
+
+
 }
