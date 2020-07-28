@@ -28,7 +28,7 @@ public class ChatSecurityService {
      */
     public boolean validateUserChatSubscription(long userId, long chatId) {
         Chat chat = chatSQLDAO.getById(chatId);
-        System.out.println("userId going in on chat with " + chat.getstudentId() + "  " + chat.getlectorId());
+        System.out.println("userId:" + userId + " going in on chat with " + chat.getstudentId() + "  " + chat.getlectorId());
         return userId == chat.getstudentId() || userId == chat.getlectorId();
     }
 

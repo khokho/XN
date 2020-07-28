@@ -10,8 +10,9 @@ public interface MessageDAO {
      * @param msg Message to add in DB
      *            when successful sets msg.messageId after insert
      *            when fails id is -1
+     * @return
      */
-    void create(Message msg);
+    boolean create(Message msg);
 
     /**
      * @param messageId get Message with a messageId
@@ -26,7 +27,7 @@ public interface MessageDAO {
 
     List<Message> getMessagesByRange(Long chatId, int from, int to);
 
-    List<Message> getMessageByChatAndText(Long chatId, String text);
+    List<Message> getMessagesWithText(Long chatId, String text);
     //TODO List<Message> searchMessageInChar(long chatId);
     //TODO List<Message> editMessage(long chatId);
 }
