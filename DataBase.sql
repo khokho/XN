@@ -97,12 +97,16 @@ create table IF NOT EXISTS student_exam
 (
 	student_id int not null,
 	exam_id int null,
-	variant int not null,
-	comp_index int not null,
+	variant int not null CHECK (variant> 0),
+	comp_index int not null CHECK (comp_index > 0),
 	constraint student_exam_exam_exam_id_fk
 		foreign key (exam_id) references exam (exam_id),
 	constraint student_exam_user_Id_fk
-		foreign key (student_id) references user (Id)
+		foreign key (student_id) references user (Id),
+    constraint student_exam_unique_stud_exam
+        unique (student_id, exam_id),
+    constraint student_exam_unique_exam_comp
+        unique (exam_id, comp_index)
 );
 
 create table IF NOT EXISTS upload

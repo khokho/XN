@@ -1,5 +1,7 @@
 package ge.exen.models;
 
+import java.util.Objects;
+
 public class Exam {
     private String fullName;
     private String startDate;
@@ -7,6 +9,21 @@ public class Exam {
     private Integer variants;
     private long id;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Exam)) return false;
+        Exam exam = (Exam) o;
+        return  exam.getID() == id && fullName.equals(exam.fullName) &&
+                startDate.equals(exam.startDate) &&
+                durationInMinutes.equals(exam.durationInMinutes) &&
+                variants.equals(exam.variants);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, startDate, durationInMinutes, variants, id);
+    }
 
     public Exam(String name, String startDate, int durationInMinutes, int variants) {
         this.fullName = name;

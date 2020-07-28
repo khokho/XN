@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
+@ContextConfiguration(locations = { "classpath:testing-setup.xml" })
 public class PostSQLDAOTest {
 
     @Autowired

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component("exdao")
 public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
@@ -73,5 +75,27 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
             throwables.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public List<Exam> getAll() {
+        String query = "SELECT exam_id, DATE_FORMAT(start_time, \"%Y/%m/%d %H:%i\") start_time, exam_subj, var_num, duration FROM exam order by start_time";
+        List<Exam> ans = new ArrayList<>();
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            ResultSet res = st.executeQuery();
+            while(res.next()) {
+                Exam exam = new Exam();
+                exam.setID(res.getInt("exam_id"));
+                exam.setDuration(res.getInt("duration"));
+                exam.setName(res.getString("exam_subj"));
+                exam.setStartDate(res.getString("start_time"));
+                exam.setVariants(res.getInt("var_num"));
+                ans.add(exam);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ans;
     }
 }
