@@ -29,6 +29,8 @@ public class UserServiceTest {
 
     UserRegisterDTO baqar;
     UserRegisterDTO zaal;
+    private UserLoginDTO baqarLogin;
+    private UserLoginDTO zaalLogin;
 
     @BeforeEach
     public void setup(){
@@ -45,6 +47,15 @@ public class UserServiceTest {
         zaal.setLastName("Chkheidze");
         zaal.setPassword("zazuliko");
         zaal.setStatus("lector");
+
+        baqarLogin = new UserLoginDTO();
+        baqarLogin.setEmail("bgame19@freeuni.edu.ge");
+        baqarLogin.setPassword("gambit");
+
+        zaalLogin = new UserLoginDTO();
+        zaalLogin.setEmail("z.chkheidze@freeuni.edu.ge");
+        zaalLogin.setPassword("zazuliko");
+
     }
 
     @Test
@@ -52,13 +63,14 @@ public class UserServiceTest {
     public void mockActions() {
 
         assertTrue(underTest.registerNewUser(baqar));
+        assertTrue(underTest.login(baqarLogin));
         assertTrue(hashService.matches(baqar.getPassword(), underTest.getCurrentUser().getPasswordHash()));
         underTest.logout();
 
         assertFalse(underTest.registerNewUser(baqar));
-        underTest.logout();
 
         assertTrue(underTest.registerNewUser(zaal));
+        assertTrue(underTest.login(zaalLogin));
         assertTrue(hashService.matches(zaal.getPassword(), underTest.getCurrentUser().getPasswordHash()));
         underTest.logout();
 
@@ -88,6 +100,7 @@ public class UserServiceTest {
     @DirtiesContext
     public void updateTest(){
         assertTrue(underTest.registerNewUser(baqar));
+        assertTrue(underTest.login(baqarLogin));
         UserUpdateDTO update = new UserUpdateDTO();
         update.setOldEmail("bgame19@freeuni.edu.ge");
         update.setOldPassword("gambit");
@@ -110,6 +123,7 @@ public class UserServiceTest {
     @Test
     void removeUser() {
         assertTrue(underTest.registerNewUser(baqar));
+        assertTrue(underTest.login(baqarLogin));
         assertEquals("Gamezardashvili", underTest.getCurrentUser().getLastName());
         assertTrue(underTest.removeUser());
         assertNull(underTest.getCurrentUser());

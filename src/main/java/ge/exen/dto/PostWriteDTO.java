@@ -1,7 +1,6 @@
 package ge.exen.dto;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 
 /**
  * This class is what we expect from post as an input during submition

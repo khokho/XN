@@ -1,18 +1,15 @@
 package ge.exen.services;
+
 import ge.exen.DAO.ExamLecturersDAO;
 import ge.exen.DAO.PostsDao;
-import ge.exen.DAO.UserDAO;
 import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
-import ge.exen.models.Exam;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.Post;
 import ge.exen.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.PipedOutputStream;
-import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.List;
 

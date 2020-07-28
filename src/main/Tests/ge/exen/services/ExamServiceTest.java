@@ -58,9 +58,9 @@ public class ExamServiceTest {
         ExamDTO dto = new ExamDTO();
         dto.setStartDate("2000/01/01 15:30");
         dto.setFullName("foo");
-        dto.setHours(1);
-        dto.setMinutes(30);
-        dto.setVariants(3);
+        dto.setHours("1");
+        dto.setMinutes("30");
+        dto.setVariants("3");
         long id = testObject.process(dto);
         assertTrue(id > 0);
 

@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO {
     @Override
-    public int create(StudentExam studentExam) {
+    public boolean create(StudentExam studentExam) {
         PreparedStatement prStmt;
         try {
             prStmt = conn.prepareStatement("INSERT INTO student_exam VALUES(?, ?, ?, ?)");
@@ -24,10 +24,10 @@ public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO
             if (prStmt.executeUpdate() == 0) {
                 throw new SQLException("StudentExam could not be added in the DB.");
             }
-            return 0;
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1;
+            return false;
         }
     }
 
@@ -118,7 +118,7 @@ public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO
     }
 
     @Override
-    public int changeComputer(long studentId, long examId, long newCompIndex) {
+    public boolean changeComputer(long studentId, long examId, long newCompIndex) {
         PreparedStatement prStmt;
         try {
             if (getByComputer(examId, newCompIndex) != null) {
@@ -136,10 +136,10 @@ public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO
             if (prStmt.executeUpdate() == 0) {
                 throw new SQLException("Student's computer on this exam could not be changed.");
             }
-            return 0;
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1;
+            return false;
         }
     }
 

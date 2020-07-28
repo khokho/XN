@@ -43,8 +43,8 @@ public class StudentExamDAOTest {
     @Test
     @DirtiesContext
     public void testCreateValid() {
-        int added = studentExamDAO.create(sample);
-        assertEquals(0, added);
+        boolean added = studentExamDAO.create(sample);
+        assertTrue(added);
     }
 
     @Test
@@ -52,8 +52,8 @@ public class StudentExamDAOTest {
     public void testCreateSameStudentAndExam() {
         studentExamDAO.create(sample);
         sample.setVariant(1);
-        int added = studentExamDAO.create(sample);
-        assertEquals(-1, added);
+        boolean added = studentExamDAO.create(sample);
+        assertFalse(added);
     }
 
     @Test
@@ -61,45 +61,45 @@ public class StudentExamDAOTest {
     public void testCreateSameExamAndComputer() {
         studentExamDAO.create(sample);
         sample.setStudentId(1);
-        int added = studentExamDAO.create(sample);
-        assertEquals(-1, added);
+        boolean added = studentExamDAO.create(sample);
+        assertFalse(added);
     }
 
     @Test
     @DirtiesContext
     public void testCreateNullParameters() {
         StudentExam nullStudent = new StudentExam();
-        assertEquals(-1, studentExamDAO.create(nullStudent));
+        assertFalse(studentExamDAO.create(nullStudent));
 
         nullStudent.setExamId(1);
         nullStudent.setVariant(2);
         nullStudent.setCompIndex(4);
-        assertEquals(-1, studentExamDAO.create(nullStudent));
+        assertFalse(studentExamDAO.create(nullStudent));
 
         StudentExam nullExam = new StudentExam();
         nullExam.setStudentId(2);
         nullExam.setVariant(2);
         nullExam.setCompIndex(4);
-        assertEquals(-1, studentExamDAO.create(nullExam));
+        assertFalse(studentExamDAO.create(nullExam));
     }
 
     @Test
     @DirtiesContext
     public void testCreateNotValidParameters() {
         sample.setVariant(-4);
-        assertEquals(-1, studentExamDAO.create(sample));
+        assertFalse(studentExamDAO.create(sample));
 
         sample.setVariant(2);
         sample.setCompIndex(-5);
-        assertEquals(-1, studentExamDAO.create(sample));
+        assertFalse(studentExamDAO.create(sample));
 
         sample.setStudentId(1444);
         sample.setCompIndex(3);
-        assertEquals(-1, studentExamDAO.create(sample));
+        assertFalse(studentExamDAO.create(sample));
 
         sample.setStudentId(1);
         sample.setExamId(2142);
-        assertEquals(-1, studentExamDAO.create(sample));
+        assertFalse(studentExamDAO.create(sample));
     }
 
     @Test
@@ -167,9 +167,9 @@ public class StudentExamDAOTest {
         boolean sample2Returned = false;
         boolean sampleReturned = false;
 
-        for(StudentExam s : res){
-            if(s.getExamId() == sample2.getExamId()) sample2Returned = true;
-            if(s.getExamId() == sample.getExamId()) sampleReturned = true;
+        for (StudentExam s : res) {
+            if (s.getExamId() == sample2.getExamId()) sample2Returned = true;
+            if (s.getExamId() == sample.getExamId()) sampleReturned = true;
         }
 
         assertTrue(sample2Returned && sampleReturned);
@@ -251,9 +251,9 @@ public class StudentExamDAOTest {
         boolean sample2Returned = false;
         boolean sample3Returned = false;
 
-        for(StudentExam s : res){
-            if(s.getExamId() == sample2.getExamId()) sample2Returned = true;
-            if(s.getExamId() == sample3.getExamId()) sample3Returned = true;
+        for (StudentExam s : res) {
+            if (s.getExamId() == sample2.getExamId()) sample2Returned = true;
+            if (s.getExamId() == sample3.getExamId()) sample3Returned = true;
         }
 
         assertTrue(sample2Returned && sample3Returned);
@@ -277,8 +277,8 @@ public class StudentExamDAOTest {
         studentExamDAO.create(sample);
 
         int newComp = 34;
-        int changed = studentExamDAO.changeComputer(sample.getStudentId(), sample.getExamId(), newComp);
-        assertEquals(0, changed);
+        boolean changed = studentExamDAO.changeComputer(sample.getStudentId(), sample.getExamId(), newComp);
+        assertTrue(changed);
 
         assertNull(studentExamDAO.getByComputer(sample.getExamId(), sample.getCompIndex()));
 
@@ -297,8 +297,8 @@ public class StudentExamDAOTest {
         StudentExam sample2 = new StudentExam(1, sample.getExamId(), 3, currCompIndex);
         studentExamDAO.create(sample2);
 
-        int changed = studentExamDAO.changeComputer(sample2.getStudentId(), sample2.getExamId(), compIndex);
-        assertEquals(-1, changed);
+        boolean changed = studentExamDAO.changeComputer(sample2.getStudentId(), sample2.getExamId(), compIndex);
+        assertFalse(changed);
         assertEquals(currCompIndex, sample2.getCompIndex());
     }
 
@@ -307,8 +307,8 @@ public class StudentExamDAOTest {
     public void testChangeComputerNotValidStudentExam() {
         //sample is not created
         long newComp = 7;
-        int changed = studentExamDAO.changeComputer(sample.getStudentId(), sample.getExamId(), newComp);
-        assertEquals(-1, changed);
+        boolean changed = studentExamDAO.changeComputer(sample.getStudentId(), sample.getExamId(), newComp);
+        assertFalse(changed);
     }
 
 }

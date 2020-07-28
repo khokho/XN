@@ -1,10 +1,8 @@
 package ge.exen.DAO;
 
 import ge.exen.dto.PostEditDTO;
-import ge.exen.models.Chat;
 import ge.exen.models.Post;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

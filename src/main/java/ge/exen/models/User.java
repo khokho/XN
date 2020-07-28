@@ -3,9 +3,9 @@ package ge.exen.models;
 
 public class User {
 
-    public static String LECTURER = "lector";
-    public static String STUDENT = "student";
-    public static String ADMIN = "admin";
+    public static final String LECTURER = "lector";
+    public static final String STUDENT = "student";
+    public static final String ADMIN = "admin";
 
     @Override
     public String toString() {
