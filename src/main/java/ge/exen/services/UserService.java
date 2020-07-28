@@ -41,10 +41,7 @@ public class UserService implements IUserService {
         user.setLastName(userDto.getLastName());
         user.setStatus(userDto.getStatus());
         userDAO.create(user);
-        if(user.getId()==-1) return false;
-        //TODO decide
-        httpSession.setAttribute("user", user);
-        return true;
+        return user.getId() != -1;
     }
 
 

@@ -17,7 +17,7 @@ public interface IUserService {
      * @param userDto User input for registration
      * @return true if successfully added
      * creates new user in DB
-     * automatically logs in
+     * DOES NOT automatically log in
      */
     boolean registerNewUser(UserRegisterDTO userDto);
 
