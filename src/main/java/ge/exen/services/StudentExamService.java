@@ -33,8 +33,6 @@ public class StudentExamService implements IStudentExamService{
         Exam exam =  examDao.get(registerDTO.getExamId());
         if(exam == null) return false;
 
-        long examId;
-        examId = exam.getID();
         //check if user with this mail exists
         if(!userService.checkMailExists(registerDTO.getStudentMail())) return false;
 
@@ -48,7 +46,7 @@ public class StudentExamService implements IStudentExamService{
         studentExam.setCompIndex(registerDTO.getCompIndex());
         studentExam.setVariant(registerDTO.getVariant());
 
-        if(studentExamDAO.create(studentExam)==-1) return false;
+        if(!studentExamDAO.create(studentExam)) return false;
         System.out.println(studentExam.toString());
 
         return true;
