@@ -1,5 +1,6 @@
 package ge.exen.services;
 
+import ge.exen.dto.SendMessageDTO;
 import ge.exen.models.Chat;
 import ge.exen.models.Message;
 
@@ -29,6 +30,8 @@ public interface IChatService {
      * @return new Chat(success) or null(not successful)
      */
     Chat startChat(long target_id);
+
+    boolean sendMessage(SendMessageDTO sendMessageDTO, long fromId);
 
     //TODO add message sending methods
 }

@@ -1,10 +1,12 @@
 package ge.exen.services;
 
 import ge.exen.DAO.*;
+import ge.exen.dto.SendMessageDTO;
 import ge.exen.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 @Service
 public class ChatService implements IChatService {
@@ -71,5 +73,20 @@ public class ChatService implements IChatService {
         chat.setstudentId(user.getId());
         chatDAO.create(chat);
         return chat;
+    }
+
+    @Override
+    public boolean sendMessage(SendMessageDTO sendMessageDTO, long fromId){
+        //check if the user is assigned to the given chat
+        if(chatSecurityService.validateUserChatSubscription(fromId, sendMessageDTO.getChatId())) return false;
+
+        Message message = new Message();
+        message.setFrom(fromId);
+        message.setChatId(sendMessageDTO.getChatId());
+        message.setSentDate(new Timestamp(System.currentTimeMillis()));
+        message.setText(sendMessageDTO.getText());
+        message.setType(sendMessageDTO.getType());
+
+        return messageDAO.create(message);
     }
 }

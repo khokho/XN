@@ -2,7 +2,6 @@ package ge.exen.DAO;
 
 import ge.exen.models.Message;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
 
         msg.setChatId(rs.getLong(1));
         msg.setFrom(rs.getLong(2));
-        msg.setSentDate(rs.getDate(3));
+        msg.setSentDate(rs.getTimestamp(3));
         msg.setText(rs.getString(4));
         msg.setType(rs.getString(5));
 
@@ -29,14 +28,14 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
     }
 
     @Override
-    public void create(Message msg) {
+    public boolean create(Message msg) {
         PreparedStatement ps;
         try {
             ps = conn.prepareStatement("INSERT into message (from_id, chat_id, sent_date, text, type) VALUES (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, msg.getFrom());
             ps.setLong(2, msg.getChatId());
-            ps.setDate(3, msg.getSentDate());
+            ps.setTimestamp(3, msg.getSentDate());
             ps.setString(4, msg.getText());
             ps.setString(5, msg.getType());
 
@@ -47,10 +46,11 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
             msg.setChatId(keys.getInt(1));
-
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             msg.setMessageId(-1);
+            return false;
         }
     }
 

@@ -6,7 +6,7 @@ public class Message {
   private long messageId;
   private long from;
   private long chatId;
-  private java.sql.Date sentDate;
+  private java.sql.Timestamp sentDate;
   private String text;
   private String type;
 
@@ -38,11 +38,11 @@ public class Message {
   }
 
 
-  public java.sql.Date getSentDate() {
+  public java.sql.Timestamp getSentDate() {
     return sentDate;
   }
 
-  public void setSentDate(java.sql.Date sentDate) {
+  public void setSentDate(java.sql.Timestamp sentDate) {
     this.sentDate = sentDate;
   }
 
