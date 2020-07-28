@@ -3,7 +3,8 @@ package ge.exen.DAO;
 import ge.exen.models.ExamLecturers;
 import org.springframework.stereotype.Component;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 @Component
 public class ExamLecturersSQLDAO extends AbstractSQLDAO implements ExamLecturersDAO{

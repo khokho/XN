@@ -65,7 +65,7 @@ public class ExamService implements IExamService {
 
             if (!ent.getValue().isEmpty()) {
                 System.out.println(ent.getKey());
-                files.put(Integer.parseInt(ent.getKey()), ent.getValue());
+                files.put(Integer.parseInt(ent.getKey().substring(10)), ent.getValue());
             }
         }
 
@@ -83,6 +83,7 @@ public class ExamService implements IExamService {
         }
         return null;
     }
+
     public List<Exam> getExamsForHighStatus() {
         User user = userService.getCurrentUser();
         List<Exam> ans = new ArrayList<>();
@@ -104,6 +105,15 @@ public class ExamService implements IExamService {
         List<Exam> ans = new ArrayList<>();
         for (int i = 0; i < exams.size(); i++) {
             if (isCurrentlyLive(exams.get(i))) ans.add(exams.get(i));
+        }
+        return ans;
+    }
+
+    public List<Exam> getAllPastExams() {
+        List<Exam> exams = dao.getAll();
+        List<Exam> ans = new ArrayList<>();
+        for (int i = 0; i < exams.size(); i++) {
+            if (!isCurrentlyLive(exams.get(i))) ans.add(exams.get(i));
         }
         return ans;
     }
