@@ -9,9 +9,9 @@ public interface StudentExamDAO {
      * Adds given studentExam(student's data on the exam) in the DB.
      *
      * @param studentExam data to be added in the DB.
-     * @return 0 When data is added successfully, -1 otherwise.
+     * @return true When data is added successfully, false otherwise.
      */
-    int create(StudentExam studentExam);
+    boolean create(StudentExam studentExam);
 
     /**
      * Returns a StudentExam of given student on the given exam.
@@ -65,7 +65,7 @@ public interface StudentExamDAO {
      * @param studentId    long representing the student's ID
      * @param examId       long representing the exam's ID
      * @param newCompIndex long representing new computer's index
-     * @return 0 when successfully changed, -1 when fails.
+     * @return true when successfully changed, false when fails.
      */
-    int changeComputer(long studentId, long examId, long newCompIndex);
+    boolean changeComputer(long studentId, long examId, long newCompIndex);
 }
