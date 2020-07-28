@@ -1,12 +1,15 @@
 package ge.exen.services;
 
+import ge.exen.DAO.UserDAO;
 import ge.exen.dto.UserLoginDTO;
 import ge.exen.dto.UserRegisterDTO;
 import ge.exen.dto.UserUpdateDTO;
+import ge.exen.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration // this annotation creates sessions and stuff
-@ContextConfiguration(locations = { "classpath:testing-setup.xml" })
+@ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class UserServiceTest {
 
     @Autowired

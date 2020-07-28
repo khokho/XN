@@ -6,18 +6,18 @@ import java.sql.Timestamp;
 /**
  * This class is what we expect from post as an input during submition
  */
-public class PostWriteDTO {
+public class writePostDTO {
 
     @NotNull
-    private Long examId;
+    private int examId;
     @NotNull
     private String text;
 
-    public Long getExamId() {
+    public int getExamId() {
         return examId;
     }
 
-    public void setExamId(Long examId) {
+    public void setExamId(int examId) {
         this.examId = examId;
     }
 

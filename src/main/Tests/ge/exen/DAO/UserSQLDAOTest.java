@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = { "classpath:testing-setup.xml" })
+@ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class UserSQLDAOTest {
 
     @Autowired

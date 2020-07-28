@@ -28,11 +28,4 @@ public class ExamLecturers {
     this.lecturerId = lecturerId;
   }
 
-  @Override
-  public String toString() {
-    return "ExamLecturers{" +
-            "examId=" + examId +
-            ", lecturerId=" + lecturerId +
-            '}';
-  }
 }

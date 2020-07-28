@@ -1,6 +1,5 @@
 package ge.exen.DAO;
 
-import ge.exen.dto.PostEditDTO;
 import ge.exen.models.Chat;
 import ge.exen.models.Post;
 import org.springframework.stereotype.Component;
@@ -43,7 +42,7 @@ public class PostsSQLDao extends AbstractSQLDAO implements PostsDao{
     }
 
     @Override
-    public Post getPost(Long postId) {
+    public Post getPost(int postId) {
         PreparedStatement prStmt;
         try {
             prStmt = conn.prepareStatement("SELECT * FROM posts WHERE post_id = ?");
@@ -71,7 +70,7 @@ public class PostsSQLDao extends AbstractSQLDAO implements PostsDao{
     }
 
     @Override
-    public List<Post> getAllByExamId(Long examId) {
+    public List<Post> getAllByExamId(int examId) {
         PreparedStatement prStmt;
         try {
             prStmt = conn.prepareStatement("SELECT * FROM posts WHERE exam_id = ? ORDER BY date DESC");
@@ -90,7 +89,7 @@ public class PostsSQLDao extends AbstractSQLDAO implements PostsDao{
     }
 
     @Override
-    public List<Post> getAllByPoster(Long fromId) {
+    public List<Post> getAllByPoster(int fromId) {
         PreparedStatement prStmt;
         try {
             prStmt = conn.prepareStatement("SELECT * FROM posts WHERE from_id = ? ORDER BY date DESC");
@@ -105,30 +104,6 @@ public class PostsSQLDao extends AbstractSQLDAO implements PostsDao{
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    @Override
-    public void updatePostByID(PostEditDTO postEditDTO) {
-        try {
-            PreparedStatement st = conn.prepareStatement("UPDATE posts SET text = ? WHERE post_id = ?");
-            st.setString(1, postEditDTO.getNewText());
-            st.setLong(2, postEditDTO.getPostID());
-            if(st.executeUpdate() == 0) throw new SQLException("something went wrong while updating post");
-        } catch (SQLException throwables) {
-            postEditDTO.setPostID((long) -1);
-        }
-    }
-
-    @Override
-    public boolean removePostByID(Long postId) {
-        try {
-            PreparedStatement st = conn.prepareStatement("DELETE FROM posts WHERE post_id = ?");
-            st.setLong(1, postId);
-            return st.executeUpdate() != 0;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
         }
     }
 }

@@ -2,6 +2,7 @@ package ge.exen.DAO;
 
 import ge.exen.models.Chat;
 import ge.exen.models.User;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = { "classpath:testing-setup.xml" })
+@ContextConfiguration(locations = { "classpath:dispatcher-servlet.xml" })
 public class ChatDAOTest {
     @Autowired
     private ChatDAO chatDAO;
@@ -186,7 +187,7 @@ public class ChatDAOTest {
         assertEquals(2, res.size());
 
         for (Chat ch : res){
-            assertEquals(ch.getstudentId(), studentId);
+            assertTrue(ch.getstudentId() == studentId);
             assertTrue(ch.getlectorId() == lectorId || ch.getlectorId() == 1);
         }
 
