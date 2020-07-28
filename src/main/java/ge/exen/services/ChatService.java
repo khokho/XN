@@ -39,15 +39,15 @@ public class ChatService implements IChatService {
     @Override
     public List<Message> getMessages(long chatId, int from, int to) {
         User user = userService.getCurrentUser();
-        chatSecurityService.validateUserChatSubscription(user.getId(), chatId);
+        if(!chatSecurityService.validateUserChatSubscription(user.getId(), chatId)) return null;
         return messageDAO.getMessagesByRange(chatId, from, to);
     }
 
     @Override
     public List<Message> searchMessages(long chatId, String pattern) {
         User user = userService.getCurrentUser();
-        chatSecurityService.validateUserChatSubscription(user.getId(), chatId);
-        return messageDAO.getMessageByChatAndText(chatId, pattern);
+        if(!chatSecurityService.validateUserChatSubscription(user.getId(), chatId)) return null;
+        return messageDAO.getMessagesWithText(chatId, pattern);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ChatService implements IChatService {
     @Override
     public boolean sendMessage(SendMessageDTO sendMessageDTO, long fromId){
         //check if the user is assigned to the given chat
-        if(chatSecurityService.validateUserChatSubscription(fromId, sendMessageDTO.getChatId())) return false;
+        if(!chatSecurityService.validateUserChatSubscription(fromId, sendMessageDTO.getChatId())) return false;
 
         Message message = new Message();
         message.setFrom(fromId);

@@ -1,5 +1,6 @@
 package ge.exen.DAO;
 
+import ge.exen.configs.GlobalConstants;
 import ge.exen.models.Message;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +19,12 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
     private Message resultSetToMessage(ResultSet rs) throws SQLException {
         Message msg = new Message();
 
-        msg.setChatId(rs.getLong(1));
+        msg.setMessageId(rs.getLong(1));
         msg.setFrom(rs.getLong(2));
-        msg.setSentDate(rs.getTimestamp(3));
-        msg.setText(rs.getString(4));
-        msg.setType(rs.getString(5));
+        msg.setChatId(rs.getLong(3));
+        msg.setSentDate(rs.getTimestamp(4));
+        msg.setText(rs.getString(5));
+        msg.setType(rs.getString(6));
 
         return msg;
     }
@@ -40,12 +42,14 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
             ps.setString(5, msg.getType());
 
             int changed = ps.executeUpdate();
-            if (changed != 0) {
+            if (changed == 0) {
                 throw new SQLException("Message couldn't be inserted");
             }
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
             msg.setChatId(keys.getInt(1));
+            if(GlobalConstants.DEBUG)
+                System.out.println("MESSAGE WITH ID" + msg.getMessageId());
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -106,18 +110,19 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+
         }
         return ans;
     }
 
     @Override
-    public List<Message> getMessageByChatAndText(Long chatId, String pattern) {
+    public List<Message> getMessagesWithText(Long chatId, String pattern) {
         PreparedStatement ps;
         try {
-            ps = conn.prepareStatement("SELECT * FROM message where chat_id = ? AND text = ? AND type = ?");
+            ps = conn.prepareStatement("SELECT * FROM message where chat_id = ? AND text LIKE ? AND type = ?");
             ps.setLong(1, chatId);
-            ps.setString(2, pattern);
-            ps.setString(2, "text");
+            ps.setString(2, "%" + pattern + "%");
+            ps.setString(3, "text");
             ResultSet rs = ps.executeQuery();
             List<Message> messages = new ArrayList<>();
             while (rs.next()) {
