@@ -191,7 +191,7 @@ public class PostServiceTest {
 
         //TODO make oop current exam, otherwise there will be no posts shown
         userService.login(tamtaLogin);
-        //onlu lekvas first post
+        //only lekvas first post
         assertEquals(1, postsService.getPostsByUserId().size());
         assertEquals(lekvasPost.getText(), postsService.getPostsByUserId().get(0).getText());
     }

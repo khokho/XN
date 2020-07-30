@@ -1,6 +1,7 @@
 package ge.exen.DAO;
 
 import ge.exen.models.Chat;
+import ge.exen.models.Message;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 

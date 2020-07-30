@@ -6,10 +6,21 @@ public class Message {
   private long messageId;
   private long from;
   private long chatId;
-  private java.sql.Date sentDate;
+  private java.sql.Timestamp sentDate;
   private String text;
   private String type;
 
+  @Override
+  public String toString() {
+    return "Message{" +
+            "messageId=" + messageId +
+            ", from=" + from +
+            ", chatId=" + chatId +
+            ", sentDate=" + sentDate +
+            ", text='" + text + '\'' +
+            ", type='" + type + '\'' +
+            '}';
+  }
 
   public long getMessageId() {
     return messageId;
@@ -38,11 +49,11 @@ public class Message {
   }
 
 
-  public java.sql.Date getSentDate() {
+  public java.sql.Timestamp getSentDate() {
     return sentDate;
   }
 
-  public void setSentDate(java.sql.Date sentDate) {
+  public void setSentDate(java.sql.Timestamp sentDate) {
     this.sentDate = sentDate;
   }
 
