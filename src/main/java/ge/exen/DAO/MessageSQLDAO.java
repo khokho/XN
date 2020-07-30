@@ -4,7 +4,10 @@ import ge.exen.configs.GlobalConstants;
 import ge.exen.models.Message;
 import org.springframework.stereotype.Component;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +50,7 @@ public class MessageSQLDAO extends AbstractSQLDAO implements MessageDAO {
             }
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
-            msg.setChatId(keys.getInt(1));
+            msg.setMessageId(keys.getInt(1));
             if(GlobalConstants.DEBUG)
                 System.out.println("MESSAGE WITH ID" + msg.getMessageId());
             return true;

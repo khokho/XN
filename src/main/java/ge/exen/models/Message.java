@@ -10,6 +10,17 @@ public class Message {
   private String text;
   private String type;
 
+  @Override
+  public String toString() {
+    return "Message{" +
+            "messageId=" + messageId +
+            ", from=" + from +
+            ", chatId=" + chatId +
+            ", sentDate=" + sentDate +
+            ", text='" + text + '\'' +
+            ", type='" + type + '\'' +
+            '}';
+  }
 
   public long getMessageId() {
     return messageId;

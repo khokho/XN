@@ -1,16 +1,11 @@
 package ge.exen.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class chat {
 
-    private void initializeSocket(){}
-
-    @GetMapping("/chat")
+    /*@GetMapping("/chat")
     public String displayChat(HttpSession session){
         initializeSocket();
         session.setAttribute("sidebar", "adminSidebar.jsp");
@@ -18,7 +13,7 @@ public class chat {
         session.setAttribute("title", "ჩათი");
         session.setAttribute("chat_id", 111);
         return "template";
-    }
+    }*/
 
 
 }

@@ -33,5 +33,4 @@ public interface IChatService {
 
     boolean sendMessage(SendMessageDTO sendMessageDTO, long fromId);
 
-    //TODO add message sending methods
 }

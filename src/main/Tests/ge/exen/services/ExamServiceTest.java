@@ -112,7 +112,8 @@ public class ExamServiceTest {
         tedMosby.setLastName("mosby");
         tedMosby.setStatus("student");
         tedMosby.setPassword("IWantYouBackRobin");
-       assertTrue(userService.registerNewUser(tedMosby));
+        assertTrue(userService.registerNewUser(tedMosby));
+
         UserLoginDTO misterX = new UserLoginDTO();
         misterX.setEmail("selka18@freeuni.edu.ge");
         misterX.setPassword("IWantYouBackRobin");
@@ -138,12 +139,13 @@ public class ExamServiceTest {
         ex.setStudentId(userService.getCurrentUser().getId());
         ex.setCompIndex(23);
         ex.setVariant(6);
-        assertEquals(studentExamDAO.create(ex),0);
+        System.out.println(testEx.getID());
+        assertTrue(studentExamDAO.create(ex));
       //  System.out.println(userService.getCurrentUser().getEmail());
         System.out.println(testEx.getID());
-        assertTrue(studentExamDAO.get(userService.getCurrentUser().getId(),ex.getExamId()) != null);
+        assertNotNull(studentExamDAO.get(userService.getCurrentUser().getId(), ex.getExamId()));
         StudentExam ans = testObject.getExamForCurrentUser();
-        assertFalse(ans == null);
+        assertNotNull(ans);
         assertEquals(ex,ans);
 
 
@@ -175,7 +177,7 @@ public class ExamServiceTest {
         long status = examDao.create(testEx);
         assertEquals(SQLExamDao.OK, status);
         List<Exam> exams = testObject.getAllCurrentExams();
-        assertEquals(exams.size(),1);
+        assertEquals(exams.size(),2);
         Exam testEx1 = new Exam( "foo Exam1",
                 startDate,
                 13,
@@ -183,7 +185,7 @@ public class ExamServiceTest {
         long status1 = examDao.create(testEx1);
         assertEquals(SQLExamDao.OK, status1);
         exams = testObject.getAllCurrentExams();  //still 1
-        assertEquals(exams.size(),1);
+        assertEquals(exams.size(),2);
 
         Exam testEx2 = new Exam( "foo Exam2",
                 startDate,
@@ -191,7 +193,7 @@ public class ExamServiceTest {
                 7);
         long status2 = examDao.create(testEx2);
         exams = testObject.getAllCurrentExams();  //now2
-        assertEquals(exams.size(),2);
+        assertEquals(exams.size(),3);
 
         withoutHours = withoutHours.substring(0,withoutHours.lastIndexOf("/")) + "/" +
                 (Integer.parseInt(withoutHours.substring(withoutHours.lastIndexOf("/")+1 ))-1) + "";
@@ -203,7 +205,7 @@ public class ExamServiceTest {
         long status3 = examDao.create(testEx3);
         assertEquals(SQLExamDao.OK,status3);
         exams = testObject.getAllCurrentExams();  //now 3
-        assertEquals(exams.size(),3);
+        assertEquals(exams.size(),4);
         Exam testEx4 = new Exam( "foo Exam2",
                 startDate,
                 10,
@@ -211,7 +213,7 @@ public class ExamServiceTest {
         long status4 = examDao.create(testEx4);
         assertEquals(SQLExamDao.OK,status4);
         exams = testObject.getAllCurrentExams();  //still 3
-        assertEquals(exams.size(),3);
+        assertEquals(exams.size(),4);
 
     }
 

@@ -1,12 +1,16 @@
 package ge.exen.services;
 
-import ge.exen.DAO.*;
+import ge.exen.DAO.ChatDAO;
+import ge.exen.DAO.ExamLecturersDAO;
+import ge.exen.DAO.MessageDAO;
 import ge.exen.dto.SendMessageDTO;
+import ge.exen.listeners.IChatListener;
 import ge.exen.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ChatService implements IChatService {
@@ -30,6 +34,20 @@ public class ChatService implements IChatService {
 
     @Autowired
     ExamLecturersDAO examLecturersDAO;
+
+
+    private final List<IChatListener> chatListeners = new ArrayList<>();
+
+    public void registerChatListener(IChatListener chatListener){
+        chatListeners.add(chatListener);
+    }
+
+    public void removeChatListener(IChatListener chatListener){
+        chatListeners.remove(chatListener);
+    }
+
+
+
 
     @Override
     public List<Chat> getMyChats() {
@@ -86,7 +104,11 @@ public class ChatService implements IChatService {
         message.setSentDate(new Timestamp(System.currentTimeMillis()));
         message.setText(sendMessageDTO.getText());
         message.setType(sendMessageDTO.getType());
-
-        return messageDAO.create(message);
+        System.out.println(message);
+        if(!messageDAO.create(message))return false;
+        for(IChatListener listener:chatListeners){
+            listener.messageReceived(message);
+        }
+        return true;
     }
 }

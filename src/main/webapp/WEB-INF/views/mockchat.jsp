@@ -5,7 +5,7 @@
   Time: 12:42 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
 <html>
@@ -22,23 +22,30 @@
 </head>
 <body>
 <h1>Hi Chat</h1>
+<ul id="chat">
+
+</ul>
 <script type="text/javascript">
 
     var ws;
     var stompClient;
     var stompCallback =
         $(document).ready(function () {
+
+
             ws = new SockJS("/ws");
             stompClient = Stomp.over(ws);
-            stompClient.connect({}, function (frame) {
+            stompClient.connect({}, function () {
                 //stompClient.debug("connected")
                 console.log("connected");
                 stompClient.subscribe("/topic/chat-1", function (post) {
                     //console.log("HI: "+post)
                     console.log("here broz")
                     console.log(post)
-                    $('#res').html(post.body)
-                }, {'chat_id':10});
+                    var message = JSON.parse(post.body)
+                    console.log("teeext:" + message.text)
+                    $('#chat').append('<li>' + message.text + '</li>')
+                }, {});
             });
         });
 

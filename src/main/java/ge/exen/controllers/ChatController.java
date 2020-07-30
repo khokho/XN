@@ -1,8 +1,12 @@
 package ge.exen.controllers;
 
+import ge.exen.configs.GlobalConstants;
+import ge.exen.dto.SendMessageDTO;
 import ge.exen.dto.UserLoginDTO;
+import ge.exen.listeners.ChatListener;
 import ge.exen.models.UserPrincipal;
 import ge.exen.services.ChatSecurityService;
+import ge.exen.services.IChatService;
 import ge.exen.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -24,6 +28,11 @@ public class ChatController {
     @Autowired
     private ChatSecurityService chatSecurityService;
 
+    @Autowired
+    private ChatListener chatListener;
+
+    @Autowired
+    private IChatService chatService;
 
     //TODO this is not final
     @GetMapping("/chat")
@@ -40,14 +49,22 @@ public class ChatController {
                                UserPrincipal user,
                                @Payload String message){
         long userId = user.getId();
-        System.out.println();
-        System.out.println("recieved message from: " + userId);
-        System.out.println("chat id: " + chatId);
-        if(!chatSecurityService.validateUserChatSubscription(userId, chatId))return;
-        System.out.println("Security passed");
-        System.out.println("message: " + message);
-        //TODO pass to chat service
-        messagingTemplate.convertAndSend("/topic/chat-"+chatId, message);
+        if(GlobalConstants.DEBUG) {
+            System.out.println();
+            System.out.println("recieved message from: " + userId);
+            System.out.println("chat id: " + chatId);
+        }
+        if(GlobalConstants.DEBUG){
+            System.out.println("Security passed");
+            System.out.println("message: " + message);
+        }
+
+        SendMessageDTO msg = new SendMessageDTO();
+        msg.setChatId(chatId);
+        msg.setText(message);
+        msg.setType("text");
+        chatService.sendMessage(msg, userId);
+
     }
 
 }
