@@ -118,7 +118,12 @@ public class ExamService implements IExamService {
         return ans;
     }
 
-    private boolean isCurrentlyLive(Exam exam) {
+    @Override
+    public List<Exam> getAllExams() {
+        return dao.getAll();
+    }
+
+    public boolean isCurrentlyLive(Exam exam) {
         int duration = exam.getDurationInMinutes();
         LocalDateTime now = LocalDateTime.now();
         try {
