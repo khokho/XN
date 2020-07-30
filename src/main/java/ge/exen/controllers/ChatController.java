@@ -29,9 +29,6 @@ public class ChatController {
     private ChatSecurityService chatSecurityService;
 
     @Autowired
-    private ChatListener chatListener;
-
-    @Autowired
     private IChatService chatService;
 
     //TODO this is not final
