@@ -12,12 +12,9 @@ public class ChatListener implements IChatListener{
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
+
     @Autowired
-    private ChatService chatService;
-
-    
-
-    public ChatListener() {
+    public void setChatService(ChatService chatService) {
         chatService.registerChatListener(this);
     }
 
