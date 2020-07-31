@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <script src="${pageContext.request.contextPath}/resources/js/chat.js" charset="utf-8"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/vanochat.js" charset="utf-8"></script>
         </div></div>
 </body>
 </html>

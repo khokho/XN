@@ -1,117 +1,101 @@
-/**
- * Check for pressed key
- */
-func
+'use strict';
 
-/**
- * Possibly paste feature, but now nothing.
- * @param event
- */
-document.getElementById("field").onpaste = function(event){
-    let a = event.clipboardData.items;
+const e = React.createElement;
 
-}
+var ws = new SockJS("/ws");
+var stomp = Stomp.over(ws);
 
-var elem = document.getElementById('image-input');
-/**
- * Check if uploaded file is an image.
- */
-elem.onchange = function(){
-    const file = elem.files[0];
-    const  fileType = file['type'];
-    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-    if (!validImageTypes.includes(fileType)) {
-        alert("ატვირთული ფაილი სურათი უნდა იყოს");
+class LikeButton extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { liked: false };
     }
-};
 
-const sentStart = "                    <div class=\"outgoing_msg\">\n" +
-                  "                        <div class=\"sent_msg\">\n",
-      sentEnd = "                            <span class=\"time_date\">"+new Date()+"</span> </div>\n" +
-                "                    </div>",
-      recStart =  "               <div class=\"incoming_msg\">\n" +
-                 // "                        <div class=\"incoming_msg_img\"> <i class=\"fa fa-user\" aria-hidden=\"true\"> </div>\n" +
-                  "                        <div class=\"received_msg\">\n" +
-                  "                            <div class=\"received_withd_msg\">\n",
-      recEnd = "                            <span class=\"time_date\">"+new Date()+"</span> </div>\n" +
-               "                        </div>\n" +
-               "                    </div>\n";
-
-function displayImage(img, author){
-    let diva = document.createElement("div");
-    if(author === 0){
-        diva.innerHTML = sentStart +
-            "            <p><img src='"+ img +"' alt='image'></p>\n" +
-                         sentEnd;
-    }
-    else{
-        diva.innerHTML = recStart +
-            "                                <p><img src='"+img+"' alt='image'></p>\n" +
-                         recEnd;
-    }
-    return diva;
-}
-
-function displayMessage(author, msg){
-    if(msg == null || msg === "") return null;
-    let diva = document.createElement("div");
-    if(author === 0){
-        diva.innerHTML = sentStart +
-            "                            <p>"+msg+"</p>\n" +
-                         sentEnd;
-    }
-    else{
-        diva.innerHTML = recStart +
-            "                                <p>"+msg+"</p>\n" +
-                         recEnd;
-    }
-    return diva;
-}
-
-let ws;
-
-function initWebSocket() {
-    ws = new WebSocket("ws://localhost:8080/messenger");
-    ws.onmessage = function (e) {
-        let msg = e.data;
-        let author;
-        // get author
-        if(msg.charAt(0) === '1') author = 0;
-        else author = 1;
-        msg = msg.substring(1);
-
-        let diva;
-
-
-        diva = displayMessage(author, msg);
-        //else diva = displayImage(msg, author);
-
-        if(diva != null) {
-            document.getElementById("messages").appendChild(diva);
-            diva.scrollIntoView();
+    render() {
+        if (this.state.liked) {
+            return 'You liked this.';
         }
+
+        return e(
+            'button',
+            { onClick: () => this.setState({ liked: true }) },
+            'Like'
+        );
     }
 }
 
-/**
- * Sends message and, if present, uploaded image
- */
-function sendMessage() {
-    ws.send(document.getElementById("field").value);
-    document.getElementById("field").value = "";
-    if(elem.value !== ""){
-        let xhr = new XMLHttpRequest();
-        let fd = new FormData();
-
-        fd.append("image", elem.files[0]);
-        fd.append("chat_id", document.getElementById("chat-id").value);
-        xhr.open("POST", "/sendImage", true);
-        xhr.send(fd);
-        elem.value = "";
+function Message(props){
+    if(props.me){
+        return (
+            <div className={'outgoing_msg'}>
+                <div className={'sent_msg'}>
+                    <p>{props.message}</p>
+                </div>
+            </div>
+        );
+    }
+    else {
+        return (
+            <div className={'incoming_msg'}>
+                <div className={'received_msg'}>
+                    <p>{props.message}</p>
+                </div>
+            </div>
+        );
     }
 }
 
 
-window.addEventListener("beforeunload", function(){
-    ws.close();
-}, false);
+class Chat extends React.Component {
+
+
+
+    constructor(props) {
+        super(props);
+        this.state = {messages:[]}
+        this.chatId = props.chatId
+        this.me = props.userId
+        console.log(this.chatId, this.me)
+
+
+        fetch('http://'+window.location.host+'/getMessages/' + props.chatId + '?from=0&to=10')
+            .then(resp => {
+                console.log("hiihhihihihihihih")
+                console.log(resp)
+                return resp.json()
+            })
+            .then((jsonData) => {
+                console.log(jsonData)
+                this.setState({messages:jsonData})
+            })
+
+        onmessage = (messageJSON) => {
+            console.log("here broz")
+            console.log(messageJSON)
+            var message = JSON.parse(messageJSON.body)
+            console.log("teeext:" + message.text)
+            this.setState((state)=>{
+                return {messages: [message].concat(state.messages)}
+            })
+        }
+        stomp.connect({}, function () {
+            console.log("connected");
+            stomp.subscribe("/topic/chat-" + chatId, onmessage, {});
+        });
+    }
+
+    render(){
+        return this.state.messages.map((message)=>(
+            <Message message={message.text} me={this.me === message.from}/>
+        ))
+    }
+}
+
+
+
+
+const domContainer = document.querySelector('#messages');
+
+ReactDOM.render(<Chat chatId={window.chatId} userId={window.userId}/>, domContainer);
+
+
