@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class ExamControllerForAdmin {
     IExamService examService;
 
     @GetMapping(value = "/l")
-    public String toAdminHomePage(HttpServletRequest req) {
+    public String toAdminHomePage(HttpServletRequest req, HttpSession ses) {
         List<Exam> exams = examService.getAllExams();
         List<Pair> list = new ArrayList<>();
         for(int i = 0; i < exams.size(); i++){
@@ -28,6 +29,7 @@ public class ExamControllerForAdmin {
         }
         int pageNum = exams.size() / EXAMS_PER_PAGE + 1;
         req.setAttribute("list", list);
+        ses.setAttribute("list",list);
         req.setAttribute("pageNum", pageNum);
         req.setAttribute("content", "ExamsView.jsp");
         req.setAttribute("sidebar", "adminSidebar.jsp");

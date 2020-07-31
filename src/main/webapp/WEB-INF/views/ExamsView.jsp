@@ -2,6 +2,7 @@
 <%@ page import="ge.exen.models.Exam" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="ge.exen.controllers.ExamControllerForAdmin" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!--<div class="row d-flex justify-content-center container">
 <div class="col-md-8">-->
 <% List<ExamControllerForAdmin.Pair> exams = (List<ExamControllerForAdmin.Pair>) request.getAttribute("list");%>
@@ -27,14 +28,22 @@
                                     </div>
                                     <div class="widget-content-left">
                                         <div class="widget-heading">Call Sam For payments
-                                            <div class="badge badge-danger ml-2">Rejected</div>
+                                            <% if (!exams.get(i).isCurrentlyOn()) {%>
+                                            <div class="badge badge-danger ml-2">დასრულებული</div>
+                                            <% }
+                                                else { %>
+                                            <div class="badge badge-success ml-2">მიმდინარეობს</div>
+                                                    <%
+                                                }
+                                            %>
+
                                         </div>
                                         <div class="widget-subheading"><i>By Bob</i></div>
                                     </div>
                                     <div class="widget-content-right" style="margin-left: auto">
                                         <button class="border-0 btn-transition btn btn-outline-success"><i
                                                 <% String icon =  "fa fa-hourglass-half";
-                                                    if (!exams.get(i).isCurrentlyOn()) {
+                                                    if (exams.get(i).isCurrentlyOn()) {
                                                         icon = "fa fa-history";
                                                     }
                                                 %>
@@ -42,7 +51,7 @@
 
 
 
-                                        <button class="border-0 btn-transition btn btn-outline-warning"><i
+                                        <button onclick= "window.location.href='/admin/newExam?index=<%=i%>'" class="border-0 btn-transition btn btn-outline-warning"><i
                                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
