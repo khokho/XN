@@ -3,6 +3,8 @@ package ge.exen.controllers;
 
 import ge.exen.DAO.ExamDao;
 import ge.exen.models.Exam;
+import ge.exen.models.ExamLecturers;
+import ge.exen.models.StudentExam;
 import ge.exen.services.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +25,9 @@ public class ExamControllerForAdmin {
     @GetMapping(value = "/l")
     public String toAdminHomePage(HttpServletRequest req, HttpSession ses) {
         List<Exam> exams = examService.getAllExams();
-        List<Pair> list = new ArrayList<>();
+        List<ExamInfo> list = new ArrayList<>();
         for(int i = 0; i < exams.size(); i++){
-            list.add(new Pair(exams.get(i),examService.isCurrentlyLive(exams.get(i))));
+            list.add(new ExamInfo(exams.get(i),examService.isCurrentlyLive(exams.get(i))));
         }
         int pageNum = exams.size() / EXAMS_PER_PAGE + 1;
         req.setAttribute("list", list);
@@ -49,11 +51,14 @@ public class ExamControllerForAdmin {
     }
 
 
-    public class Pair {
+    public class ExamInfo {
         private Exam exam;
         private boolean isCurrentlyOn;
+        private List<ExamLecturers> lecturer;
+        private List<StudentExam> students;
+        
 
-        public Pair(Exam exam, boolean isCurrentlyOn) {
+        public ExamInfo(Exam exam, boolean isCurrentlyOn) {
             this.exam = exam;
             this.isCurrentlyOn = isCurrentlyOn;
         }
