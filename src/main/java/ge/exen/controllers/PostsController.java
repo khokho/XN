@@ -42,7 +42,7 @@ public class PostsController {
         return new RedirectView("/posts/"+postWriteDTO.getExamId());
     }
     @GetMapping("/posts/{examId}")
-    public String getPostsView(Model model, @PathVariable String examId){
+    public String getPostsView(Model model, @PathVariable Integer examId){
 //        UserRegisterDTO lekva = new UserRegisterDTO();
 //        lekva.setStatus("lector");
 //        lekva.setPassword("rabbit");
@@ -59,13 +59,13 @@ public class PostsController {
     }
 
     @ResponseBody
-    @GetMapping(value = "/getPosts", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PostJSON> getPosts(){
+    @GetMapping(value = "/getPosts/{examId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PostJSON> getPosts(@PathVariable Integer examId){
         List<Post> posts = postsService.getPostsByUserId();
         List<PostJSON> postJSONs = new ArrayList<>();
         for (Post post : posts) {
             PostJSON postJSON = new PostJSON();
-            //if(post.getExamId() != examId) continue;
+            if(post.getExamId() != examId) continue;
             postJSON.setText(post.getText());
             User lecturer = userDAO.getUser(post.getFromId());
             postJSON.setLecturer(lecturer.getName() + " " + lecturer.getLastName());
@@ -76,6 +76,5 @@ public class PostsController {
         }
         return postJSONs;
     }
-
 
 }

@@ -25,7 +25,7 @@ class Posts extends React.Component{
         super(props);
         this.state = {posts:[]}
 
-        fetch('http://'+window.location.host + "/getPosts")
+        fetch('http://'+window.location.host + "/getPosts/" + window.examId)
             .then(resp => {
                 console.log("lol")
                 console.log(resp)
@@ -47,14 +47,23 @@ class Posts extends React.Component{
 class NewPosts extends React.Component{
     render(){
         return (
-            <form action={"/newPost"} method={"post"}>
-                <label>
-                    Name:
-                    <input type="text" name="text" />
-                    <input type="hidden" name="examId" value={window.examId}/>
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
+
+            // <div className="card">
+            //     <div className="card-body">
+            //         <blockquote className="blockquote mb-0">
+                        <form action={"/newPost"} method={"post"} name={"text-box"}>
+                            <label>
+                                <input type="text" name="text" placeholder="Talk to me baby..."/>
+                                <input type="hidden" name="examId" value={window.examId}/>
+                            </label>
+
+                            <input type="submit" value="Submit" />
+                        </form>
+            //         </blockquote>
+            //     </div>
+            // </div>
+
+
         );
     }
 }
