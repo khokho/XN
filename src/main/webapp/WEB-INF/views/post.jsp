@@ -33,6 +33,9 @@
         .card-body p{
             white-space: pre;
         }
+        .form-group shadow-textarea {
+            color: #546e7a;
+        }
         input[type=text], select  {
             width: 130px;
             box-sizing: border-box;
@@ -73,10 +76,14 @@
             box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
         }
 
-        input[value=remove], select{
+        input[type=submit], select{
             position: absolute;
             right: 10px;
             top: 1.5px;
+        }
+
+        input[value=Submit], select{
+
         }
 
     </style>

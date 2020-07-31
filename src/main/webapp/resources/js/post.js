@@ -7,7 +7,6 @@ function Post(props){
             <div className="card">
                 <div className="card-header">
                     {props.post.exam} Announcement
-                    {props.post.postId}
                     <form action={"/removePost/"+window.examId} method={"post"}>
                         <input type={"submit"} value={"remove"}/>
                         <input type="hidden" name="postId" value={props.post.postId}/>
@@ -48,25 +47,49 @@ class Posts extends React.Component{
         ))
     }
 }
+//
+// class NewPosts extends React.Component{
+//     render(){
+//         return (
+//
+//             // <div className="card">
+//             //     <div className="card-body">
+//             //         <blockquote className="blockquote mb-0">
+//                         <form action={"/newPost"} method={"post"} name={"text-box"}>
+//                             <label>
+//                                 <input type="text" name="text" placeholder="Talk to me baby..."/>
+//                                 <input type="hidden" name="examId" value={window.examId}/>
+//                             </label>
+//
+//                             <input type="submit" value="Submit" />
+//                         </form>
+//             //         </blockquote>
+//             //     </div>
+//             // </div>
+//
+//
+//         );
+//     }
+// }
 
 class NewPosts extends React.Component{
     render(){
         return (
 
-            // <div className="card">
-            //     <div className="card-body">
-            //         <blockquote className="blockquote mb-0">
-                        <form action={"/newPost"} method={"post"} name={"text-box"}>
-                            <label>
-                                <input type="text" name="text" placeholder="Talk to me baby..."/>
-                                <input type="hidden" name="examId" value={window.examId}/>
-                            </label>
+            <div className="card">
+            <div className="card-header">
+                Announcement
+            </div>
+                <form action={"/newPost"} method={"post"} name={"text-box"}>
+                        <div className="form-group shadow-textarea">
+                        <textarea className="form-control z-depth-1" id="exampleFormControlTextarea6" rows="4"
+                                  placeholder="Write something here..." name={"text"}></textarea>
+                        </div>
+                        <input type="hidden" name="examId" value={window.examId}/>
+                    <input type="submit" value="Submit" />
+                </form>
 
-                            <input type="submit" value="Submit" />
-                        </form>
-            //         </blockquote>
-            //     </div>
-            // </div>
+            </div>
 
 
         );
