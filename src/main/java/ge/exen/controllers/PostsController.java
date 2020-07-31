@@ -2,6 +2,7 @@ package ge.exen.controllers;
 
 import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.UserDAO;
+import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
 import ge.exen.dto.UserLoginDTO;
 import ge.exen.dto.UserRegisterDTO;
@@ -72,9 +73,25 @@ public class PostsController {
             Exam exam = examDao.get(post.getExamId());
             postJSON.setExam(exam.getFullName());
             postJSON.setDate(post.getDate());
+            postJSON.setPostId(post.getPostId());
             postJSONs.add(postJSON);
         }
         return postJSONs;
     }
+
+    @PostMapping("/removePost/{examId}")
+    public RedirectView removePost(long postId, @PathVariable Integer examId){
+        postsService.removePost(postId);
+        return new RedirectView("/posts/"+examId);
+    }
+
+    /**
+     * uncommnet when there is time for writing its front
+    @PostMapping("/editPost/{examId}")
+    public RedirectView editPost(PostEditDTO postEditDTO, @PathVariable Integer examId){
+        postsService.editPost(postEditDTO);
+        return new RedirectView("/posts/"+examId);
+    }
+     */
 
 }

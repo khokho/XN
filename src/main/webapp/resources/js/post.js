@@ -7,6 +7,11 @@ function Post(props){
             <div className="card">
                 <div className="card-header">
                     {props.post.exam} Announcement
+                    {props.post.postId}
+                    <form action={"/removePost/"+window.examId} method={"post"}>
+                        <input type={"submit"} value={"remove"}/>
+                        <input type="hidden" name="postId" value={props.post.postId}/>
+                    </form>
                 </div>
                 <div className="card-body">
                     <blockquote className="blockquote mb-0">

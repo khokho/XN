@@ -7,7 +7,7 @@ public class PostJSON {
     String lecturer;
     Date date;
     String text;
-
+    long postId;
 
     public String getExam() {
         return exam;
@@ -39,5 +39,13 @@ public class PostJSON {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(long postId) {
+        this.postId = postId;
     }
 }

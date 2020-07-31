@@ -56,9 +56,9 @@ public class PostsService implements IPostsService{
     }
 
     public boolean editPost(PostEditDTO postEditDTO){
-        if (checkEditPrivileges(postEditDTO.getPostID())) {
+        if (checkEditPrivileges(postEditDTO.getPostId())) {
             postsDao.updatePostByID(postEditDTO);
-            return postEditDTO.getPostID() != -1;
+            return postEditDTO.getPostId() != -1;
         }
         return false;
     }
