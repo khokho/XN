@@ -1,3 +1,6 @@
+<%@ page import="ge.exen.controllers.ExamControllerForAdmin" %>
+<%@ page import="java.util.List" %>
+<%@ page import="ge.exen.models.Exam" %>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
@@ -5,7 +8,7 @@
 <html lang="en">
 <head>
 
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
     <title></title>
@@ -13,83 +16,40 @@
 </head>
 
 <body>
+<% List<ExamControllerForAdmin.Pair> exams = (List<ExamControllerForAdmin.Pair>) session.getAttribute("list");
 
+%>
 <div class="container" style="padding-top: 70px">
     <form id="form" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
 
         <div class="form-group row">
             <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
             <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
-            <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder="შეიყვანეთ გამოცდის სახელი">
-            </div>
-        </div>
+                <input type="text" name="fullName" class="form-control inputstl" id="fullName"
+                    <% String fullName = "შეიყვანეთ გამოცდის სახელი";
+                       if(request.getParameter("index")!=null) {
+                            fullName = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getFullName();
+                       }
+                         %>
+                       placeholder= <%= fullName%>>
 
+
+            </div>
+        </div>
         <div class="form-group row">
             <label for="startDate" class="col-sm-3">დაწყების დრო: </label>
             <div class="col-sm-4">
                 <div class="input-group">
                     <div class="input-group date" id="startDate" data-target-input="nearest">
-                        <input type="text" name="startDate" class="form-control datetimepicker-input inputstl" data-target="#datetimepicker1" placeholder="შეიყვანეთ დაწყების დრო"/>
+                        <input type="text" name="startDate" class="form-control datetimepicker-input inputstl"
+                               data-target="#datetimepicker1" <% String startDate = "შეიყვანეთ დაწყების დრო";
+                       if(request.getParameter("index")!=null) {
+                            startDate = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getStartDate();
+                           System.out.println(startDate);
+                       }
+                         %>
+                               placeholder= <%= startDate%>>
+
                         <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -108,8 +68,20 @@
         <div class="form-group row">
             <label for="duration_hr" class="col-sm-3 control-label">გამოცდის ხანგრძლივობა:</label>
             <div class="col-sm-4 input-group">
-                <input type="number" name="duration_hr" class="form-control inputstl" style="width: 60px; margin-right: 5px" min="0" max="99" id="duration_hr"  placeholder="სთ.">
-                <input type="number" name="duration_mn" class="form-control inputstl" id="duration_mn"  style="width: 60px" min="0" max="59" placeholder="წთ.">
+                <input type="number" name="duration_hr" class="form-control inputstl"
+                       style="width: 60px; margin-right: 5px" min="0" max="99" id="duration_hr" <% String duration = "სთ";
+                       if(request.getParameter("index")!=null) {
+                            duration = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getDurationInMinutes()/60+"სთ";
+                       }
+                         %>
+                       placeholder= <%= duration%>>
+                <input type="number" name="duration_mn" class="form-control inputstl" id="duration_mn"
+                       style="width: 60px" min="0" max="59" <% duration = "წთ";
+                       if(request.getParameter("index")!=null) {
+                            duration = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getDurationInMinutes()%60 + "წთ";
+                       }
+                         %>
+                       placeholder= <%= duration%>>
             </div>
         </div>
 
@@ -117,7 +89,13 @@
         <div class="form-group row">
             <label for="variants" class="col-sm-3 control-label">ვარიანტები:</label>
             <div class="col-sm-4 input-group">
-                <input type="number" name="variants" class="form-control inputstl" id="variants" min="0" max="99" placeholder="ვარიანტების რაოდენობა">
+                <input type="number" name="variants" class="form-control inputstl" id="variants" min="0" max="99"
+                <% String variant = "ვარიანტების რაოდენობა";
+                    if(request.getParameter("index")!=null) {
+                        variant = ""+exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getVariants();
+                    }
+                %>
+                placeholder= <%= variant%>>
             </div>
         </div>
 
