@@ -16,6 +16,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class ChatController {
 
@@ -33,12 +35,18 @@ public class ChatController {
 
     //TODO this is not final
     @GetMapping("/chat")
-    public String getChat() {
-        UserLoginDTO login = new UserLoginDTO();
+    public String getChat(HttpServletRequest req) {
+       /* UserLoginDTO login = new UserLoginDTO();
         login.setEmail("bgame19@freeuni.edu.ge");
         login.setPassword("gambit");
         userService.login(login);
-        return "mockchat";
+
+        return "mockchat";*/
+        req.setAttribute("sidebar", "adminSidebar.jsp");
+        req.setAttribute("content", "chatContent.jsp");
+        req.setAttribute("title", "ჩათი");
+        req.setAttribute("chat_id", 111);
+        return "template";
     }
 
     @MessageMapping("/chat-{chatId}")
