@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 public class ExamControllerForAdmin {
-    private int EXAMS_PER_PAGE = 10;
+    private int EXAMS_PER_PAGE = 1;
     @Autowired
     IExamService examService;
 
@@ -26,11 +26,16 @@ public class ExamControllerForAdmin {
     public String toAdminHomePage(HttpServletRequest req, HttpSession ses) {
         List<Exam> exams = examService.getAllExams();
         List<ExamInfo> list = new ArrayList<>();
-        for(int i = 0; i < exams.size(); i++){
+        int index = 1;
+        if(req.getParameter("pageNum") != null) index = Integer.parseInt(req.getParameter("pageNum"));
+        for(int i =(index-1)* EXAMS_PER_PAGE; i <index*EXAMS_PER_PAGE; i++){
+            if(i == exams.size()) break;
             list.add(new ExamInfo(exams.get(i),examService.isCurrentlyLive(exams.get(i))));
         }
-        int pageNum = exams.size() / EXAMS_PER_PAGE + 1;
+        ses.setAttribute("list",list);
+        int pageNum = exams.size() / EXAMS_PER_PAGE+1;
         req.setAttribute("list", list);
+        req.setAttribute("current",index);
         ses.setAttribute("list",list);
         req.setAttribute("pageNum", pageNum);
         req.setAttribute("content", "ExamsView.jsp");
@@ -38,15 +43,17 @@ public class ExamControllerForAdmin {
         return "template";
     }
 
-    @PostMapping(value = "/r")
-    public String rendeerExams(HttpServletRequest req) {
-        int startIndex = 0;
-        if (req.getAttribute("page") != null) startIndex = EXAMS_PER_PAGE * ((int) req.getAttribute("page") - 1);
-        List<Exam> list = new ArrayList<>();
-        for (int i = startIndex; i < startIndex + EXAMS_PER_PAGE; i++) {
-            list.add(examService.getAllCurrentExams().get(i));
+    @PostMapping(value = "/l")
+    public String rendeerExams(HttpServletRequest req,HttpSession ses) {
+        List<Exam> exams = examService.getAllExams();
+        List<ExamInfo> list = new ArrayList<>();
+        int index = Integer.parseInt(req.getParameter("pageNum"));
+        for(int i =(index-1)* EXAMS_PER_PAGE; i <index*EXAMS_PER_PAGE; i++){
+            list.add(new ExamInfo(exams.get(i),examService.isCurrentlyLive(exams.get(i))));
         }
-        // req.setAttribute("list",new ArrayList<Exam>().addAll(startIndex,));
+        ses.setAttribute("list",list);
+        req.setAttribute("current",index);
+       // req.setAttribute("current",index);
         return "";
     }
 

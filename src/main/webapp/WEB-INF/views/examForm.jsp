@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<% List<ExamControllerForAdmin.Pair> exams = (List<ExamControllerForAdmin.Pair>) session.getAttribute("list");
+<% List<ExamControllerForAdmin.ExamInfo> exams = (List<ExamControllerForAdmin.ExamInfo>) session.getAttribute("list");
 
 %>
 <div class="container" style="padding-top: 70px">
