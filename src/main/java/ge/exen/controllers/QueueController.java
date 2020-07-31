@@ -1,13 +1,14 @@
 package ge.exen.controllers;
 
-import ge.exen.models.User;
 import ge.exen.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -73,6 +74,22 @@ public class QueueController {
         return "yes";
     }
 
+    @ResponseBody
+    @GetMapping("/getqueuesize")
+    public Integer getVal(){
+        return 100;
+    }
+
+    @ResponseBody
+    @GetMapping("/getdisabled")
+    public Boolean disabled(){
+        return false;
+    }
+
+
+
+
+
     private QueueService getQueueByType(String queueType) {
         switch (queueType) {
             case BlankPaperQueueService.TYPE:
@@ -84,4 +101,6 @@ public class QueueController {
         }
         return null;
     }
+
+
 }

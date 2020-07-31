@@ -1,5 +1,6 @@
 package ge.exen.services;
 
+import ge.exen.listeners.IQueueListener;
 import ge.exen.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,14 +10,15 @@ import java.util.ArrayList;
 @Service
 public class QueueService implements IQueueService {
     private User firstInQueue;
-    private ArrayList<User> waitingStudents;
-    private ArrayList<QueueListener> listeners;
+    private final ArrayList<User> waitingStudents;
+    private final ArrayList<IQueueListener> listeners;
 
     public static final String ATTR_NAME = "Queue Type";
     public static final int POP = 0;
     public static final int PUSH = 1;
     public static final int CANCEL = 2;
     public static final int CLEAR = 3;
+
 
     @Autowired
     UserService userService;
@@ -122,14 +124,14 @@ public class QueueService implements IQueueService {
     }
 
     @Override
-    public void addListener(QueueListener listener) {
+    public void addListener(IQueueListener listener) {
         listeners.add(listener);
     }
 
     @Override
-    public void removeListener(QueueListener listener) {
+    public void removeListener(IQueueListener listener) {
         for (int i = 0; i < listeners.size(); i++) {
-            QueueListener current = listeners.get(i);
+            IQueueListener current = listeners.get(i);
             if (current.equals(listener)) {
                 listeners.remove(i);
                 break;
@@ -141,8 +143,12 @@ public class QueueService implements IQueueService {
      * notifys all listeners when queue is updated
      */
     private void notifyListeners(int type) {
-        for (QueueListener listener : listeners) {
-            listener.fireQueueUpdate(type);
+        for (IQueueListener listener : listeners) {
+            listener.fireQueueUpdate(getType());
         }
+    }
+
+    public String getType() {
+        return null;
     }
 }

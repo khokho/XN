@@ -4,5 +4,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CallExamerQueueService extends QueueService{
-    public static final String TYPE = "call examer";
+    public static final String TYPE = "call-examer";
+
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 }

@@ -2,8 +2,8 @@
 
 const e = React.createElement;
 
-//var ws = new SockJS("/ws");
-//var stomp = Stomp.over(ws);
+var ws = new SockJS("/ws");
+var stomp = Stomp.over(ws);
 
 
 
@@ -14,6 +14,12 @@ class EnqueueButton extends React.Component {
         this.queueName = props.queueName;
         this.buttonName = props.buttonName;
         this.handleClick = this.handleClick.bind(this);
+
+        stomp.connect({}, function () {
+            console.log("connected");
+            stomp.subscribe("/topic/chat-" + chatId, onmessage, {});
+        });
+
     }
 
     handleClick() {

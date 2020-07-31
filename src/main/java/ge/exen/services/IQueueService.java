@@ -1,5 +1,6 @@
 package ge.exen.services;
 
+import ge.exen.listeners.IQueueListener;
 import ge.exen.models.User;
 
 public interface IQueueService {
@@ -48,10 +49,10 @@ public interface IQueueService {
     /**
      * adds the QueueListener
      */
-    void addListener(QueueListener listener);
+    void addListener(IQueueListener listener);
 
     /**
      * removes the QueueListener
      */
-    void removeListener(QueueListener listener);
+    void removeListener(IQueueListener listener);
 }

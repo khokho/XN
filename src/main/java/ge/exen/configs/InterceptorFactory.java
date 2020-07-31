@@ -15,8 +15,7 @@ import java.security.Principal;
 
 import static ge.exen.configs.GlobalConstants.DEBUG;
 import static ge.exen.configs.SocketConstants.CHAT_REQUEST_PREFIX;
-import static ge.exen.services.ChatSecurityService.CHAT_TOPIC;
-import static ge.exen.services.ChatSecurityService.INVALID_TOPIC;
+import static ge.exen.configs.SocketConstants.QUEUE_PREFIX;
 
 /**
  * Simple class which produces new SecureInterceptors
@@ -27,6 +26,11 @@ public class InterceptorFactory {
 
     @Autowired
     private ChatSecurityService chatSecurityService;
+
+    public final static int INVALID_TOPIC = -1;
+    public final static int CHAT_TOPIC = 0;
+    public final static int QUEUE_TOPIC = 1;
+
 
     /**
      * Channel interceptor which helps with:
@@ -42,6 +46,11 @@ public class InterceptorFactory {
          */
         protected int getTopicType(@Nullable String destination) {
             if (destination == null) return INVALID_TOPIC;
+            System.out.println("Hi leet me in :" + destination);
+            System.out.println(QUEUE_PREFIX);
+            if (destination.startsWith(QUEUE_PREFIX)) {
+                return QUEUE_TOPIC;
+            }
             if (destination.startsWith(CHAT_REQUEST_PREFIX)) {
                 return CHAT_TOPIC;
             }
@@ -95,6 +104,8 @@ public class InterceptorFactory {
                         long chat_id = Long.parseLong(destination);
                         if (!chatSecurityService.validateUserChatSubscription(user_id, chat_id))
                             return null;
+                        break;
+                    case QUEUE_TOPIC:
                         break;
                 }
                 System.out.println("Allowing to connect");
