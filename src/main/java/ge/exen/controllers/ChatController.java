@@ -2,7 +2,6 @@ package ge.exen.controllers;
 
 import ge.exen.configs.GlobalConstants;
 import ge.exen.dto.SendMessageDTO;
-import ge.exen.dto.UserLoginDTO;
 import ge.exen.models.Message;
 import ge.exen.models.UserPrincipal;
 import ge.exen.services.ChatSecurityService;
@@ -40,13 +39,15 @@ public class ChatController {
     //TODO this is not final
     @GetMapping("/chat/{chatId}")
     public String getChat(@PathVariable long chatId, Model model) {
-        UserLoginDTO login = new UserLoginDTO();
-        login.setEmail("bgame19@freeuni.edu.ge");
-        login.setPassword("gambit");
-        userService.login(login);
+//        UserLoginDTO login = new UserLoginDTO();
+//        login.setEmail("bgame19@freeuni.edu.ge");
+//        login.setPassword("gambit");
+//        userService.login(login);
+
         model.addAttribute("chatId", chatId);
         model.addAttribute("userId", userService.getCurrentUser().getId());
-        return "chat";
+        model.addAttribute("content", "chat.jsp");
+        return "/template";
     }
 
     @ResponseBody
@@ -54,6 +55,7 @@ public class ChatController {
     public List<Message> getMessages(@PathVariable long chatId, int from, int to){
         return chatService.getMessages(chatId, from, to);
     }
+
 
     @MessageMapping("/chat-{chatId}")
     public void receiveMessage(@DestinationVariable long chatId,
@@ -75,7 +77,6 @@ public class ChatController {
         msg.setText(message);
         msg.setType("text");
         chatService.sendMessage(msg, userId);
-
     }
 
 }

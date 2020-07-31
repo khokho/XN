@@ -36,14 +36,7 @@
             </div>
         </div>
         <div class="type_msg mytextfield">
-            <div class="input_msg_write">
-                <input type="text" id="chat-id" style="display: none" value="${chat_id}">
-
-                <input type="text" class="write_msg" id="field" style="padding-right: 100px" placeholder="Type a message" />
-                <button class="msg_send_btn" type="button" style="margin-right: 40px" onclick="document.getElementById('image-input').click();"><i class="fa fa-camera" aria-hidden="true"></i></button>
-
-                <input id="image-input" type="file" name="name" style="display: none;">
-                <button class="msg_send_btn" type="button" onclick="sendMessage()" onkeypress="checkPress(e)"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            <div class="input_msg_write" id="MessageInput">
             </div>
         </div>
 
@@ -53,6 +46,7 @@
 <script>
     window.chatId = ${chatId}
     window.userId = ${userId}
+
 </script>
 <!-- Load React. -->
 <!-- Note: when deploying, replace "development.js" with "production.min.js". -->

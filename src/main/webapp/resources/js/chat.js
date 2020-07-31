@@ -5,27 +5,64 @@ const e = React.createElement;
 var ws = new SockJS("/ws");
 var stomp = Stomp.over(ws);
 
-class LikeButton extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { liked: false };
-    }
 
-    render() {
-        if (this.state.liked) {
-            return 'You liked this.';
-        }
 
-        return e(
-            'button',
-            { onClick: () => this.setState({ liked: true }) },
-            'Like'
-        );
-    }
-}
+//
+// class LikeButton extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = { liked: false , disabled:false};
+//         this.userId = 10
+//     }
+//
+//     disableme(){
+//         this.setState({disabled:true})
+//     }
+//
+//     render() {
+//         if (this.state.liked) {
+//             return 'You liked this.';
+//         }
+//
+//         return (
+//             <button onClick={function () {
+//                 fetch("http://localhost:8080/enqueue")
+//                     .then(resp => {
+//                         resp 'yes' 'no'
+//                     })
+//             }} name={this.name} disabled={true}/>
+//         )
+//
+//
+//
+//
+//         return
+//         <button onClick={(
+//             fetch('http://' + window.location.host + '/getMessages/' + props.chatId + '?from=0&to=10')
+//                 .then(resp => {
+//                     console.log("hiihhihihihihihih")
+//                     console.log(resp)
+//                     return resp.json()
+//                 })
+//                 .then((jsonData) => {
+//                     console.log(jsonData)
+//                     this.setState({messages: jsonData})
+//                 })
+//
+//
+//         )}/>
+//         e(
+//             'button',
+//             { onClick: () => this.setState({ liked: true }) },
+//             'Like'
+//         );
+//     }
+// }
 
-function Message(props){
-    if(props.me){
+
+
+function Message(props) {
+    if (props.me) {
         return (
             <div className={'outgoing_msg'}>
                 <div className={'sent_msg'}>
@@ -33,12 +70,13 @@ function Message(props){
                 </div>
             </div>
         );
-    }
-    else {
+    } else {
         return (
             <div className={'incoming_msg'}>
                 <div className={'received_msg'}>
-                    <p>{props.message}</p>
+                    <div className={'received_withd_msg'}>
+                        <p>{props.message}</p>
+                    </div>
                 </div>
             </div>
         );
@@ -47,26 +85,19 @@ function Message(props){
 
 
 class Chat extends React.Component {
-
-
-
     constructor(props) {
         super(props);
-        this.state = {messages:[]}
+        this.state = {messages: []}
         this.chatId = props.chatId
         this.me = props.userId
         console.log(this.chatId, this.me)
 
 
-        fetch('http://'+window.location.host+'/getMessages/' + props.chatId + '?from=0&to=10')
-            .then(resp => {
-                console.log("hiihhihihihihihih")
-                console.log(resp)
-                return resp.json()
-            })
+        fetch('http://' + window.location.host + '/getMessages/' + props.chatId + '?from=0&to=10')
+            .then(resp => {return resp.json()})
             .then((jsonData) => {
-                console.log(jsonData)
-                this.setState({messages:jsonData})
+                jsonData.reverse()
+                this.setState({messages: jsonData})
             })
 
         onmessage = (messageJSON) => {
@@ -74,8 +105,8 @@ class Chat extends React.Component {
             console.log(messageJSON)
             var message = JSON.parse(messageJSON.body)
             console.log("teeext:" + message.text)
-            this.setState((state)=>{
-                return {messages: [message].concat(state.messages)}
+            this.setState((state) => {
+                return {messages: state.messages.concat([message])}
             })
         }
         stomp.connect({}, function () {
@@ -84,18 +115,101 @@ class Chat extends React.Component {
         });
     }
 
-    render(){
-        return this.state.messages.map((message)=>(
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
+    renderMessages() {
+        console.log(this.state.messages)
+        return this.state.messages.map((message) => (
             <Message message={message.text} me={this.me === message.from}/>
         ))
+    }
+
+    render () {
+        return (
+            <div>
+                <div className="MessageContainer" >
+                    <div className="MessagesList">
+                        {this.renderMessages()}
+                    </div>
+                    <div style={{ float:"left", clear: "both" }}
+                         ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+class MessageInput extends React.Component{
+
+    constructor(props) {
+        super();
+        this.state={message:''}
+        this.messageChange = this.messageChange.bind(this);
+        this.handleButton = this.handleButton.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
+        this.keyHandler = this.keyHandler.bind(this);
+    }
+
+    sendMessage(){
+        stomp.send("/app/chat-"+window.chatId, {}, this.state.message)
+        this.setState({message: ''})
+    }
+
+    messageChange(event) {
+        this.setState({message: event.target.value});
+    }
+
+    keyHandler(event){
+        if(event.key === 'Enter'){
+            this.sendMessage()
+        }
+    }
+
+    handleButton(event) {
+        // alert('A name was submitted: ' + this.state.message);
+        sendMessage()
+    }
+
+    render() {
+        return (
+            <div>
+                <input type="text" className="write_msg" id="message" placeholder="Type a message"
+                       value={this.state.message}
+                       onChange={this.messageChange} onKeyDown={this.keyHandler}/>
+
+                {/*<button className="msg_send_btn" type="button" style="margin-right: 40px"*/}
+                {/*        onClick="document.getElementById('image-input').click();">*/}
+                {/*    <i className="fa fa-camera" aria-hidden="true"/>*/}
+                {/*</button>*/}
+                {/*<input id="image-input" type="file" name="name" style="display: none;"/>*/}
+
+                <button className="msg_send_btn" type="button" onClick={this.handleButton}>
+                    <i className="fa fa-paper-plane-o" aria-hidden="true"/>
+                </button>
+            </div>
+        );
     }
 }
 
 
+const chatContainer = document.querySelector('#messages');
+const inputContatiner = document.querySelector('#MessageInput');
 
+// ReactDOM.render(<LikeButton/>, chatContainer);
+// ReactDOM.render(<MessageInput chatId={window.chatId} userId={window.userId}/>, inputContatiner);
 
-const domContainer = document.querySelector('#messages');
-
-ReactDOM.render(<Chat chatId={window.chatId} userId={window.userId}/>, domContainer);
+ReactDOM.render(<Chat chatId={window.chatId} userId={window.userId}/>, chatContainer);
+ReactDOM.render(<MessageInput/>, inputContatiner);
 
 
