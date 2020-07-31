@@ -18,7 +18,7 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/exen"/>
         <property name="username" value="root"/>
-        <property name="password" value="dfrews"/>
+        <property name="password" value="paroli"/>
         <property name="initialSize" value="3"/>
     </bean>
 
@@ -27,6 +27,7 @@
         <property name="dataSource" ref="db"/>
     </bean>
 
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>

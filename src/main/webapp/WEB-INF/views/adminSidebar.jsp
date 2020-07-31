@@ -10,6 +10,7 @@
         <a href="#" class="list-group-item list-group-item-action bg-light">სტუდენტები</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">ლექტორები</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">შეკითხვები</a>
+        <a href="/queues-admin" class="list-group-item list-group-item-action bg-light">რიგები</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">chat: ლეკვა</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>

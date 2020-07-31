@@ -1,5 +1,8 @@
 package ge.exen.services;
 
-public class CallExamerQueueService {
-    public static final String TYPE = "Call Examer Queue";
+import org.springframework.stereotype.Component;
+
+@Component
+public class CallExamerQueueService extends QueueService{
+    public static final String TYPE = "call examer";
 }

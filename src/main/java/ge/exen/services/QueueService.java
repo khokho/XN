@@ -12,6 +12,7 @@ public class QueueService implements IQueueService {
     private ArrayList<User> waitingStudents;
     private ArrayList<QueueListener> listeners;
 
+    public static final String ATTR_NAME = "Queue Type";
     public static final int POP = 0;
     public static final int PUSH = 1;
     public static final int CANCEL = 2;
@@ -38,9 +39,13 @@ public class QueueService implements IQueueService {
     }
 
     @Override
-    public int getAnticipants() {
+    public synchronized int getAnticipants() {
         int aheadOfCurrent = 0;
         User currentStudent = userService.getCurrentUser();
+
+        if(!currentStudent.getStatus().equals("student"))
+            return waitingStudents.size();
+
         for (User student : waitingStudents) {
             if (student.getId() == currentStudent.getId()) break;
             aheadOfCurrent++;
@@ -58,7 +63,7 @@ public class QueueService implements IQueueService {
     }
 
     @Override
-    public boolean checkQueueStatus() {
+    public synchronized boolean checkQueueStatus() {
         User currentStudent = userService.getCurrentUser();
         return firstInQueue != null && currentStudent.getId() == firstInQueue.getId();
     }
@@ -69,7 +74,7 @@ public class QueueService implements IQueueService {
 
 
     @Override
-    public void cancelWaiting() {
+    public synchronized void cancelWaiting() {
         User currentStudent = userService.getCurrentUser();
         for (int i = 0; i < waitingStudents.size(); i++) {
             User student = waitingStudents.get(i);
@@ -94,7 +99,7 @@ public class QueueService implements IQueueService {
 
 
     @Override
-    public User dequeue() {
+    public synchronized User dequeue() {
         if (waitingStudents.size() != 0) {
             firstInQueue = waitingStudents.get(0);
             waitingStudents.remove(0);
