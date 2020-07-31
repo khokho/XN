@@ -42,10 +42,20 @@ public interface IExamService {
      * @return all student live exams
      */
     List<Exam> getAllPastExams();
+    /**
+     * Gets all  student exams
+     * @return all student exams
+     */
+    List<Exam> getAllExams();
 
     /**
      * Gets all exams related to lecturer, or all the exam for admin
      * @return list of exams
      */
     List<Exam> getExamsForHighStatus();
+    /**
+     * @param  exam exam which is checked
+     * @return  true if exam is currently on, false otherwise
+     */
+    public boolean isCurrentlyLive(Exam exam);
 }

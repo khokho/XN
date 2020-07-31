@@ -1,8 +1,9 @@
+<%--@elvariable id="loggedin" type="ge.exen.configuration.InterceptConfig"--%>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<body lang="en">
 
 <head>
     <jsp:include page="includes.jsp" />
@@ -28,35 +29,52 @@
     width: 100%;
     z-index: 1;
     position: fixed !important;
-    top: inherit;
-    left: inherit;
+    top: 0;
+    left: 0;
     height: fit-content;
   }
 </style>
-<body>
 
-<div class="full-height d-flex" id="wrapper">
+  <div class="full-height d-flex" id="wrapper">
 
-  <!-- Sidebar -->
-  <jsp:include page="${sidebar}"></jsp:include>
-
-
-  <div class="full-width" id="page-content-wrapper">
-    <!-- Navbar -->
-    <nav class="my-fixed-top navbar navbar-light bg-light border-bottom" >
-
-        <div><b>${title}</b></div>
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <jsp:include page="${sidebar}"/>
+    </div>
 
 
-      <a class="nav-link navbar-nav" style="margin-right: 190px" href="#">გასვლა</a>
 
-    </nav>
-    <div style="height: 60px"></div>
-    <!-- Page Content-->
-    <jsp:include page="${content}"></jsp:include>
+    <div class="full-width" id="page-content-wrapper">
+      <!-- Navbar -->
+      <nav class="my-fixed-top navbar navbar-light bg-light border-bottom" id="nav" >
 
-</div>
+          <div><b>${title}</b></div>
 
-</body>
 
-</html>
+        <a class="nav-link navbar-nav" id="out" style="margin-right: 190px" href="${pageContext.request.contextPath}/logout">გასვლა</a>
+
+      </nav>
+      <div id="content" style="top: 0px">
+        <jsp:include page="${content}"/>
+      </div>
+      <!-- Page Content-->
+    </div>
+
+  </div>
+
+<script>
+  hide();
+  setMargin();
+  function setMargin(){
+    document.getElementById("content").style.marginLeft=(document.getElementById("sidebar-wrapper").offsetWidth + 15).toString() + 'px';
+    document.getElementById("content").style.marginTop=(document.getElementById("nav").offsetHeight + 10).toString() + 'px';
+    document.getElementById("nav").style.marginLeft=(document.getElementById("sidebar-wrapper").offsetWidth).toString() + 'px';
+
+  }
+
+  function hide() {
+    if(${loggedin == 0}) document.getElementById("out").hidden=true;
+  }
+</script>
+
+
