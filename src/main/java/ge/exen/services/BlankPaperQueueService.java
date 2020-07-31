@@ -18,6 +18,7 @@ public class BlankPaperQueueService extends QueueService{
         //super.enqueue();
         HashMap<String, Boolean> buttons = (HashMap<String, Boolean>) session.getAttribute(BTNS_ATTR_NAME);
         buttons.put(TYPE, true);
+        session.setAttribute(BTNS_ATTR_NAME, buttons);
     }
 
     @Override
@@ -25,5 +26,6 @@ public class BlankPaperQueueService extends QueueService{
         //super.cancelWaiting();
         HashMap<String, Boolean> buttons = (HashMap<String, Boolean>) session.getAttribute(BTNS_ATTR_NAME);
         buttons.put(TYPE, false);
+        session.setAttribute(BTNS_ATTR_NAME, buttons);
     }
 }

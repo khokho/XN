@@ -60,7 +60,7 @@ class StudentButtons extends React.Component {
 
     render() {
         return (
-            <div>
+            <div >
                 <button disabled={this.state.disabled} onClick={this.handleClickEnqueue}> რიგში ჩადგომა </button>
                 <p>რიგში არის {this.state.count} სტუდენტი</p>
                 <button disabled={!this.state.disabled} onClick={this.handleClickCancel}> მოთხოვნის გაუქმება </button>
