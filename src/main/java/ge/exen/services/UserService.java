@@ -22,6 +22,9 @@ public class  UserService implements IUserService {
     @Autowired
     private HttpSession httpSession;
 
+    @Autowired
+    private QueueService queueService;
+
     private final static String userAttrName = "user";
 
     @Override
@@ -52,6 +55,7 @@ public class  UserService implements IUserService {
         if(user == null)return false;
         if(!checkPassword(user, loginDTO.getPassword())) return false;
         httpSession.setAttribute(userAttrName, user);
+        queueService.create();
         return true;
     }
 

@@ -5,7 +5,9 @@ import ge.exen.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Service
 public class QueueService implements IQueueService {
@@ -14,6 +16,7 @@ public class QueueService implements IQueueService {
     private final ArrayList<IQueueListener> listeners;
 
     public static final String ATTR_NAME = "Queue Type";
+    public static final String BTNS_ATTR_NAME = "Buttons";
     public static final int POP = 0;
     public static final int PUSH = 1;
     public static final int CANCEL = 2;
@@ -23,9 +26,27 @@ public class QueueService implements IQueueService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    HttpSession session;
+
+
     public QueueService() {
         waitingStudents = new ArrayList<>();
         listeners = new ArrayList<>();
+    }
+
+    public void create() {
+        HashMap<String, Boolean> buttons = new HashMap<>();
+        buttons.put(BlankPaperQueueService.ATTR_NAME,  false);
+        buttons.put(CallExamerQueueService.ATTR_NAME,  false);
+        buttons.put(WCQueueService.ATTR_NAME,  false);
+
+        session.setAttribute(BTNS_ATTR_NAME, buttons);
+    }
+
+    public Boolean getDisabledState(String queueType) {
+        HashMap<String, Boolean> buttons = (HashMap<String, Boolean>) session.getAttribute(BTNS_ATTR_NAME);
+        return buttons.get(queueType);
     }
 
     @Override
@@ -45,7 +66,7 @@ public class QueueService implements IQueueService {
         int aheadOfCurrent = 0;
         User currentStudent = userService.getCurrentUser();
 
-        if(!currentStudent.getStatus().equals("student"))
+        if (!currentStudent.getStatus().equals("student"))
             return waitingStudents.size();
 
         for (User student : waitingStudents) {

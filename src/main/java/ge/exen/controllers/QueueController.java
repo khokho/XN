@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @Controller
 public class QueueController {
+
     @Autowired
     UserService userService;
 
@@ -24,6 +26,7 @@ public class QueueController {
 
     @Autowired
     WCQueueService wcQueue;
+
 
     @GetMapping(value = "/queues-admin")
     public String getQueuesAdmin(HttpSession session){
@@ -47,7 +50,7 @@ public class QueueController {
     public String enqueueStudent(HttpServletRequest req, @PathVariable String queueName){
         //getQueueByType(queueName).enqueue();
         System.out.println("vitom daemata");
-        return "yes";
+        return "{res:yes}";
     }
 
     @ResponseBody
@@ -55,7 +58,7 @@ public class QueueController {
     public String cancelWaiting(HttpServletRequest req, @PathVariable String queueName){
         //getQueueByType(queueName).cancelWaiting();
         System.out.println("vitom daacancela");
-        return "yes";
+        return "{res:yes}";
     }
 
     @ResponseBody
@@ -63,7 +66,7 @@ public class QueueController {
     public String dequeue(@PathVariable String queueName){
         //getQueueByType(queueName).dequeue();
         System.out.println("vitom amoigo");
-        return "yes";
+        return "{res:yes}";
     }
 
     @ResponseBody
@@ -71,7 +74,23 @@ public class QueueController {
     public String clearQueue(@PathVariable String queueName){
         //getQueueByType(queueName).clearQueue();
         System.out.println("vitom gaasuptava");
-        return "yes";
+        return "{res:yes}";
+    }
+    @ResponseBody
+    @RequestMapping(value = "/get-disabled/{queueName}")
+    public Boolean getDisabledState(@PathVariable String queueName){
+        //Boolean status = getQueueByType(queueName).getDisabledState(queueName);
+        System.out.println("state aris");
+        return false;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/get-anticipants/{queueName}}")
+    public Integer getAnticipants(@PathVariable String queueName){
+        //Integer cnt = getQueueByType(queueName).getAnticipants(queueName);
+        //return cnt;
+        System.out.println("raodenoba aris");
+        return 34;
     }
 
     @ResponseBody
@@ -85,10 +104,6 @@ public class QueueController {
     public Boolean disabled(){
         return false;
     }
-
-
-
-
 
     private QueueService getQueueByType(String queueType) {
         switch (queueType) {

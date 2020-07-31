@@ -16,31 +16,25 @@
 <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <label class="list-group-item list-group-item-action bg-light">შავი ფურცლის მოთხოვნა </label>
-        <span class="badge badge-primary badge-pill">14</span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='paper-dequeue'></div>
-        <div id ='paper-clear'></div>
+        <div id ='paper-admin'></div>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <label class="list-group-item list-group-item-action bg-light">დამკვირვებლის დაძახება</label>
-        <span class="badge badge-primary badge-pill">3</span>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='examer-dequeue'></div>
-        <div id ='examer-clear'></div>
+        <div id ='examer-admin'></div>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <label class="list-group-item list-group-item-action bg-light">WC</label>
-        <span class="badge badge-primary badge-pill">2</span>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='wc-dequeue'></div>
-        <div id ='wc-clear'></div>
+        <div id ='wc-admin'></div>
     </li>
 </ul>
 

@@ -21,31 +21,25 @@
 <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <label class="list-group-item list-group-item-action bg-light">შავი ფურცლის მოთხოვნა </label>
-        <span class="badge badge-primary badge-pill">14</span>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='paper-enqueue'></div>
-        <div id ='paper-cancel'></div>
+        <div id ='paper-student'></div>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <label class="list-group-item list-group-item-action bg-light">დამკვირვებლის დაძახება</label>
-        <span class="badge badge-primary badge-pill">3</span>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='examer-enqueue'></div>
-        <div id ='examer-cancel'></div>
+        <div id ='examer-student'></div>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <label class="list-group-item list-group-item-action bg-light">WC</label>
-        <span class="badge badge-primary badge-pill">2</span>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='wc-enqueue'></div>
-        <div id ='wc-cancel'></div>
+        <div id ='wc-student'></div>
     </li>
 </ul>
 
