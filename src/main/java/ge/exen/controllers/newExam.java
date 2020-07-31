@@ -3,6 +3,7 @@ package ge.exen.controllers;
 
 import ge.exen.dto.ExamDTO;
 import ge.exen.services.ExamService;
+import ge.exen.services.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class newExam {
         return multipartResolver;
     }
     @Autowired
-    ExamService examFactory;
+    private IExamService examFactory;
 
     @GetMapping("/admin/newExam")
     public String getInfo(HttpSession session) {
@@ -38,23 +39,20 @@ public class newExam {
     }
 
 
-    @PostMapping(value = "/newExam")
-    public String retreviveForm(@RequestParam Integer variants,
-                                @RequestParam String fullName,
-                                @RequestParam String startDate,
-                                @RequestParam Integer duration_hr,
-                                @RequestParam Integer duration_mn,
+    @PostMapping(value = "/admin/newExam")
+    public String retreviveForm(ExamDTO values,
                                 MultipartHttpServletRequest req) {
         List<MultipartFile> rawFiles = new ArrayList<>();
         Map<String, MultipartFile> files = req.getFileMap();
-        ExamDTO values = new ExamDTO();
+/*        ExamDTO values = new ExamDTO();
 
         values.setVariants(""+variants);
         values.setStartDate(startDate);
         values.setFullName(fullName);
         values.setHours(duration_hr.toString());
-        values.setMinutes(duration_mn.toString());
+        values.setMinutes(duration_mn.toString());*/
 
+        System.out.println("111");
         for (int i = 0; i < values.getVariants(); i++) {
             rawFiles.add(null);
         }

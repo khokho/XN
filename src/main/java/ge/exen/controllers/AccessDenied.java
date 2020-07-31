@@ -8,6 +8,6 @@ public class AccessDenied {
 
     @GetMapping(value = "/accessDenied")
     public String deny(){
-        return "insuffpriv.jsp";
+        return "insuffPriv";
     }
 }

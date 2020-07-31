@@ -2,6 +2,8 @@ package ge.exen.controllers;
 
 import ge.exen.models.Upload;
 import ge.exen.models.User;
+import ge.exen.services.IExamService;
+import ge.exen.services.IUserService;
 import ge.exen.services.UserUploadFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.ejb.SessionContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Controller
 public class UserUploader {
@@ -26,8 +30,13 @@ public class UserUploader {
     }
 
     @Autowired
-    UserUploadFactory factory;
+    private UserUploadFactory factory;
 
+    @Autowired
+    private IUserService users;
+
+    @Autowired
+    private IExamService exams;
 
     /**
      * @param file    uploaded file
@@ -35,13 +44,15 @@ public class UserUploader {
      * @param session session
      * @return saves uploaded file and returns url
      */
+
     @PostMapping("/upload")
-    public String handleUpload(@RequestParam("file") MultipartFile file, @RequestParam("var_id") int var_id, HttpSession session) {
+    public boolean handleUpload(@RequestParam("file") MultipartFile file, @RequestParam("var_id") int var_id, HttpSession session) {
         Upload upload = new Upload();
-        upload.setFromId((Integer) session.getAttribute("from_id"));
-        upload.setExamId((Integer) session.getAttribute("exam_id"));
-        upload.setVarId(var_id);
+        upload.setFromId(users.getCurrentUser().getId());
+        upload.setExamId(exams.getExamForCurrentUser().getExamId());
+        upload.setVarId(exams.getExamForCurrentUser().getVariant());
+        upload.setTime(new Timestamp(new Date().getTime()));
         int result = factory.Process(file, upload);
-        return "/upload";
+        return true;
     }
 }
