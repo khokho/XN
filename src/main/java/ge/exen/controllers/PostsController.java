@@ -3,7 +3,6 @@ package ge.exen.controllers;
 import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.UserDAO;
 import ge.exen.dto.PostWriteDTO;
-import ge.exen.dto.UserLoginDTO;
 import ge.exen.models.Exam;
 import ge.exen.models.Post;
 import ge.exen.models.PostJSON;
@@ -56,8 +55,9 @@ public class PostsController {
 //        lekvaLogin.setEmail("g.lekveishvili@freeuni.edu.ge");
 //        userService.login(lekvaLogin);
         model.addAttribute("examId", examId);
-        model.addAttribute("status", userService.getCurrentUser().getId());
-        return "post";
+        model.addAttribute("status", userService.getCurrentUser().getStatus());
+        model.addAttribute("content", "post.jsp");
+        return "/template";
     }
 
     @ResponseBody
