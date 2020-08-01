@@ -3,7 +3,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/simple-sidebar.css">
 
 <div class="d-flex" id="wrapper">
-    <div class="my-sidebar bg-light border-right" id="sidebar-wrapper">
+    <div class="my-sidebar bg-light border-right" id="sidebar-wrapper" style="z-index: 10000">
         <div class="sidebar-heading">Start Bootstrap </div>
         <div class="list-group list-group-flush">
             <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>

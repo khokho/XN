@@ -41,13 +41,17 @@ public class SQLExamMaterialDao extends AbstractSQLDAO implements ExamMaterialDa
     }
 
     @Override
-    public ExamMaterial get(long id, int var) {
-        String query = "SELECT *  FROM exam_materials WHERE exam_id =" +  id + " AND var = " + var +";";
+    public ExamMaterial get(long id, long var) {
+        String query = "SELECT *  FROM exam_materials WHERE exam_id = ? AND var = ?;";
 
         try {
-            Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery(query);
-            if(!res.next()) {return null;}
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setLong(1, id);
+            stat.setLong(2, var);
+            ResultSet res = stat.executeQuery();
+            if (!res.next()) {
+                return null;
+            }
             ExamMaterial ret = new ExamMaterial();
             ret.setVar(res.getInt("var"));
             ret.setExamId(res.getInt("exam_id"));
@@ -61,4 +65,33 @@ public class SQLExamMaterialDao extends AbstractSQLDAO implements ExamMaterialDa
 
     }
 
+    @Override
+    public void update(ExamMaterial mat) {
+        String upd = "UPDATE exam_materials SET material_link = ? WHERE exam_id = ? AND var = ?";
+
+        try {
+            PreparedStatement stat = conn.prepareStatement(upd);
+            stat.setString(1, mat.getMaterialLink());
+            stat.setLong(2, mat.getExamId());
+            stat.setLong(3, mat.getVar());
+            stat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    @Override
+    public void remove(long id, long newVar) {
+        String upd = "DELETE FROM exam_materials WHERE exam_id = ? AND var > ?";
+
+        try {
+            PreparedStatement stat = conn.prepareStatement(upd);
+            stat.setLong(1, id);
+            stat.setLong(2, newVar);
+            stat.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
 }

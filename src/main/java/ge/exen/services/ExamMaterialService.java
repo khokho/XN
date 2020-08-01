@@ -1,5 +1,6 @@
 package ge.exen.services;
 
+import ge.exen.DAO.ExamMaterialDao;
 import ge.exen.DAO.SQLExamMaterialDao;
 import ge.exen.models.ExamMaterial;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +15,25 @@ public class ExamMaterialService implements IExamMaterial {
     @Autowired
     IFileWorker fileWorker;
     @Autowired
-    SQLExamMaterialDao materials;
+    ExamMaterialDao materials;
 
-    public static final String directory = "./files/exam%id%/exam_materials";
 
-    public int storeFiles(HashMap<Integer, MultipartFile> fileMap, Long id){
-        int faultyFiles = 0;
-        String dir = directory.replace("%id%", id.toString());
-
-        for (Map.Entry<Integer, MultipartFile> ent : fileMap.entrySet()){
-
-            String path = fileWorker.storeMultiPartFile(dir, ent.getValue(), null);
-            if(path == null){
-                faultyFiles ++;
-                continue;
-            }
-            ExamMaterial newMat = new ExamMaterial(path, ent.getKey(), id);
-            materials.create(newMat);
-        }
-        return faultyFiles;
+    @Override
+    public void setMaterial(long var, long id, String name) {
+        ExamMaterial mat = new ExamMaterial();
+        mat.setExamId(id);
+        mat.setVar(var);
+        mat.setMaterialLink(name);
+        if(getMaterial(var, id) != null) materials.update(mat);
+        else materials.create(mat);
     }
+
+    @Override
+    public String getMaterial(long var, long examID) {
+        ExamMaterial mat = materials.get(examID, var);
+        if(mat == null) return null;
+        return mat.getMaterialLink();
+    }
+
+
 }

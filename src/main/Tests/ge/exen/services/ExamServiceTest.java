@@ -100,7 +100,6 @@ public class ExamServiceTest {
         assertNotNull(got);
         assertEquals(2, got.getVar());
         assertEquals(id, got.getExamId());
-        assertEquals(ExamMaterialService.directory.replace("%id%", "" + id) + "/foo.txt", got.getMaterialLink());
     }
 
     @Test

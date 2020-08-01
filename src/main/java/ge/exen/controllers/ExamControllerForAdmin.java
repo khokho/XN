@@ -22,7 +22,7 @@ public class ExamControllerForAdmin {
     @Autowired
     IExamService examService;
 
-    @GetMapping(value = "/l")
+    @GetMapping(value = "/admin/l")
     public String toAdminHomePage(HttpServletRequest req, HttpSession ses) {
         List<Exam> exams = examService.getAllExams();
         List<ExamInfo> list = new ArrayList<>();
@@ -43,8 +43,8 @@ public class ExamControllerForAdmin {
         return "template";
     }
 
-    @PostMapping(value = "/l")
-    public String rendeerExams(HttpServletRequest req,HttpSession ses) {
+    @PostMapping(value = "/admin/l")
+    public String renderExams(HttpServletRequest req,HttpSession ses) {
         List<Exam> exams = examService.getAllExams();
         List<ExamInfo> list = new ArrayList<>();
         int index = Integer.parseInt(req.getParameter("pageNum"));

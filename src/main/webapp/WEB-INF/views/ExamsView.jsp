@@ -92,13 +92,12 @@
 </div>
 <div id="bottomboy" class="d-block card-footer fixed-bottom row"
      style="opacity: 100%;background-color: white!important;">
-    <button onclick = "window.location.href='/l?pageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'" class="mr-2 btn btn-link btn-sm row">წინა გვერდი</button>
-    <form action="/l">
+    <button onclick = "window.location.href='/l?pageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'" class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></button>
+
         <input type="number" min="1" max="<%=request.getAttribute("pageNum")%>" name="pageNum"
         value="<%=request.getAttribute("current")%>">
 
-    </form>
-    <button onclick= "window.location.href='/l?pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'" class="mr-2 btn btn-link btn-sm row">შემდეგი გვერდი</button>
+    <button onclick= "window.location.href='/l?pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'" class="mr-2 btn btn-link btn-sm row" style="margin-left: 3px; margin-right: 3px;"><i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i></button>
     <button onclick= "window.location.href='/admin/newExam'" class="btn btn-primary row">გამოცდის შექმნა</button>
 </div>
 <script>
