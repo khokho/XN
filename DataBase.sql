@@ -7,7 +7,7 @@ create table IF NOT EXISTS exam
 (
     exam_id    int auto_increment
         primary key,
-    start_time timestamp   not null
+    start_time timestamp   not null,
     duration   int         not null,
     var_num    int         not null,
     exam_subj  varchar(60) not null
@@ -142,6 +142,4 @@ insert into posts (exam_id, from_id, text, date)
            VALUES (1, 1, 'post text', STR_TO_DATE('2000-06-14 10:00', '%Y-%m-%d %H:%i'));
 insert into student_exam (student_id, exam_id, variant, comp_index)
            VALUES (1, 1, 1, 20);
-insert into upload (from_id, exam_id, var_id, file_link)
-           VALUES (1, 1, 1, './test.txt');
 

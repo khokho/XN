@@ -64,34 +64,10 @@ class Posts extends React.Component{
 
     render(){
         return this.state.posts.map((post)=>(
-            <Post key={post.postId} post={post}/>
+            <Post key={post} post={post}/>
         ))
     }
 }
-//
-// class NewPosts extends React.Component{
-//     render(){
-//         return (
-//
-//             // <div className="card">
-//             //     <div className="card-body">
-//             //         <blockquote className="blockquote mb-0">
-//                         <form action={"/newPost"} method={"post"} name={"text-box"}>
-//                             <label>
-//                                 <input type="text" name="text" placeholder="Talk to me baby..."/>
-//                                 <input type="hidden" name="examId" value={window.examId}/>
-//                             </label>
-//
-//                             <input type="submit" value="Submit" />
-//                         </form>
-//             //         </blockquote>
-//             //     </div>
-//             // </div>
-//
-//
-//         );
-//     }
-// }
 
 class NewPosts extends React.Component{
     render(){
@@ -107,13 +83,10 @@ class NewPosts extends React.Component{
                 <div className={"my-area"}>
 
                         <div className="form-group shadow-textarea">
-                        <textarea className="form-control z-depth-1" id="exampleFormControlTextarea6" rows="4"
+                        <textarea className="h-100 form-control z-depth-1" id="newPostForm" rows="4"
                                   placeholder="Write something here..." name={"text"}/>
                         </div>
                         <input type="hidden" name="examId" value={window.examId}/>
-
-
-
                 </div>
             </div>
             </form>
