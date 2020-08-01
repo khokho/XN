@@ -5,6 +5,7 @@ import ge.exen.models.Exam;
 import ge.exen.models.StudentExam;
 import ge.exen.models.Upload;
 import ge.exen.services.IExamMaterial;
+import ge.exen.models.Upload;
 import ge.exen.services.IExamService;
 import ge.exen.services.IUserService;
 import ge.exen.services.UserUploadFactory;
@@ -42,10 +43,9 @@ public class examHub {
         req.setAttribute("content", "examHub.jsp");
         req.setAttribute("title", "გამოცდა");
         StudentExam exam = exams.getExamForCurrentUser();
-        System.out.println(uploadDAO.getForUser(exam).size());
         String link = material.getMaterial(exam.getVariant(), exam.getExamId());
-        System.out.println(link);
         req.setAttribute("statement", link);
+
         req.setAttribute("links", uploadDAO.getForUser(exams.getExamForCurrentUser()));
         return "template";
     }

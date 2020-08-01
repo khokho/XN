@@ -45,7 +45,6 @@ public class Login {
     @PostMapping(value = "/login")
     public String login(UserLoginDTO dto,
                         HttpServletRequest req,
-                        HttpServletResponse resp,
                         Model model){
         if(!userService.login(dto)){
             req.setAttribute("bad_attempt", "true");
