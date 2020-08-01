@@ -80,15 +80,19 @@ class NewPosts extends React.Component{
             <div className="card-header">
                 Announcement
             </div>
+                <div className={"my-area"}>
+
                 <form action={"/newPost"} method={"post"} name={"text-box"}>
+
                         <div className="form-group shadow-textarea">
                         <textarea className="form-control z-depth-1" id="exampleFormControlTextarea6" rows="4"
                                   placeholder="Write something here..." name={"text"}></textarea>
                         </div>
                         <input type="hidden" name="examId" value={window.examId}/>
                     <input type="submit" value="Submit" />
-                </form>
 
+                </form>
+                </div>
             </div>
 
 

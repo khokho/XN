@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +27,7 @@ public class PostsService implements IPostsService{
 
     @Autowired
     private ExamService examService;
+
 
     public Post writeNewPost(final PostWriteDTO postDTO){
         User user = userService.getCurrentUser();
@@ -52,6 +54,10 @@ public class PostsService implements IPostsService{
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         post.setDate(timestamp);
         postsDao.create(post);
+
+        for (IPostListener listener: postListeners) {
+            listener.postReceived(post);
+        }
         return post;
     }
 
@@ -105,5 +111,15 @@ public class PostsService implements IPostsService{
         return postsDao.getAllByExamId(currExam.getID());
          **/
         return null;
+    }
+
+    private final List<IPostListener> postListeners = new ArrayList<>();
+
+    public void addPostListener(IPostListener postListener){
+        postListeners.add(postListener);
+    }
+
+    public void removePostListener(IPostListener postListener){
+        postListeners.remove(postListener);
     }
 }
