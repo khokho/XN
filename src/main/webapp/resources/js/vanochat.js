@@ -1,7 +1,3 @@
-/**
- * Check for pressed key
- */
-func
 
 /**
  * Possibly paste feature, but now nothing.
@@ -99,16 +95,7 @@ function initWebSocket() {
 function sendMessage() {
     ws.send(document.getElementById("field").value);
     document.getElementById("field").value = "";
-    if(elem.value !== ""){
-        let xhr = new XMLHttpRequest();
-        let fd = new FormData();
 
-        fd.append("image", elem.files[0]);
-        fd.append("chat_id", document.getElementById("chat-id").value);
-        xhr.open("POST", "/sendImage", true);
-        xhr.send(fd);
-        elem.value = "";
-    }
 }
 
 

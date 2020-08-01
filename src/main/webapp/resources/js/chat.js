@@ -122,7 +122,7 @@ class MessageInput extends React.Component{
 
     handleButton(event) {
         // alert('A name was submitted: ' + this.state.message);
-        sendMessage()
+        this.sendMessage()
     }
 
     render() {
@@ -138,7 +138,7 @@ class MessageInput extends React.Component{
                 {/*</button>*/}
                 {/*<input id="image-input" type="file" name="name" style="display: none;"/>*/}
 
-                <button className="msg_send_btn" type="button" onClick={this.handleButton}>
+                <button id="sendButton" className="msg_send_btn" type="button" onClick={this.handleButton}>
                     <i className="fa fa-paper-plane-o" aria-hidden="true"/>
                 </button>
             </div>
@@ -157,3 +157,9 @@ ReactDOM.render(<Chat chatId={window.chatId} userId={window.userId}/>, chatConta
 ReactDOM.render(<MessageInput/>, inputContatiner);
 
 
+function setW() {
+    //document.getElementById("messagebar").style.left=(document.getElementById("sidebar-wrapper").offsetWidth-1).toString() + 'px';
+    //document.getElementById("sendButton").style.marginRight=(document.getElementById("sidebar-wrapper").offsetWidth + 5).toString() + 'px';
+    //document.getElementById("message").style.paddingRight=(document.getElementById("sidebar-wrapper").offsetWidth + 50).toString() + 'px';
+}
+setW();

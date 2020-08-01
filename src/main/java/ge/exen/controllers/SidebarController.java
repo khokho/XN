@@ -83,7 +83,7 @@ public class SidebarController {
         }
 
         if(curUser!=null&&curUser.getStatus().equals(User.STUDENT)){
-            sidebar.add(new SidebarElement("გამოცდა", "/ex"));
+            sidebar.add(new SidebarElement("გამოცდა", "/eh"));
             StudentExam exam = examService.getExamForCurrentUser();
 
             List<Long> users = examLecturersDAO.getLecturerIds(exam.getExamId());

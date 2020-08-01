@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <div class="align-content-center" style="vertical-align: middle;">
 
-    <form id="form" accept-charset="UTF-8" role="form" style="margin-top: 100px">
+    <form id="form" accept-charset="UTF-8" role="form" style="margin-top: 100px; margin-left: -240px;">
         <div class="form-group row justify-content-center">
             <label for="email" class="col-sm-1 control-label">ფოსტა: </label>
             <div class="col-sm-4 input-group">
