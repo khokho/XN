@@ -27,7 +27,7 @@
             return (
                 <div>
                     {this.state.elements.map(el=>
-                        (<a href={el.path} className="list-group-item list-group-item-action bg-light" >{el.name}</a>))
+                        (<a key={el.path} href={el.path} className="list-group-item list-group-item-action bg-light" >{el.name}</a>))
                     }
                 </div>
             );
