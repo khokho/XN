@@ -113,3 +113,4 @@ public class ChatSQLDAO extends AbstractSQLDAO implements ChatDAO {
         return chat;
     }
 }
+

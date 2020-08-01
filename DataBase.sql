@@ -117,6 +117,7 @@ create table IF NOT EXISTS upload
     exam_id   int          not null,
     var_id    int          not null,
     file_link varchar(200) not null,
+    time timestamp         not null,
     constraint upload_exam_exam_id_fk
         foreign key (exam_id) references exam (exam_id),
     constraint upload_user_Id_fk

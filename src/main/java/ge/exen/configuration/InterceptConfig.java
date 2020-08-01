@@ -22,22 +22,20 @@ public class InterceptConfig implements HandlerInterceptor {
         url = url.substring(8);
         url = url.substring(url.indexOf("/"));
         System.out.println(url);
+
         if(currentUser == null && !url.equals("/login")) {
 
             response.sendRedirect("/login");
             return false;
         }
         if(currentUser == null) {
+            request.setAttribute("loggedin", "0");
             request.setAttribute("sidebar", "adminSidebar.jsp");
             return true;
         }
-
+        request.setAttribute("loggedin", "1");
         switch (currentUser.getStatus()) {
             case User.ADMIN :
-                if(!url.startsWith("/admin")) {
-                    response.sendRedirect("/accessDenied");
-                    return false;
-                }
                 request.setAttribute("sidebar", "adminSidebar.jsp");
             break;
 
@@ -46,15 +44,16 @@ public class InterceptConfig implements HandlerInterceptor {
                     response.sendRedirect("/accessDenied");
                     return false;
                 }
-                request.setAttribute("sidebar", "adminsidebar.jsp");
+                request.setAttribute("sidebar", "adminSidebar.jsp");
             break;
 
             case User.STUDENT:
+
                 if(url.startsWith("/admin") || url.startsWith("/lecturer")) {
                     response.sendRedirect("/accessDenied");
                     return false;
                 }
-                request.setAttribute("sidebar", "adminsidebar.jsp");
+                request.setAttribute("sidebar", "adminSidebar.jsp");
             break;
 
 

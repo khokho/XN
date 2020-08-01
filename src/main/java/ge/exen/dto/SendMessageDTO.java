@@ -1,9 +1,12 @@
 package ge.exen.dto;
 
 public class SendMessageDTO {
-    long chatId;
-    String type;
-    String text;
+    public static final String TEXT = "text";
+    public static final String IMAGE = "image";
+
+    private long chatId;
+    private String type;
+    private String text;
 
     public long getChatId() {
         return chatId;
