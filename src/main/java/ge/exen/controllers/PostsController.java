@@ -51,11 +51,12 @@ public class PostsController {
 //        lekva.setName("giorgi");
 //        lekva.setEmail("g.lekveishvili@freeuni.edu.ge");
 //        userService.registerNewUser(lekva);
-        UserLoginDTO lekvaLogin = new UserLoginDTO();
-        lekvaLogin.setPassword("rabbit");
-        lekvaLogin.setEmail("g.lekveishvili@freeuni.edu.ge");
-        userService.login(lekvaLogin);
+//        UserLoginDTO lekvaLogin = new UserLoginDTO();
+//        lekvaLogin.setPassword("rabbit");
+//        lekvaLogin.setEmail("g.lekveishvili@freeuni.edu.ge");
+//        userService.login(lekvaLogin);
         model.addAttribute("examId", examId);
+        model.addAttribute("status", userService.getCurrentUser().getId());
         return "post";
     }
 
