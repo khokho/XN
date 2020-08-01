@@ -96,7 +96,7 @@ class Chat extends React.Component {
 
 class MessageInput extends React.Component{
 
-    constructor(props) {
+    constructor() {
         super();
         this.state={message:''}
         this.messageChange = this.messageChange.bind(this);
@@ -120,7 +120,7 @@ class MessageInput extends React.Component{
         }
     }
 
-    handleButton(event) {
+    handleButton() {
         // alert('A name was submitted: ' + this.state.message);
         this.sendMessage()
     }
@@ -128,7 +128,7 @@ class MessageInput extends React.Component{
     render() {
         return (
             <div>
-                <input type="text" className="write_msg" id="message" placeholder="Type a message"
+                <input autoComplete="off" type="text" className="write_msg" id="message" placeholder="Type a message"
                        value={this.state.message}
                        onChange={this.messageChange} onKeyDown={this.keyHandler}/>
 
