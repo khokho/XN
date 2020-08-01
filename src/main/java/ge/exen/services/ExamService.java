@@ -86,7 +86,7 @@ public class ExamService implements IExamService {
         return null;
     }
 
-    public StudentExam getLiveExamForCurrentUser() {
+    public StudentExam getLiveExamForCurrentStudent() {
         User user = userService.getCurrentUser();
         List<Exam> exams = dao.getAll();
         for (int i = 0; i < exams.size(); i++) {
@@ -94,6 +94,20 @@ public class ExamService implements IExamService {
             System.out.println(user.getId()+ " " + exams.get(i).getID());
             StudentExam exam = studentExamDao.get(user.getId(), exams.get(i).getID());
             if (exam != null) return exam;
+        }
+
+        return null;
+    }
+
+    public ExamLecturers getLiveExamForCurrentLecturer() {
+        User user = userService.getCurrentUser();
+        List<Exam> exams = dao.getAll();
+        for (int i = 0; i < exams.size(); i++) {
+            if(!isCurrentlyLive(exams.get(i))) continue;
+            System.out.println(user.getId()+ " " + exams.get(i).getID());
+            ExamLecturers exam = new ExamLecturers(exams.get(i).getID(), user.getId());
+            if(examLecturersDAO.check(exam))
+                return exam;
         }
 
         return null;
@@ -107,12 +121,27 @@ public class ExamService implements IExamService {
         if(status.equals("student")) return ans;
         if(status.equals("admin")) return exams;
         for(int i = 0; i < exams.size(); i++) {
-             if(examLecturersDAO.check(new ExamLecturers(user.getId(),exams.get(i).getID()))) ans.add(exams.get(i));
+             if(examLecturersDAO.check(new ExamLecturers(exams.get(i).getID(), user.getId()))) ans.add(exams.get(i));
         }
         return ans;
     }
 
-
+    public List<Exam> getLiveExamsForHighStatus() {
+        User user = userService.getCurrentUser();
+        List<Exam> ans = new ArrayList<>();
+        List<Exam> exams = dao.getAll();
+        String status = user.getStatus();
+        if(status.equals("student")) return ans;
+        for(int i = 0; i < exams.size(); i++) {
+            if(!isCurrentlyLive(exams.get(i))) continue;
+            if(status.equals("admin")) {
+                ans.add(exams.get(i));
+                continue;
+            }
+            if(examLecturersDAO.check(new ExamLecturers(exams.get(i).getID(), user.getId()))) ans.add(exams.get(i));
+        }
+        return ans;
+    }
 
 
     public List<Exam> getAllCurrentExams() {

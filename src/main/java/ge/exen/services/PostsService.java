@@ -101,14 +101,13 @@ public class PostsService implements IPostsService{
     }
 
     private List<Post> getPostsByLecturerId() {
-        User user = userService.getCurrentUser();
-        System.out.println("LECTURER: " + user.getEmail() + "'s POSTS:");
-        return postsDao.getAllByPoster(user.getId());
+        ExamLecturers exams = examService.getLiveExamForCurrentLecturer();
+        return postsDao.getAllByExamId(exams.getExamId()); // lecturer is allowed to be on only one exam at a time
     }
 
     private List<Post> getPostsByStudentId() {
          // remove comment when getCurrentExam() is written in ExamService
-        StudentExam currExam = examService.getLiveExamForCurrentUser(); //gives the exam curr user is writing
+        StudentExam currExam = examService.getLiveExamForCurrentStudent(); //gives the exam curr user is writing
         return postsDao.getAllByExamId(currExam.getExamId());
     }
 
