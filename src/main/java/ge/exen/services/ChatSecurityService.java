@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChatSecurityService {
 
-    public final static int INVALID_TOPIC = -1;
-    public final static int CHAT_TOPIC = 0;
+
 
 
 

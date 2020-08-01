@@ -28,7 +28,7 @@ public class ExamLecturersSQLDAO extends AbstractSQLDAO implements ExamLecturers
     @Override
     public boolean check(ExamLecturers examLecturers) {
         try {
-            PreparedStatement st = conn.prepareStatement("SELECT* FROM exam_lecturers WHERE exam_id = ? and lecturer_id = ?;");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM exam_lecturers WHERE exam_id = ? and lecturer_id = ?;");
             st.setLong(1, examLecturers.getExamId());
             st.setLong(2, examLecturers.getLecturerId());
             return st.executeQuery().next();

@@ -3,6 +3,7 @@ package ge.exen.controllers;
 import ge.exen.DAO.ExamLecturersDAO;
 import ge.exen.DAO.UserSQLDAO;
 import ge.exen.models.Chat;
+import ge.exen.models.Exam;
 import ge.exen.models.StudentExam;
 import ge.exen.models.User;
 import ge.exen.services.ExamService;
@@ -66,15 +67,26 @@ public class SidebarController {
     @GetMapping("/getSidebar")
     public List<SidebarElement> getSidebarElements(){
         List<SidebarElement> sidebar = new ArrayList<>();
-        sidebar.add(new SidebarElement("შესვლა", "/login"));
         User curUser = userService.getCurrentUser();
-        if(curUser!=null&&curUser.getStatus().equals(User.ADMIN)){
+
+        if(curUser==null){
+            sidebar.add(new SidebarElement("შესვლა", "/login"));
+            return sidebar;
+        }
+
+
+        if(curUser.getStatus().equals(User.ADMIN)){
             sidebar.add(new SidebarElement("იუზერის დამატება", "/admin/register"));
             sidebar.add(new SidebarElement("გამოცდის დამატება", "/admin/newExam"));
             sidebar.add(new SidebarElement("გამოცდები", "/admin/list"));
         }
-        if(curUser!=null&&curUser.getStatus().equals(User.LECTURER)){
+        if(curUser.getStatus().equals(User.LECTURER)){
             sidebar.add(new SidebarElement("გამოცდები", "/lecturer/exams"));
+            List<Exam> exams = examService.getExamsForHighStatus();
+            System.out.println(exams.size());
+            for(Exam exam:exams){
+                sidebar.add(new SidebarElement(exam.getFullName() + " პოსტები", "/posts/"+exam.getID()));
+            }
             List<Chat> chats = chatService.getMyChats();
             for(Chat chat:chats){
                 User user = userDAO.getUser(chat.getstudentId());
@@ -82,10 +94,10 @@ public class SidebarController {
             }
         }
 
-        if(curUser!=null&&curUser.getStatus().equals(User.STUDENT)){
+        if(curUser.getStatus().equals(User.STUDENT)){
             sidebar.add(new SidebarElement("გამოცდა", "/eh"));
             StudentExam exam = examService.getExamForCurrentUser();
-
+            sidebar.add(new SidebarElement("პოსტები","/posts/"+exam.getExamId()));
             List<Long> users = examLecturersDAO.getLecturerIds(exam.getExamId());
             for(Long userId:users){
                 User user = userDAO.getUser(userId);
