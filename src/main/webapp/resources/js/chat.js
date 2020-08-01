@@ -74,7 +74,7 @@ class Chat extends React.Component {
     renderMessages() {
         console.log(this.state.messages)
         return this.state.messages.map((message) => (
-            <Message message={message.text} me={this.me === message.from}/>
+            <Message key={message.messageId} message={message.text} me={this.me === message.from}/>
         ))
     }
 
@@ -148,13 +148,13 @@ class MessageInput extends React.Component{
 
 
 const chatContainer = document.querySelector('#messages');
-const inputContatiner = document.querySelector('#MessageInput');
+const inputContainer = document.querySelector('#MessageInput');
 
 // ReactDOM.render(<LikeButton/>, chatContainer);
 // ReactDOM.render(<MessageInput chatId={window.chatId} userId={window.userId}/>, inputContatiner);
 
 ReactDOM.render(<Chat chatId={window.chatId} userId={window.userId}/>, chatContainer);
-ReactDOM.render(<MessageInput/>, inputContatiner);
+ReactDOM.render(<MessageInput/>, inputContainer);
 
 
 function setW() {
