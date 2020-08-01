@@ -1,16 +1,21 @@
 'use strict';
 
+var ws = new SockJS("/ws");
+var stomp = Stomp.over(ws);
+
 function Post(props){
     return (
         <div className={'post'}>
             {/*<p>{props.post.text + " BY " + props.post.fromId}</p>*/}
             <div className="card">
-                <div className="card-header">
-                    {props.post.exam} Announcement
-                    <form action={"/removePost/"+window.examId} method={"post"}>
-                        <input type={"submit"} value={"remove"}/>
-                        <input type="hidden" name="postId" value={props.post.postId}/>
-                    </form>
+                <div className="card-header d-flex">
+                    <div className={"p-2"}>{props.post.exam} Announcement</div>
+                    <div className={"d-flex justify-content-end"}>
+                        <form action={"/removePost/"+window.examId} method={"post"}>
+                            <input type={"submit"} value={"remove"}/>
+                            <input type="hidden" name="postId" value={props.post.postId}/>
+                        </form>
+                    </div>
                 </div>
                 <div className="card-body">
                     <blockquote className="blockquote mb-0">
@@ -39,11 +44,27 @@ class Posts extends React.Component{
                 console.log(jsonData)
                 this.setState({posts:jsonData})
             })
+
+        onmessage = (postJSON) => {
+            console.log("here broz")
+            console.log(postJSON)
+            var post = JSON.parse(postJSON.body)
+            console.log("teeext:" + post.text)
+            this.setState((state) => {
+                return {posts: ([post]).concat(state.posts)}
+            })
+        }
+        onmessage.bind(this)
+
+        stomp.connect({}, function () {
+            stomp.subscribe("/topic/posts-" + window.examId, onmessage, {});
+        });
+
     }
 
     render(){
         return this.state.posts.map((post)=>(
-            <Post post={post}/>
+            <Post key={post.postId} post={post}/>
         ))
     }
 }
@@ -75,25 +96,27 @@ class Posts extends React.Component{
 class NewPosts extends React.Component{
     render(){
         return (
+            <form action={"/newPost"} method={"post"} name={"text-box"}>
             <div className="card">
             <div className="card-header">
-                Announcement
+                <div className={"p-2"}>Announcement</div>
+                <div className={"d-flex justify-content-end"}>
+                    <input type="submit" value="Submit" />
+                </div>
             </div>
                 <div className={"my-area"}>
 
-                <form action={"/newPost"} method={"post"} name={"text-box"}>
-
                         <div className="form-group shadow-textarea">
                         <textarea className="form-control z-depth-1" id="exampleFormControlTextarea6" rows="4"
-                                  placeholder="Write something here..." name={"text"}></textarea>
+                                  placeholder="Write something here..." name={"text"}/>
                         </div>
                         <input type="hidden" name="examId" value={window.examId}/>
-                    <input type="submit" value="Submit" />
 
-                </form>
+
+
                 </div>
             </div>
-
+            </form>
 
         );
     }
@@ -102,6 +125,6 @@ class NewPosts extends React.Component{
 const postsContainer = document.querySelector('#posts');
 const newPost = document.querySelector('#newPost');
 ReactDOM.render(<Posts/>, postsContainer);
-if(status === "lector") {
+if(window.status === "lector") {
     ReactDOM.render(<NewPosts/>, newPost);
 }
