@@ -2,14 +2,14 @@ package ge.exen.controllers;
 
 import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.UserDAO;
-import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
 import ge.exen.dto.UserLoginDTO;
-import ge.exen.dto.UserRegisterDTO;
-import ge.exen.models.*;
+import ge.exen.models.Exam;
+import ge.exen.models.Post;
+import ge.exen.models.PostJSON;
+import ge.exen.models.User;
 import ge.exen.services.IPostsService;
 import ge.exen.services.IUserService;
-import ge.exen.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -65,8 +65,8 @@ public class PostsController {
         List<Post> posts = postsService.getPostsByUserId();
         List<PostJSON> postJSONs = new ArrayList<>();
         for (Post post : posts) {
-            PostJSON postJSON = new PostJSON();
             if(post.getExamId() != examId) continue;
+            PostJSON postJSON = new PostJSON();
             postJSON.setText(post.getText());
             User lecturer = userDAO.getUser(post.getFromId());
             postJSON.setLecturer(lecturer.getName() + " " + lecturer.getLastName());
@@ -86,7 +86,7 @@ public class PostsController {
     }
 
     /**
-     * uncommnet when there is time for writing its front
+     * TODO uncommnet when there is time for writing its front
     @PostMapping("/editPost/{examId}")
     public RedirectView editPost(PostEditDTO postEditDTO, @PathVariable Integer examId){
         postsService.editPost(postEditDTO);

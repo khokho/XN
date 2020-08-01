@@ -4,6 +4,7 @@ import ge.exen.DAO.ExamLecturersDAO;
 import ge.exen.DAO.PostsDao;
 import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
+import ge.exen.listeners.IPostListener;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.Post;
 import ge.exen.models.User;
@@ -106,8 +107,8 @@ public class PostsService implements IPostsService{
 
     private List<Post> getPostsByStudentId() {
         /**
-         * remove comment when getCurrentExam() is written in ExamService
-        Exam currExam = examService.getCurrentExam(); //gives the exam curr user is writing
+         *  TODO remove comment when getCurrentExam() is written in ExamService
+        Exam currExam= examService.getCurrentExam(); //gives the exam curr user is writing
         return postsDao.getAllByExamId(currExam.getID());
          **/
         return null;
