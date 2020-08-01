@@ -5,62 +5,6 @@ const e = React.createElement;
 var ws = new SockJS("/ws");
 var stomp = Stomp.over(ws);
 
-
-
-//
-// class LikeButton extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = { liked: false , disabled:false};
-//         this.userId = 10
-//     }
-//
-//     disableme(){
-//         this.setState({disabled:true})
-//     }
-//
-//     render() {
-//         if (this.state.liked) {
-//             return 'You liked this.';
-//         }
-//
-//         return (
-//             <button onClick={function () {
-//                 fetch("http://localhost:8080/enqueue")
-//                     .then(resp => {
-//                         resp 'yes' 'no'
-//                     })
-//             }} name={this.name} disabled={true}/>
-//         )
-//
-//
-//
-//
-//         return
-//         <button onClick={(
-//             fetch('http://' + window.location.host + '/getMessages/' + props.chatId + '?from=0&to=10')
-//                 .then(resp => {
-//                     console.log("hiihhihihihihihih")
-//                     console.log(resp)
-//                     return resp.json()
-//                 })
-//                 .then((jsonData) => {
-//                     console.log(jsonData)
-//                     this.setState({messages: jsonData})
-//                 })
-//
-//
-//         )}/>
-//         e(
-//             'button',
-//             { onClick: () => this.setState({ liked: true }) },
-//             'Like'
-//         );
-//     }
-// }
-
-
-
 function Message(props) {
     if (props.me) {
         return (

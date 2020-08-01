@@ -13,6 +13,12 @@ public interface IChatService {
     List<Chat> getMyChats();
 
     /**
+     * @param userId checks if current user is chatting with userId
+     * @return
+     */
+    Long amIChattingWith(long userId);
+
+    /**
      * @param chat_id get last $limit amount of messages in chat_id
      * @return list with size <=limit of last messages
      */

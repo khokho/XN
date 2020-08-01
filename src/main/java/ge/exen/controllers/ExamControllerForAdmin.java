@@ -1,7 +1,6 @@
 package ge.exen.controllers;
 
 
-import ge.exen.DAO.ExamDao;
 import ge.exen.models.Exam;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.StudentExam;
@@ -39,7 +38,6 @@ public class ExamControllerForAdmin {
         ses.setAttribute("list",list);
         req.setAttribute("pageNum", pageNum);
         req.setAttribute("content", "ExamsView.jsp");
-        req.setAttribute("sidebar", "adminSidebar.jsp");
         return "template";
     }
 

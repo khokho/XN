@@ -2,14 +2,12 @@ package ge.exen.controllers;
 
 
 import ge.exen.dto.ExamDTO;
-import ge.exen.services.ExamService;
 import ge.exen.services.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -32,7 +30,6 @@ public class newExam {
 
     @GetMapping("/admin/newExam")
     public String getInfo(HttpSession session) {
-        session.setAttribute("sidebar", "adminSidebar.jsp");
         session.setAttribute("content", "examForm.jsp");
         session.setAttribute("title", "ახალი გამოცდის შექმნა");
         return "template";

@@ -3,7 +3,6 @@ package ge.exen.configuration;
 import ge.exen.models.User;
 import ge.exen.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,29 +20,35 @@ public class InterceptConfig implements HandlerInterceptor {
         url = url.substring(8);
         url = url.substring(url.indexOf("/"));
         System.out.println(url);
+        if(url.startsWith("/resources/")){
+            return true;
+        }
+        if(url.startsWith("/getSidebar")){
+            return true;
+        }
 
         if(currentUser == null && !url.equals("/login")) {
-
             response.sendRedirect("/login");
             return false;
         }
         if(currentUser == null) {
             request.setAttribute("loggedin", "0");
-            request.setAttribute("sidebar", "adminSidebar.jsp");
+            request.setAttribute("sidebar", "sidebar.jsp");
             return true;
         }
         request.setAttribute("loggedin", "1");
         switch (currentUser.getStatus()) {
             case User.ADMIN :
-                request.setAttribute("sidebar", "adminSidebar.jsp");
+                request.setAttribute("sidebar", "sidebar.jsp");
             break;
 
             case User.LECTURER:
+
                 if(!url.startsWith("/lecturer")) {
-                    response.sendRedirect("/accessDenied");
-                    return false;
+//                    response.sendRedirect("/accessDenied");
+//                    return false;
                 }
-                request.setAttribute("sidebar", "adminSidebar.jsp");
+                request.setAttribute("sidebar", "sidebar.jsp");
             break;
 
             case User.STUDENT:
@@ -52,7 +57,7 @@ public class InterceptConfig implements HandlerInterceptor {
                     response.sendRedirect("/accessDenied");
                     return false;
                 }
-                request.setAttribute("sidebar", "adminSidebar.jsp");
+                request.setAttribute("sidebar", "sidebar.jsp");
             break;
 
 

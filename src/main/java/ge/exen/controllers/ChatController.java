@@ -2,6 +2,7 @@ package ge.exen.controllers;
 
 import ge.exen.configs.GlobalConstants;
 import ge.exen.dto.SendMessageDTO;
+import ge.exen.models.Chat;
 import ge.exen.models.Message;
 import ge.exen.models.UserPrincipal;
 import ge.exen.services.ChatSecurityService;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -36,6 +38,16 @@ public class ChatController {
     @Autowired
     private IChatService chatService;
 
+    @GetMapping("/startChat/{userId}")
+    public RedirectView newChat(@PathVariable long userId){
+        Long chatId = chatService.amIChattingWith(userId);
+        if(chatId!=null){
+            return new RedirectView("/chat/"+chatId);
+        }
+        Chat newChat = chatService.startChat(userId);
+        return new RedirectView("/chat/"+newChat.getChatId());
+    }
+
     //TODO this is not final
     @GetMapping("/chat/{chatId}")
     public String getChat(@PathVariable long chatId, Model model) {
@@ -47,6 +59,7 @@ public class ChatController {
         model.addAttribute("chatId", chatId);
         model.addAttribute("userId", userService.getCurrentUser().getId());
         model.addAttribute("content", "chat.jsp");
+        model.addAttribute("title", "chat");
         return "/template";
     }
 
