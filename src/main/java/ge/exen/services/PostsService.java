@@ -4,13 +4,16 @@ import ge.exen.DAO.ExamLecturersDAO;
 import ge.exen.DAO.PostsDao;
 import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
+import ge.exen.listeners.IPostListener;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.Post;
 import ge.exen.models.User;
+import ge.exen.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +29,7 @@ public class PostsService implements IPostsService{
 
     @Autowired
     private ExamService examService;
+
 
     public Post writeNewPost(final PostWriteDTO postDTO){
         User user = userService.getCurrentUser();
@@ -52,13 +56,17 @@ public class PostsService implements IPostsService{
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         post.setDate(timestamp);
         postsDao.create(post);
+
+        for (IPostListener listener: postListeners) {
+            listener.postReceived(post);
+        }
         return post;
     }
 
     public boolean editPost(PostEditDTO postEditDTO){
-        if (checkEditPrivileges(postEditDTO.getPostID())) {
+        if (checkEditPrivileges(postEditDTO.getPostId())) {
             postsDao.updatePostByID(postEditDTO);
-            return postEditDTO.getPostID() != -1;
+            return postEditDTO.getPostId() != -1;
         }
         return false;
     }
@@ -99,11 +107,18 @@ public class PostsService implements IPostsService{
     }
 
     private List<Post> getPostsByStudentId() {
-        /**
-         * remove comment when getCurrentExam() is written in ExamService
-        Exam currExam = examService.getCurrentExam(); //gives the exam curr user is writing
-        return postsDao.getAllByExamId(currExam.getID());
-         **/
-        return null;
+         // remove comment when getCurrentExam() is written in ExamService
+        StudentExam currExam = examService.getLiveExamForCurrentUser(); //gives the exam curr user is writing
+        return postsDao.getAllByExamId(currExam.getExamId());
+    }
+
+    private final List<IPostListener> postListeners = new ArrayList<>();
+
+    public void addPostListener(IPostListener postListener){
+        postListeners.add(postListener);
+    }
+
+    public void removePostListener(IPostListener postListener){
+        postListeners.remove(postListener);
     }
 }

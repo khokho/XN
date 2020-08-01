@@ -28,6 +28,7 @@
         <property name="dataSource" ref="db"/>
     </bean>
 
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
@@ -36,8 +37,8 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <mvc:interceptors>
-        <bean class="ge.exen.configuration.InterceptConfig" />
-    </mvc:interceptors>
+<!--    <mvc:interceptors>-->
+<!--        <bean class="ge.exen.configuration.InterceptConfig" />-->
+<!--    </mvc:interceptors>-->
 
 </beans>
