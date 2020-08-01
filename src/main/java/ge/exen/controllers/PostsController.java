@@ -63,7 +63,7 @@ public class PostsController {
     @ResponseBody
     @GetMapping(value = "/getPosts/{examId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PostJSON> getPosts(@PathVariable Integer examId){
-        List<Post> posts = postsService.getPostsByUserId();
+        List<Post> posts = postsService.getPostsByExamId(examId);
         List<PostJSON> postJSONs = new ArrayList<>();
         for (Post post : posts) {
             if(post.getExamId() != examId) continue;

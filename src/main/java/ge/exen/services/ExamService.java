@@ -99,7 +99,8 @@ public class ExamService implements IExamService {
         return null;
     }
 
-    public ExamLecturers getLiveExamForCurrentLecturer() {
+    public List<ExamLecturers> getLiveExamForCurrentLecturer() {
+        List<ExamLecturers> curExams = new ArrayList<>();
         User user = userService.getCurrentUser();
         List<Exam> exams = dao.getAll();
         for (int i = 0; i < exams.size(); i++) {
@@ -107,10 +108,10 @@ public class ExamService implements IExamService {
             System.out.println(user.getId()+ " " + exams.get(i).getID());
             ExamLecturers exam = new ExamLecturers(exams.get(i).getID(), user.getId());
             if(examLecturersDAO.check(exam))
-                return exam;
+                curExams.add(exam);
         }
 
-        return null;
+        return curExams;
     }
 
     public List<Exam> getExamsForHighStatus() {

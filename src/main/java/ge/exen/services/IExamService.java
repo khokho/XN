@@ -57,7 +57,7 @@ public interface IExamService {
 
     List<Exam> getLiveExamsForHighStatus();
 
-    ExamLecturers getLiveExamForCurrentLecturer();
+    List<ExamLecturers> getLiveExamForCurrentLecturer();
 
     StudentExam getLiveExamForCurrentStudent();
     /**
