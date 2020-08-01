@@ -1,13 +1,13 @@
 
-drop database if exists testexen; #exen or testexen
-create database testexen; #exen or testexen
-use testexen; #exen or testexen
+drop database if exists exen; #exen or testexen
+create database exen; #exen or testexen
+use exen; #exen or testexen
 
 create table IF NOT EXISTS exam
 (
     exam_id    int auto_increment
         primary key,
-    start_time timestamp   not null,
+    start_time timestamp   not null
     duration   int         not null,
     var_num    int         not null,
     exam_subj  varchar(60) not null

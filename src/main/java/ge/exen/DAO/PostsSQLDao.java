@@ -27,7 +27,7 @@ public class PostsSQLDao extends AbstractSQLDAO implements PostsDao{
             prStmt.setTimestamp(4, post.getDate());
             int executed = prStmt.executeUpdate();
 
-            if (executed == 0) {
+            if (executed != 0) {
                 ResultSet rs = prStmt.getGeneratedKeys();
                 rs.next();
                 post.setPostId(rs.getLong(1));
@@ -35,7 +35,7 @@ public class PostsSQLDao extends AbstractSQLDAO implements PostsDao{
                 throw new SQLException("Post could not be added.");
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             post.setPostId(-1);
         }
     }
@@ -111,10 +111,10 @@ public class PostsSQLDao extends AbstractSQLDAO implements PostsDao{
         try {
             PreparedStatement st = conn.prepareStatement("UPDATE posts SET text = ? WHERE post_id = ?");
             st.setString(1, postEditDTO.getNewText());
-            st.setLong(2, postEditDTO.getPostID());
+            st.setLong(2, postEditDTO.getPostId());
             if(st.executeUpdate() == 0) throw new SQLException("something went wrong while updating post");
         } catch (SQLException throwables) {
-            postEditDTO.setPostID((long) -1);
+            postEditDTO.setPostId((long) -1);
         }
     }
 
