@@ -96,6 +96,7 @@
 
 <script>
     window.examId =${examId}
+    window.status =${status}
 </script>
 
 <!-- Load React. -->

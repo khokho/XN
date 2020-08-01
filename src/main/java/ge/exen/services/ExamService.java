@@ -86,6 +86,19 @@ public class ExamService implements IExamService {
         return null;
     }
 
+    public StudentExam getLiveExamForCurrentUser() {
+        User user = userService.getCurrentUser();
+        List<Exam> exams = dao.getAll();
+        for (int i = 0; i < exams.size(); i++) {
+            if(!isCurrentlyLive(exams.get(i))) continue;
+            System.out.println(user.getId()+ " " + exams.get(i).getID());
+            StudentExam exam = studentExamDao.get(user.getId(), exams.get(i).getID());
+            if (exam != null) return exam;
+        }
+
+        return null;
+    }
+
     public List<Exam> getExamsForHighStatus() {
         User user = userService.getCurrentUser();
         List<Exam> ans = new ArrayList<>();

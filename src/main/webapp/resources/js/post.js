@@ -75,7 +75,6 @@ class Posts extends React.Component{
 class NewPosts extends React.Component{
     render(){
         return (
-
             <div className="card">
             <div className="card-header">
                 Announcement
@@ -103,4 +102,6 @@ class NewPosts extends React.Component{
 const postsContainer = document.querySelector('#posts');
 const newPost = document.querySelector('#newPost');
 ReactDOM.render(<Posts/>, postsContainer);
-ReactDOM.render(<NewPosts/>, newPost);
+if(status === "lector") {
+    ReactDOM.render(<NewPosts/>, newPost);
+}

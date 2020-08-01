@@ -4,9 +4,7 @@ import ge.exen.DAO.ExamLecturersDAO;
 import ge.exen.DAO.PostsDao;
 import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
-import ge.exen.models.ExamLecturers;
-import ge.exen.models.Post;
-import ge.exen.models.User;
+import ge.exen.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -105,12 +103,9 @@ public class PostsService implements IPostsService{
     }
 
     private List<Post> getPostsByStudentId() {
-        /**
-         * remove comment when getCurrentExam() is written in ExamService
-        Exam currExam = examService.getCurrentExam(); //gives the exam curr user is writing
-        return postsDao.getAllByExamId(currExam.getID());
-         **/
-        return null;
+         // remove comment when getCurrentExam() is written in ExamService
+        StudentExam currExam = examService.getLiveExamForCurrentUser(); //gives the exam curr user is writing
+        return postsDao.getAllByExamId(currExam.getExamId());
     }
 
     private final List<IPostListener> postListeners = new ArrayList<>();
