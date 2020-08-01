@@ -7,16 +7,16 @@ import javax.validation.constraints.NotNull;
  */
 public class PostEditDTO {
     @NotNull
-    private Long postID;
+    private Long postId;
     @NotNull
     private String newText;
 
-    public Long getPostID() {
-        return postID;
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setPostID(Long postID) {
-        this.postID = postID;
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 
     public String getNewText() {
