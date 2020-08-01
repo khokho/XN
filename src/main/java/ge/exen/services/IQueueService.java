@@ -55,4 +55,26 @@ public interface IQueueService {
      * removes the QueueListener
      */
     void removeListener(IQueueListener listener);
+
+    /**
+     * creates and keeps track of the enqueue and cancel button states
+     */
+    void createDisabledStates();
+
+    /**
+     * returns whether the current user is in the queue
+     *
+     * @param queueType String representing the queue
+     * @return false if the enqueue button for the current user is not disabled
+     *              and cancel button is disabled,
+     *          true if the opposite
+     */
+    Boolean getDisabledState(String queueType);
+
+    /**
+     * changes Disabled status of the given queue enqueue and cancel buttons
+     *
+     * @param queueType String representing the queue
+     */
+    void changeDisabledState(String queueType);
 }

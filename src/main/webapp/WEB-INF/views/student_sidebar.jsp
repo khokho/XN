@@ -12,17 +12,6 @@
             <a href="#" class="list-group-item list-group-item-action bg-light">chat: ლეკვა</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">chat: ია</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">chat: კობი</a>
             <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
         </div>

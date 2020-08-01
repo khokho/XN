@@ -35,18 +35,28 @@ public class QueueService implements IQueueService {
         listeners = new ArrayList<>();
     }
 
-    public void create() {
+    @Override
+    public void createDisabledStates() {
         HashMap<String, Boolean> buttons = new HashMap<>();
-        buttons.put(BlankPaperQueueService.ATTR_NAME,  false);
-        buttons.put(CallExamerQueueService.ATTR_NAME,  false);
-        buttons.put(WCQueueService.ATTR_NAME,  false);
+        buttons.put(BlankPaperQueueService.TYPE,  false);
+        buttons.put(CallExamerQueueService.TYPE,  false);
+        buttons.put(WCQueueService.TYPE,  false);
 
         session.setAttribute(BTNS_ATTR_NAME, buttons);
     }
 
+    @Override
     public Boolean getDisabledState(String queueType) {
         HashMap<String, Boolean> buttons = (HashMap<String, Boolean>) session.getAttribute(BTNS_ATTR_NAME);
         return buttons.get(queueType);
+    }
+
+    @Override
+    public void changeDisabledState(String queueType){
+        HashMap<String, Boolean> buttons = (HashMap<String, Boolean>) session.getAttribute(BTNS_ATTR_NAME);
+        boolean currentStatus = buttons.get(queueType);
+        buttons.put(queueType, !currentStatus);
+        session.setAttribute(BTNS_ATTR_NAME, buttons);
     }
 
     @Override
