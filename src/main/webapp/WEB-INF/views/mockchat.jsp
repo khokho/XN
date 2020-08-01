@@ -28,29 +28,16 @@
 <script type="text/javascript">
 
     var ws;
-    var stompClient;
+    var stomp;
     var stompCallback =
         $(document).ready(function () {
 
 
-            ws = new SockJS("/ws");
-            stompClient = Stomp.over(ws);
-            stompClient.connect({}, function () {
-                //stompClient.debug("connected")
-                console.log("connected");
-                stompClient.subscribe("/topic/chat-1", function (post) {
-                    //console.log("HI: "+post)
-                    console.log("here broz")
-                    console.log(post)
-                    var message = JSON.parse(post.body)
-                    console.log("teeext:" + message.text)
-                    $('#chat').append('<li>' + message.text + '</li>')
-                }, {});
-            });
+
         });
 
     function send() {
-        stompClient.send("/topic/post", {'chat_id':10}, $('#tex').val());
+        stomp.send("/topic/post", {'chat_id':10}, $('#tex').val());
     }
 
 </script>

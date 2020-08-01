@@ -19,7 +19,7 @@
 <% List<ExamControllerForAdmin.ExamInfo> exams = (List<ExamControllerForAdmin.ExamInfo>) session.getAttribute("list");
 
 %>
-<div class="container" style="padding-top: 70px">
+<div class="container" style="padding-top: 70px; ">
     <form id="form" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
 
         <div class="form-group row">

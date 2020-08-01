@@ -55,6 +55,16 @@ public class ChatService implements IChatService {
     }
 
     @Override
+    public Long amIChattingWith(long userId){
+        for(Chat chat:getMyChats()){
+            if(chat.getstudentId()==userId||chat.getlectorId()==userId){
+                return chat.getChatId();
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<Message> getMessages(long chatId, int from, int to) {
         User user = userService.getCurrentUser();
         if(!chatSecurityService.validateUserChatSubscription(user.getId(), chatId)) return null;

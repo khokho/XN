@@ -9,20 +9,18 @@ import ge.exen.models.ExamLecturers;
 import ge.exen.models.StudentExam;
 import ge.exen.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+
+import static ge.exen.models.User.ADMIN;
+import static ge.exen.models.User.STUDENT;
 
 @Service
 public class ExamService implements IExamService {
@@ -77,8 +75,8 @@ public class ExamService implements IExamService {
         User user = userService.getCurrentUser();
         List<Exam> exams = dao.getAll();
         for (int i = 0; i < exams.size(); i++) {
-           //if(!isCurrentlyLive(exams.get(i))) continue;
-           System.out.println(user.getId()+ " " + exams.get(i).getID());
+            //if(!isCurrentlyLive(exams.get(i))) continue;
+            System.out.println(user.getId() + " " + exams.get(i).getID());
             StudentExam exam = studentExamDao.get(user.getId(), exams.get(i).getID());
             if (exam != null) return exam;
         }
@@ -90,8 +88,8 @@ public class ExamService implements IExamService {
         User user = userService.getCurrentUser();
         List<Exam> exams = dao.getAll();
         for (int i = 0; i < exams.size(); i++) {
-            if(!isCurrentlyLive(exams.get(i))) continue;
-            System.out.println(user.getId()+ " " + exams.get(i).getID());
+            if (!isCurrentlyLive(exams.get(i))) continue;
+            System.out.println(user.getId() + " " + exams.get(i).getID());
             StudentExam exam = studentExamDao.get(user.getId(), exams.get(i).getID());
             if (exam != null) return exam;
         }
@@ -104,22 +102,22 @@ public class ExamService implements IExamService {
         List<Exam> ans = new ArrayList<>();
         List<Exam> exams = dao.getAll();
         String status = user.getStatus();
-        if(status.equals("student")) return ans;
-        if(status.equals("admin")) return exams;
-        for(int i = 0; i < exams.size(); i++) {
-             if(examLecturersDAO.check(new ExamLecturers(user.getId(),exams.get(i).getID()))) ans.add(exams.get(i));
+        if (status.equals(STUDENT)) return ans;
+        if (status.equals(ADMIN)) return exams;
+        for (int i = 0; i < exams.size(); i++) {
+            if (examLecturersDAO.check(new ExamLecturers(exams.get(i).getID(), user.getId())))
+                ans.add(exams.get(i));
         }
         return ans;
     }
-
-
 
 
     public List<Exam> getAllCurrentExams() {
         List<Exam> exams = dao.getAll();
         List<Exam> ans = new ArrayList<>();
         for (int i = 0; i < exams.size(); i++) {
-            if (isCurrentlyLive(exams.get(i))) ans.add(exams.get(i));
+            if (isCurrentlyLive(exams.get(i)))
+                ans.add(exams.get(i));
         }
         return ans;
     }

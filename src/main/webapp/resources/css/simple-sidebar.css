@@ -4,9 +4,9 @@
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
  */
 
- #wrapper {
-    overflow-x: hidden;
- }
+#wrapper {
+  overflow-x: hidden;
+}
 
 #sidebar-wrapper {
   min-height: 100vh;
@@ -16,7 +16,58 @@
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
 }
+#nav {
+  margin-left: 0;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+#content {
+  margin-left: 0rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+#messagebar {
+  left: 0rem;
+  -webkit-transition: left .25s ease-out;
+  -moz-transition: left .25s ease-out;
+  -o-transition: left .25s ease-out;
+  transition: left .25s ease-out;
+}
 
+#logout {
+  margin-left: 241px;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#nav .nav{
+  margin-left: 0!important;
+}
+#content .content{
+  width: calc(100% - 15rem);
+  margin-left: 0!important;
+}
+#messagebar .messagebar{
+  left: 0!important;
+}
+#upBox .upBox{
+  left: 0!important;
+}
+#logout .logout{
+  margin-right: 0!important;
+}
+
+
+
+#sendButton .sendButton{
+  margin-right: 5px;
+}
 #sidebar-wrapper .sidebar-heading {
   padding: 0.875rem 1.25rem;
   font-size: 1.2rem;
@@ -38,6 +89,30 @@
   #sidebar-wrapper {
     margin-left: 0;
   }
+
+  #nav {
+    margin-left: 15rem!important;
+  }
+  #content {
+    margin-left: 15rem!important;
+    width: calc(100% - 15rem);
+  }
+  #sendButton{
+    margin-right: 15rem;
+  }
+
+  #messagebar {
+    left: 15rem;
+  }
+  #upBox {
+    left: 256px;
+  }
+
+  #logout{
+    margin-right: 241px!important;
+  }
+
+
 
   #page-content-wrapper {
     min-width: 0;

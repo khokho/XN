@@ -1,7 +1,6 @@
 package ge.exen.controllers;
 
 
-import ge.exen.DAO.ExamDao;
 import ge.exen.models.Exam;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.StudentExam;
@@ -22,7 +21,7 @@ public class ExamControllerForAdmin {
     @Autowired
     IExamService examService;
 
-    @GetMapping(value = "/l")
+    @GetMapping(value = "/admin/list")
     public String toAdminHomePage(HttpServletRequest req, HttpSession ses) {
         List<Exam> exams = examService.getAllExams();
         List<ExamInfo> list = new ArrayList<>();
@@ -39,12 +38,11 @@ public class ExamControllerForAdmin {
         ses.setAttribute("list",list);
         req.setAttribute("pageNum", pageNum);
         req.setAttribute("content", "ExamsView.jsp");
-        req.setAttribute("sidebar", "adminSidebar.jsp");
         return "template";
     }
 
-    @PostMapping(value = "/l")
-    public String rendeerExams(HttpServletRequest req,HttpSession ses) {
+    @PostMapping(value = "/admin/list")
+    public String renderExams(HttpServletRequest req,HttpSession ses) {
         List<Exam> exams = examService.getAllExams();
         List<ExamInfo> list = new ArrayList<>();
         int index = Integer.parseInt(req.getParameter("pageNum"));
