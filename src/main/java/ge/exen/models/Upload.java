@@ -1,13 +1,16 @@
 package ge.exen.models;
 
 
+import java.sql.Timestamp;
+
 public class Upload {
 
   private long uploadId;
   private long fromId;
   private long examId;
   private long varId;
-  private long fileLink;
+  private Timestamp time;
+  private String fileLink;
 
 
   public long getUploadId() {
@@ -18,6 +21,10 @@ public class Upload {
     this.uploadId = uploadId;
   }
 
+
+  public void setTime(Timestamp tm) {this.time = tm;}
+
+  public Timestamp getTime() { return this.time; }
 
   public long getFromId() {
     return fromId;
@@ -46,11 +53,11 @@ public class Upload {
   }
 
 
-  public long getFileLink() {
+  public String getFileLink() {
     return fileLink;
   }
 
-  public void setFileLink(long fileLink) {
+  public void setFileLink(String fileLink) {
     this.fileLink = fileLink;
   }
 

@@ -77,10 +77,12 @@ public class ExamService implements IExamService {
         User user = userService.getCurrentUser();
         List<Exam> exams = dao.getAll();
         for (int i = 0; i < exams.size(); i++) {
-           if(!isCurrentlyLive(exams.get(i))) continue;
+           //if(!isCurrentlyLive(exams.get(i))) continue;
+           System.out.println(user.getId()+ " " + exams.get(i).getID());
             StudentExam exam = studentExamDao.get(user.getId(), exams.get(i).getID());
             if (exam != null) return exam;
         }
+
         return null;
     }
 
@@ -118,7 +120,12 @@ public class ExamService implements IExamService {
         return ans;
     }
 
-    private boolean isCurrentlyLive(Exam exam) {
+    @Override
+    public List<Exam> getAllExams() {
+        return dao.getAll();
+    }
+
+    public boolean isCurrentlyLive(Exam exam) {
         int duration = exam.getDurationInMinutes();
         LocalDateTime now = LocalDateTime.now();
         try {

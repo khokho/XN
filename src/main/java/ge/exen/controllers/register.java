@@ -2,6 +2,7 @@ package ge.exen.controllers;
 
 import ge.exen.dto.UserLoginDTO;
 import ge.exen.dto.UserRegisterDTO;
+import ge.exen.services.IUserService;
 import ge.exen.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class register {
     @Autowired
-    UserService userService;
+    private IUserService userService;
 
     @GetMapping(value = "/admin/register")
     public String render(HttpSession session){

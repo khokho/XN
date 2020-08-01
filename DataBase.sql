@@ -117,6 +117,7 @@ create table IF NOT EXISTS upload
     exam_id   int          not null,
     var_id    int          not null,
     file_link varchar(200) not null,
+    time timestamp         not null,
     constraint upload_exam_exam_id_fk
         foreign key (exam_id) references exam (exam_id),
     constraint upload_user_Id_fk
@@ -124,7 +125,7 @@ create table IF NOT EXISTS upload
 );
 
 insert into exam (exam_id, start_time, duration, var_num, exam_subj)
-           VALUES(1, STR_TO_DATE('2019-05-15 16:30', '%Y-%m-%d %H:%i'), 90, 3, 'test exam');
+           VALUES(1, STR_TO_DATE('2020-05-15 16:30', '%Y-%m-%d %H:%i'), 900000000, 3, 'test exam');
 insert into exam_materials (material_id, material_link, var, exam_id)
            VALUES(1, './test.txt', 1, 1);
 insert into user (Email, password_hash, name, last_name)
@@ -138,8 +139,9 @@ insert into exam_lecturers (exam_id, lecturer_id)
 insert into message (from_id, chat_id, sent_date, text, type)
            VALUES (1, 1, STR_TO_DATE('2020-07-05 03:50', '%Y-%m-%d %H:%i'), 'hello world', 'text');
 insert into posts (exam_id, from_id, text, date)
-           VALUES (1, 1, 'post text', STR_TO_DATE('2019-06-14 10:00', '%Y-%m-%d %H:%i'));
+           VALUES (1, 1, 'post text', STR_TO_DATE('2000-06-14 10:00', '%Y-%m-%d %H:%i'));
 insert into student_exam (student_id, exam_id, variant, comp_index)
            VALUES (1, 1, 1, 20);
 insert into upload (from_id, exam_id, var_id, file_link)
            VALUES (1, 1, 1, './test.txt');
+
