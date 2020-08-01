@@ -34,7 +34,7 @@ public interface IPostsService {
      * So they get posts written in current exam.
      * @return list of Posts accessible for current user
      */
-    List<Post> getPostsByUserId();
+    List<Post> getPostsByExamId(long examId);
 
 
 }

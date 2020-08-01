@@ -7,8 +7,8 @@ import ge.exen.dto.PostWriteDTO;
 import ge.exen.listeners.IPostListener;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.Post;
+import ge.exen.models.StudentExam;
 import ge.exen.models.User;
-import ge.exen.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,6 @@ public class PostsService implements IPostsService{
 
     @Autowired
     private ExamService examService;
-
 
     public Post writeNewPost(final PostWriteDTO postDTO){
         User user = userService.getCurrentUser();
@@ -91,24 +90,29 @@ public class PostsService implements IPostsService{
         return true;
     }
 
-    public List<Post> getPostsByUserId(){
+    public List<Post> getPostsByExamId(long examId){
         User user = userService.getCurrentUser();
         if(user.getStatus().equals(User.STUDENT))
-            return getPostsByStudentId();
+            return getPostsByStudentId(examId);
         else if(user.getStatus().equals(User.LECTURER))
-            return getPostsByLecturerId();
+            return getPostsByLecturerId(examId);
         else return null;
     }
 
-    private List<Post> getPostsByLecturerId() {
+    private List<Post> getPostsByLecturerId(Long examId) {
+        //ExamLecturers exams = examService.getLiveExamForCurrentLecturer();
         User user = userService.getCurrentUser();
-        System.out.println("LECTURER: " + user.getEmail() + "'s POSTS:");
-        return postsDao.getAllByPoster(user.getId());
+        List<ExamLecturers> exams = examService.getLiveExamForCurrentLecturer();
+        for (int i = 0; i < exams.size(); i++) {
+            if(exams.get(i).getExamId() == examId) return postsDao.getAllByExamId(examId);
+        }
+        return null;
     }
 
-    private List<Post> getPostsByStudentId() {
+    private List<Post> getPostsByStudentId(Long examId) {
          // remove comment when getCurrentExam() is written in ExamService
-        StudentExam currExam = examService.getLiveExamForCurrentUser(); //gives the exam curr user is writing
+        StudentExam currExam = examService.getLiveExamForCurrentStudent(); //gives the exam curr user is writing
+        if(examId != currExam.getExamId()) return null;
         return postsDao.getAllByExamId(currExam.getExamId());
     }
 
