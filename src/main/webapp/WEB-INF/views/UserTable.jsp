@@ -38,7 +38,7 @@
                                     <div class="widget-content-right" style="margin-left: auto">
                                         <button onclick="window.location.href='/admin/newExam?index=<%=i%>'"
                                                 class="border-0 btn-transition btn btn-outline-danger"><i
-                                                class="fa-times" aria-hidden="true"></i></button>
+                                                class="fa fa-times" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -52,6 +52,20 @@
 
 </div>
 
+<div id="upBox" class="d-block card-footer fixed-bottom row">
+    <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
+            class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
+    <div style="display:inline;">
+        <form  action="/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=(Integer)request.getAttribute("current")%>" style="display:inline; width: 15%;">
+            <input type="number" min="1" max="<%=request.getAttribute("pageNum")%>" name="pageNum"
+                   value="<%=request.getAttribute("current")%>">
+        </form>
+        <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'"
+                class="mr-2 btn btn-link btn-sm row" style="margin-left: 10px"><i class="fa fa-arrow-right fa-2x"
+                                                                                  aria-hidden="true"></i></button>
+        <button onclick="window.location.href='/admin/newExam'" class="btn btn-primary row">მეილების გაგზავნა</button>
+    </div>
+</div>
 <script>
     function setW() {
 
@@ -66,8 +80,6 @@
         document.getElementById("box").style.marginBottom = getHeight();
     }
 
-   // setW();
-    //setMargin();
+    setW();
+    setMargin();
 </script>
-<!-- </div> -->
-<!--</div>-->

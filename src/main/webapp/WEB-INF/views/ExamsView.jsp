@@ -52,7 +52,7 @@
                                         <button onclick="window.location.href='/admin/newExam?index=<%=i%>'"
                                                 class="border-0 btn-transition btn btn-outline-warning"><i
                                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                        <button onclick="window.location.href='/admin/users?examId=<%=i%>'"
+                                        <button onclick="window.location.href='/admin/users?examId=<%=exams.get(i).getExam().getID()%>'"
                                                 class="border-0 btn-transition btn btn-outline-primary"><i
                                                 class="fa fa-users" aria-hidden="true"></i></button>
                                     </div>
