@@ -37,7 +37,7 @@
     <mvc:interceptors>
         <bean class="ge.exen.configuration.InterceptConfig" />
     </mvc:interceptors>
-<!--    <mvc:interceptors>-->
+<!---    <mvc:interceptors>-->
 <!--        <bean class="ge.exen.configuration.InterceptConfig" />-->
 <!--    </mvc:interceptors>-->
 

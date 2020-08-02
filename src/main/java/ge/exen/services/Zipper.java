@@ -39,9 +39,10 @@ public class Zipper {
         return "." + name;
     }
 
-    public String doZip(int examID) throws IOException {
+    synchronized public String doZip(int examID) throws IOException {
+
         File dir = new File("src/main/webapp/resources/files/downloads/");
-        if(!current.getCurrentUser().getStatus().equals(User.LECTURER)) return "";
+        if (!current.getCurrentUser().getStatus().equals(User.LECTURER)) return "";
         if (!dir.exists()) {
             try {
                 dir.mkdir();
@@ -60,20 +61,21 @@ public class Zipper {
         }
 
 
-        List<StudentExam> ls =  examUsers.getByExam(examID);
+        List<StudentExam> ls = examUsers.getByExam(examID);
         FileOutputStream fos = new FileOutputStream(new File(zip));
         ZipOutputStream zipOut = new ZipOutputStream(fos);
 
         HashSet<Long> variants = new HashSet<>();
-        for(StudentExam entry: ls){
+        for (StudentExam entry : ls) {
             List<Upload> curr = uploads.getForUser(entry);
             String path = "src/main/webapp/";
             String suffix = null;
-            if(curr.size() == 0) continue; else {
+            if (curr.size() == 0) continue;
+            else {
                 path += curr.get(curr.size() - 1).getFileLink();
                 suffix = getSuffix(curr.get(curr.size() - 1).getFileLink());
             }
-            if(!variants.contains(entry.getVariant())){
+            if (!variants.contains(entry.getVariant())) {
                 variants.add(entry.getVariant());
                 zipOut.putNextEntry(new ZipEntry(exams.get(examID).getFullName() + "/var_" + entry.getVariant() + "/"));
                 zipOut.closeEntry();
@@ -104,4 +106,5 @@ public class Zipper {
             fileNotFoundException.printStackTrace();
         }
 }
+
 }

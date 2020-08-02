@@ -1,6 +1,7 @@
 package ge.exen.controllers;
 
 import ge.exen.dto.UserLoginDTO;
+import ge.exen.models.User;
 import ge.exen.services.IUserService;
 import ge.exen.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,20 @@ public class Login {
     IUserService userService;
 
     @GetMapping(value = "/login")
-    public String render(HttpServletRequest req){
+    public String render(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if(userService.getCurrentUser() != null){
+            switch (userService.getCurrentUser().getStatus()){
+                case User.ADMIN :
+                    resp.sendRedirect("/admin/register");
+                    break;
+                case User.LECTURER:
+                    resp.sendRedirect("/lecturer/exams");
+                    break;
+                case User.STUDENT:
+                    resp.sendRedirect("/eh");
+                    break;
+            }
+        }
         req.setAttribute("content", "login.jsp");
         req.setAttribute("title", "შესვლა");
         return "/template";
@@ -45,7 +59,8 @@ public class Login {
     @PostMapping(value = "/login")
     public String login(UserLoginDTO dto,
                         HttpServletRequest req,
-                        Model model){
+                        Model model,
+                        HttpServletResponse resp) throws IOException {
         if(!userService.login(dto)){
             req.setAttribute("bad_attempt", "true");
             model.addAttribute("content", "login.jsp");
@@ -53,7 +68,7 @@ public class Login {
             return "/template";
         }
         model.addAttribute("loggedin", "1");
-
+        resp.sendRedirect("/login");
         return "/template";
     }
 }
