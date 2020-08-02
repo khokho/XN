@@ -1,5 +1,6 @@
 <%@ page import="ge.exen.models.StudentExam" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="ge.exen.models.User" %><%--
   Created by IntelliJ IDEA.
   User: user
   Date: 8/2/2020
@@ -8,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<% List<StudentExam> exams = (List<StudentExam>)session.getAttribute("studentExams"); %>
+<% List<User> users = (List<User>)session.getAttribute("students"); %>
 
 <div class="card-hover-shadow-2x mb-3 card" style="height: 65%!important;">
     <div id="box" class="scroll-area-sm">
@@ -16,7 +17,7 @@
             <div style="position: static;" class="ps ps--active-y">
                 <div class="ps-content">
                     <ul class=" list-group list-group-flush">
-                        <% for (int i = 0; i < exams.size(); i++) { %>
+                        <% for (int i = 0; i < users.size(); i++) { %>
 
                         <li class="list-group-item">
                             <div class="todo-indicator bg-warning"></div>
@@ -30,34 +31,14 @@
                                                 for="exampleCustomCheckbox <%=i%>">&nbsp;</label></div>
                                     </div>
                                     <div class="widget-content-left">
-                                        <div class="widget-heading"><%=exams.get(i).get%>
-                                            <% if (!exams.get(i).isCurrentlyOn()) {%>
-                                            <div class="badge badge-danger ml-2">დასრულებული</div>
-                                            <% } else { %>
-                                            <div class="badge badge-success ml-2">მიმდინარეობს</div>
-                                            <%
-                                                }
-                                            %>
-
+                                        <div class="widget-heading"><%=users.get(i).getEmail()%>
                                         </div>
-                                        <div class="widget-subheading"><i>By Bob</i></div>
+                                        <div class="widget-subheading"><i><%= users.get(i).getName() + " " + users.get(i).getLastName()%></i></div>
                                     </div>
                                     <div class="widget-content-right" style="margin-left: auto">
-                                        <button class="border-0 btn-transition btn btn-outline-success"><i
-                                                <% String icon = "fa fa-hourglass-half";
-                                                    if (exams.get(i).isCurrentlyOn()) {
-                                                        icon = "fa fa-history";
-                                                    }
-                                                %>
-                                                class="<%=icon%>" aria-hidden="true"></i></button>
-
-
                                         <button onclick="window.location.href='/admin/newExam?index=<%=i%>'"
-                                                class="border-0 btn-transition btn btn-outline-warning"><i
-                                                class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                        <button onclick="window.location.href='/admin/users?examId=<%=i%>'"
-                                                class="border-0 btn-transition btn btn-outline-primary"><i
-                                                class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                class="border-0 btn-transition btn btn-outline-danger"><i
+                                                class="fa-times" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -70,20 +51,7 @@
     </div>
 
 </div>
-<div id="upBox" class="d-block card-footer fixed-bottom row">
-    <button onclick="window.location.href='/admin/list?pageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
-            class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
-    <div style="display:inline;">
-        <form style="display:inline; width: 15%;">
-            <input type="number" min="1" max="<%=request.getAttribute("pageNum")%>" name="pageNum"
-                   value="<%=request.getAttribute("current")%>">
-        </form>
-        <button onclick="window.location.href='/admin/list?pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'"
-                class="mr-2 btn btn-link btn-sm row" style="margin-left: 10px"><i class="fa fa-arrow-right fa-2x"
-                                                                                  aria-hidden="true"></i></button>
-        <button onclick="window.location.href='/admin/newExam'" class="btn btn-primary row">გამოცდის შექმნა</button>
-    </div>
-</div>
+
 <script>
     function setW() {
 
@@ -98,8 +66,8 @@
         document.getElementById("box").style.marginBottom = getHeight();
     }
 
-    setW();
-    setMargin();
+   // setW();
+    //setMargin();
 </script>
 <!-- </div> -->
 <!--</div>-->

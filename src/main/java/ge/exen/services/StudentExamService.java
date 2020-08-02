@@ -10,6 +10,7 @@ import ge.exen.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,7 +56,12 @@ public class StudentExamService implements IStudentExamService{
     }
 
     @Override
-    public List<User> getUsersByExamId(List<Exam> exams) {
-        return null;
+    public List<User> getUsersByExamId(long examid) {
+        List<StudentExam> exams = studentExamDAO.getByExam(examid);
+        List<User> ans = new ArrayList<>();
+        for (StudentExam exam: exams) {
+           ans.add(userDAO.getUser(exam.getStudentId()));
+        }
+        return ans;
     }
 }

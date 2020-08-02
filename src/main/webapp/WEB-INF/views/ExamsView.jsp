@@ -54,7 +54,7 @@
                                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                         <button onclick="window.location.href='/admin/users?examId=<%=i%>'"
                                                 class="border-0 btn-transition btn btn-outline-primary"><i
-                                                class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                class="fa fa-users" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </div>

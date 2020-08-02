@@ -16,10 +16,10 @@ public interface IStudentExamService {
     boolean assignStudentToExam(StudentExamRegisterDTO registerDTO);
 
     /**
-     * takes exams list and returns users related to this exam
-     * @param exams
+     * takes exam id and returns users related to this exam
+     * @param examId
      * @return user lists which are attending this exams
      */
-    List<User> getUsersByExamId(List<Exam> exams);
+    List<User> getUsersByExamId(long examId);
 
 }
