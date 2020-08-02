@@ -26,10 +26,6 @@ public class lecturerExam {
     @Autowired
     FileWorkerService fileService;
 
-    @GetMapping(value = "lecturer/exams")
-    public String render(Model model){
-        return "";
-    }
 
     @GetMapping("/lecturer/exam/{exam_id}")
     public String statementEditor( @PathVariable Integer exam_id, Model model, HttpServletRequest req){

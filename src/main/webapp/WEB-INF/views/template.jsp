@@ -1,4 +1,3 @@
-<%--@elvariable id="title" type="java.lang.String"--%>
 <%--@elvariable id="loggedin" type="ge.exen.configuration.InterceptConfig"--%>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

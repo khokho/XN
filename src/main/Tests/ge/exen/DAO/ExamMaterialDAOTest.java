@@ -32,7 +32,7 @@ public class ExamMaterialDAOTest {
 
         ExamMaterial got = dao.get(1, 2);
         assertNotNull(got);
-        assertEquals("classpath:tests/foo.txt", got.getMaterialLink());
+        assertEquals("classpath:resources/tests/foo.txt", got.getMaterialLink());
         assertEquals(2, got.getVar());
         assertEquals(1, got.getExamId());
     }
