@@ -52,7 +52,7 @@ public class ExamControllerForAdmin {
         ses.setAttribute("list",list);
         req.setAttribute("current",index);
        // req.setAttribute("current",index);
-        return "";
+        return "template";
     }
 
 

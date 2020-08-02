@@ -18,7 +18,7 @@ public class InterceptConfig implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(DEBUG)return true;
+       /* if(DEBUG)return true;
         User currentUser = userService.getCurrentUser();
         String url = request.getRequestURL().toString();
         url = url.substring(8);
@@ -62,7 +62,7 @@ public class InterceptConfig implements HandlerInterceptor {
 
 
 
-        }
+        }*/
         return true;
     }
 }

@@ -10,6 +10,8 @@ import ge.exen.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentExamService implements IStudentExamService{
     @Autowired
@@ -50,5 +52,10 @@ public class StudentExamService implements IStudentExamService{
         System.out.println(studentExam.toString());
 
         return true;
+    }
+
+    @Override
+    public List<User> getUsersByExamId(List<Exam> exams) {
+        return null;
     }
 }

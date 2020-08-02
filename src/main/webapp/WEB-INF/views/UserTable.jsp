@@ -1,11 +1,14 @@
-<%@ page import="java.util.List" %>
-<%@ page import="ge.exen.models.Exam" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="ge.exen.controllers.ExamControllerForAdmin" %>
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
-<!--<div class="row d-flex justify-content-center container">
-<div class="col-md-8">-->
-<% List<ExamControllerForAdmin.ExamInfo> exams = (List<ExamControllerForAdmin.ExamInfo>) session.getAttribute("list");%>
+<%@ page import="ge.exen.models.StudentExam" %>
+<%@ page import="java.util.List" %><%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 8/2/2020
+  Time: 10:10 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<% List<StudentExam> exams = (List<StudentExam>)session.getAttribute("studentExams"); %>
 
 <div class="card-hover-shadow-2x mb-3 card" style="height: 65%!important;">
     <div id="box" class="scroll-area-sm">
@@ -27,7 +30,7 @@
                                                 for="exampleCustomCheckbox <%=i%>">&nbsp;</label></div>
                                     </div>
                                     <div class="widget-content-left">
-                                        <div class="widget-heading"><%=exams.get(i).getExam().getFullName()%>
+                                        <div class="widget-heading"><%=exams.get(i).get%>
                                             <% if (!exams.get(i).isCurrentlyOn()) {%>
                                             <div class="badge badge-danger ml-2">დასრულებული</div>
                                             <% } else { %>
@@ -68,18 +71,18 @@
 
 </div>
 <div id="upBox" class="d-block card-footer fixed-bottom row">
-<button onclick="window.location.href='/admin/list?pageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
-        class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
-<div style="display:inline;">
-    <form style="display:inline; width: 15%;">
-        <input type="number" min="1" max="<%=request.getAttribute("pageNum")%>" name="pageNum"
-               value="<%=request.getAttribute("current")%>">
-    </form>
-    <button onclick="window.location.href='/admin/list?pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'"
-            class="mr-2 btn btn-link btn-sm row" style="margin-left: 10px"><i class="fa fa-arrow-right fa-2x"
-                                                                              aria-hidden="true"></i></button>
-    <button onclick="window.location.href='/admin/newExam'" class="btn btn-primary row">გამოცდის შექმნა</button>
-</div>
+    <button onclick="window.location.href='/admin/list?pageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
+            class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
+    <div style="display:inline;">
+        <form style="display:inline; width: 15%;">
+            <input type="number" min="1" max="<%=request.getAttribute("pageNum")%>" name="pageNum"
+                   value="<%=request.getAttribute("current")%>">
+        </form>
+        <button onclick="window.location.href='/admin/list?pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'"
+                class="mr-2 btn btn-link btn-sm row" style="margin-left: 10px"><i class="fa fa-arrow-right fa-2x"
+                                                                                  aria-hidden="true"></i></button>
+        <button onclick="window.location.href='/admin/newExam'" class="btn btn-primary row">გამოცდის შექმნა</button>
+    </div>
 </div>
 <script>
     function setW() {
