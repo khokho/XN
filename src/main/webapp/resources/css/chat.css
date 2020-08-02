@@ -8,7 +8,6 @@
     bottom: 0;
     width: 100% !important;
     right: 0px;
-    left: inherit;
     z-index: 1;
     background-color: rgba(365, 365,365, 1);
 }
@@ -74,7 +73,9 @@ img{ max-width:100%;}
 .inbox_chat { height: 550px; overflow-y: scroll;}
 
 .active_chat{ background:#ebebeb;}
-
+.incoming_msg {
+    margin: 26px 0 26px;
+}
 .incoming_msg_img {
     display: inline-block;
     width: 6%;

@@ -1,7 +1,7 @@
 
-drop database if exists testexen; #exen or testexen
-create database testexen; #exen or testexen
-use testexen; #exen or testexen
+drop database if exists exen; #exen or testexen
+create database exen; #exen or testexen
+use exen; #exen or testexen
 
 create table IF NOT EXISTS exam
 (
@@ -142,6 +142,4 @@ insert into posts (exam_id, from_id, text, date)
            VALUES (1, 1, 'post text', STR_TO_DATE('2000-06-14 10:00', '%Y-%m-%d %H:%i'));
 insert into student_exam (student_id, exam_id, variant, comp_index)
            VALUES (1, 1, 1, 20);
-insert into upload (from_id, exam_id, var_id, file_link)
-           VALUES (1, 1, 1, './test.txt');
 

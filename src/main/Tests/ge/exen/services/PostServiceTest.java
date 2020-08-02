@@ -78,9 +78,9 @@ public class PostServiceTest {
 
         oop = new ExamDTO();
         oop.setVariants("1");
-        oop.setStartDate("2020/08/03 16:00");
+        oop.setStartDate("2020/08/01 16:00");
         oop.setFullName("OOP");
-        oop.setHours("3");
+        oop.setHours("900000000");
         oop.setMinutes("0");
         oopId = examService.process(oop);
 
@@ -137,7 +137,7 @@ public class PostServiceTest {
         userService.login(lekvaLogin);
         assertNotNull(postsService.writeNewPost(lekvasPost));
         System.out.println(userService.getCurrentUser().getEmail());
-        System.out.println(postsService.getPostsByUserId());
+        System.out.println(postsService.getPostsByExamId(OOP_ID));
         userService.logout();
 
         //non lecturer trying to write a post
@@ -148,7 +148,7 @@ public class PostServiceTest {
         //lecturer trying to write a post in other lecturer's subject
         assertNull(postsService.writeNewPost(tamtasPost));
         System.out.println(userService.getCurrentUser().getEmail());
-        System.out.println(postsService.getPostsByUserId());
+        System.out.println(postsService.getPostsByExamId(OOP_ID));
         userService.logout();
     }
 
@@ -156,27 +156,29 @@ public class PostServiceTest {
     @DirtiesContext
     public void testEditPost(){
         System.out.println(userService.getCurrentUser().getEmail());
-        System.out.println(postsService.getPostsByUserId());
+        System.out.println(postsService.getPostsByExamId(OOP_ID));
     }
+
+    //TODO fix bugs here :')
 
     @Test
     @DirtiesContext
     public void testGetPostsByUserIdLecturer(){
         userService.login(lekvaLogin);
         assertNotNull(postsService.writeNewPost(lekvasPost));
-        assertEquals(1, postsService.getPostsByUserId().size());
-        assertEquals(userService.getCurrentUser().getId(), postsService.getPostsByUserId().get(0).getFromId());
-        assertEquals(oopId, postsService.getPostsByUserId().get(0).getExamId());
-        assertEquals(lekvasPost.getText(), postsService.getPostsByUserId().get(0).getText());
+        assertEquals(1, postsService.getPostsByExamId(OOP_ID).size());
+        assertEquals(userService.getCurrentUser().getId(), postsService.getPostsByExamId(OOP_ID).get(0).getFromId());
+        assertEquals(oopId, postsService.getPostsByExamId(OOP_ID).get(0).getExamId());
+        assertEquals(lekvasPost.getText(), postsService.getPostsByExamId(OOP_ID).get(0).getText());
 
         lekvasNextPost = new PostWriteDTO();
         lekvasNextPost.setText("chemi meore posti - lekva");
         lekvasNextPost.setExamId(oopId);
         postsService.writeNewPost(lekvasNextPost);
 
-        assertEquals(2, postsService.getPostsByUserId().size());
-        assertEquals(lekvasNextPost.getText(), postsService.getPostsByUserId().get(1).getText());
-        assertEquals(oopId, postsService.getPostsByUserId().get(1).getExamId());
+        assertEquals(2, postsService.getPostsByExamId(OOP_ID).size());
+        assertEquals(lekvasNextPost.getText(), postsService.getPostsByExamId(OOP_ID).get(1).getText());
+        assertEquals(oopId, postsService.getPostsByExamId(OOP_ID).get(1).getExamId());
 
         userService.logout();
     }
@@ -186,14 +188,14 @@ public class PostServiceTest {
     public void testGetPostsByUserIdStudent(){
         userService.login(nanaLogin);
         //when admin is logged in there are no posts to show
-        assertNull(postsService.getPostsByUserId());
+        assertNull(postsService.getPostsByExamId(OOP_ID));
         userService.logout();
 
         //TODO make oop current exam, otherwise there will be no posts shown
         userService.login(tamtaLogin);
         //only lekvas first post
-        assertEquals(1, postsService.getPostsByUserId().size());
-        assertEquals(lekvasPost.getText(), postsService.getPostsByUserId().get(0).getText());
+        assertEquals(1, postsService.getPostsByExamId(OOP_ID).size());
+        assertEquals(lekvasPost.getText(), postsService.getPostsByExamId(OOP_ID).get(0).getText());
     }
 
 }

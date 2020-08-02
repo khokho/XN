@@ -1,117 +1,165 @@
-/**
- * Check for pressed key
- */
-func
+'use strict';
 
-/**
- * Possibly paste feature, but now nothing.
- * @param event
- */
-document.getElementById("field").onpaste = function(event){
-    let a = event.clipboardData.items;
+const e = React.createElement;
 
+var ws = new SockJS("/ws");
+var stomp = Stomp.over(ws);
+
+function Message(props) {
+    if (props.me) {
+        return (
+            <div className={'outgoing_msg'}>
+                <div className={'sent_msg'}>
+                    <p>{props.message}</p>
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <div className={'incoming_msg'}>
+                <div className={'received_msg'}>
+                    <div className={'received_withd_msg'}>
+                        <p>{props.message}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
 
-var elem = document.getElementById('image-input');
-/**
- * Check if uploaded file is an image.
- */
-elem.onchange = function(){
-    const file = elem.files[0];
-    const  fileType = file['type'];
-    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-    if (!validImageTypes.includes(fileType)) {
-        alert("ატვირთული ფაილი სურათი უნდა იყოს");
-    }
-};
 
-const sentStart = "                    <div class=\"outgoing_msg\">\n" +
-                  "                        <div class=\"sent_msg\">\n",
-      sentEnd = "                            <span class=\"time_date\">"+new Date()+"</span> </div>\n" +
-                "                    </div>",
-      recStart =  "               <div class=\"incoming_msg\">\n" +
-                 // "                        <div class=\"incoming_msg_img\"> <i class=\"fa fa-user\" aria-hidden=\"true\"> </div>\n" +
-                  "                        <div class=\"received_msg\">\n" +
-                  "                            <div class=\"received_withd_msg\">\n",
-      recEnd = "                            <span class=\"time_date\">"+new Date()+"</span> </div>\n" +
-               "                        </div>\n" +
-               "                    </div>\n";
+class Chat extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {messages: []}
+        this.chatId = props.chatId
+        this.me = props.userId
+        console.log(this.chatId, this.me)
 
-function displayImage(img, author){
-    let diva = document.createElement("div");
-    if(author === 0){
-        diva.innerHTML = sentStart +
-            "            <p><img src='"+ img +"' alt='image'></p>\n" +
-                         sentEnd;
+
+        fetch('http://' + window.location.host + '/getMessages/' + props.chatId + '?from=0&to=10')
+            .then(resp => {return resp.json()})
+            .then((jsonData) => {
+                jsonData.reverse()
+                this.setState({messages: jsonData})
+            })
+
+        onmessage = (messageJSON) => {
+            console.log("here broz")
+            console.log(messageJSON)
+            var message = JSON.parse(messageJSON.body)
+            console.log("teeext:" + message.text)
+            this.setState((state) => {
+                return {messages: state.messages.concat([message])}
+            })
+        }
+        stomp.connect({}, function () {
+            console.log("connected");
+            stomp.subscribe("/topic/chat-" + chatId, onmessage, {});
+        });
     }
-    else{
-        diva.innerHTML = recStart +
-            "                                <p><img src='"+img+"' alt='image'></p>\n" +
-                         recEnd;
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
     }
-    return diva;
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
+    renderMessages() {
+        console.log(this.state.messages)
+        return this.state.messages.map((message) => (
+            <Message key={message.messageId} message={message.text} me={this.me === message.from}/>
+        ))
+    }
+
+    render () {
+        return (
+            <div>
+                <div className="MessageContainer" >
+                    <div className="MessagesList">
+                        {this.renderMessages()}
+                    </div>
+                    <div style={{ float:"left", clear: "both" }}
+                         ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
 
-function displayMessage(author, msg){
-    if(msg == null || msg === "") return null;
-    let diva = document.createElement("div");
-    if(author === 0){
-        diva.innerHTML = sentStart +
-            "                            <p>"+msg+"</p>\n" +
-                         sentEnd;
+class MessageInput extends React.Component{
+
+    constructor() {
+        super();
+        this.state={message:''}
+        this.messageChange = this.messageChange.bind(this);
+        this.handleButton = this.handleButton.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
+        this.keyHandler = this.keyHandler.bind(this);
     }
-    else{
-        diva.innerHTML = recStart +
-            "                                <p>"+msg+"</p>\n" +
-                         recEnd;
+
+    sendMessage(){
+        stomp.send("/app/chat-"+window.chatId, {}, this.state.message)
+        this.setState({message: ''})
     }
-    return diva;
-}
 
-let ws;
+    messageChange(event) {
+        this.setState({message: event.target.value});
+    }
 
-function initWebSocket() {
-    ws = new WebSocket("ws://localhost:8080/messenger");
-    ws.onmessage = function (e) {
-        let msg = e.data;
-        let author;
-        // get author
-        if(msg.charAt(0) === '1') author = 0;
-        else author = 1;
-        msg = msg.substring(1);
-
-        let diva;
-
-
-        diva = displayMessage(author, msg);
-        //else diva = displayImage(msg, author);
-
-        if(diva != null) {
-            document.getElementById("messages").appendChild(diva);
-            diva.scrollIntoView();
+    keyHandler(event){
+        if(event.key === 'Enter'){
+            this.sendMessage()
         }
     }
-}
 
-/**
- * Sends message and, if present, uploaded image
- */
-function sendMessage() {
-    ws.send(document.getElementById("field").value);
-    document.getElementById("field").value = "";
-    if(elem.value !== ""){
-        let xhr = new XMLHttpRequest();
-        let fd = new FormData();
+    handleButton() {
+        // alert('A name was submitted: ' + this.state.message);
+        this.sendMessage()
+    }
 
-        fd.append("image", elem.files[0]);
-        fd.append("chat_id", document.getElementById("chat-id").value);
-        xhr.open("POST", "/sendImage", true);
-        xhr.send(fd);
-        elem.value = "";
+    render() {
+        return (
+            <div>
+                <input autoComplete="off" type="text" className="write_msg" id="message" placeholder="Type a message"
+                       value={this.state.message}
+                       onChange={this.messageChange} onKeyDown={this.keyHandler}/>
+
+                {/*<button className="msg_send_btn" type="button" style="margin-right: 40px"*/}
+                {/*        onClick="document.getElementById('image-input').click();">*/}
+                {/*    <i className="fa fa-camera" aria-hidden="true"/>*/}
+                {/*</button>*/}
+                {/*<input id="image-input" type="file" name="name" style="display: none;"/>*/}
+
+                <button id="sendButton" className="msg_send_btn" type="button" onClick={this.handleButton}>
+                    <i className="fa fa-paper-plane-o" aria-hidden="true"/>
+                </button>
+            </div>
+        );
     }
 }
 
 
-window.addEventListener("beforeunload", function(){
-    ws.close();
-}, false);
+const chatContainer = document.querySelector('#messages');
+const inputContainer = document.querySelector('#MessageInput');
+
+// ReactDOM.render(<LikeButton/>, chatContainer);
+// ReactDOM.render(<MessageInput chatId={window.chatId} userId={window.userId}/>, inputContatiner);
+
+ReactDOM.render(<Chat chatId={window.chatId} userId={window.userId}/>, chatContainer);
+ReactDOM.render(<MessageInput/>, inputContainer);
+
+
+function setW() {
+    //document.getElementById("messagebar").style.left=(document.getElementById("sidebar-wrapper").offsetWidth-1).toString() + 'px';
+    //document.getElementById("sendButton").style.marginRight=(document.getElementById("sidebar-wrapper").offsetWidth + 5).toString() + 'px';
+    //document.getElementById("message").style.paddingRight=(document.getElementById("sidebar-wrapper").offsetWidth + 50).toString() + 'px';
+}
+setW();

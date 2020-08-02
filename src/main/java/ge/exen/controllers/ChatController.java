@@ -2,21 +2,26 @@ package ge.exen.controllers;
 
 import ge.exen.configs.GlobalConstants;
 import ge.exen.dto.SendMessageDTO;
-import ge.exen.dto.UserLoginDTO;
-import ge.exen.listeners.ChatListener;
+import ge.exen.models.Chat;
+import ge.exen.models.Message;
 import ge.exen.models.UserPrincipal;
 import ge.exen.services.ChatSecurityService;
 import ge.exen.services.IChatService;
 import ge.exen.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ChatController {
@@ -33,21 +38,37 @@ public class ChatController {
     @Autowired
     private IChatService chatService;
 
-    //TODO this is not final
-    @GetMapping("/chat")
-    public String getChat(HttpServletRequest req) {
-       /* UserLoginDTO login = new UserLoginDTO();
-        login.setEmail("bgame19@freeuni.edu.ge");
-        login.setPassword("gambit");
-        userService.login(login);
-
-        return "mockchat";*/
-        req.setAttribute("sidebar", "adminSidebar.jsp");
-        req.setAttribute("content", "chatContent.jsp");
-        req.setAttribute("title", "ჩათი");
-        req.setAttribute("chat_id", 111);
-        return "template";
+    @GetMapping("/startChat/{userId}")
+    public RedirectView newChat(@PathVariable long userId){
+        Long chatId = chatService.amIChattingWith(userId);
+        if(chatId!=null){
+            return new RedirectView("/chat/"+chatId);
+        }
+        Chat newChat = chatService.startChat(userId);
+        return new RedirectView("/chat/"+newChat.getChatId());
     }
+
+    //TODO this is not final
+    @GetMapping("/chat/{chatId}")
+    public String getChat(@PathVariable long chatId, Model model) {
+//        UserLoginDTO login = new UserLoginDTO();
+//        login.setEmail("bgame19@freeuni.edu.ge");
+//        login.setPassword("gambit");
+//        userService.login(login);
+
+        model.addAttribute("chatId", chatId);
+        model.addAttribute("userId", userService.getCurrentUser().getId());
+        model.addAttribute("content", "chat.jsp");
+        model.addAttribute("title", "chat");
+        return "/template";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/getMessages/{chatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Message> getMessages(@PathVariable long chatId, int from, int to){
+        return chatService.getMessages(chatId, from, to);
+    }
+
 
     @MessageMapping("/chat-{chatId}")
     public void receiveMessage(@DestinationVariable long chatId,
@@ -69,7 +90,6 @@ public class ChatController {
         msg.setText(message);
         msg.setType("text");
         chatService.sendMessage(msg, userId);
-
     }
 
 }

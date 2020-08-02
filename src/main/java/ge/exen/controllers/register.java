@@ -1,9 +1,7 @@
 package ge.exen.controllers;
 
-import ge.exen.dto.UserLoginDTO;
 import ge.exen.dto.UserRegisterDTO;
 import ge.exen.services.IUserService;
-import ge.exen.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +18,6 @@ public class register {
 
     @GetMapping(value = "/admin/register")
     public String render(HttpSession session){
-        session.setAttribute("sidebar", "adminSidebar.jsp");
         session.setAttribute("content", "register.jsp");
         session.setAttribute("title", "რეგისტრაცია");
         return "/template";
@@ -32,7 +29,6 @@ public class register {
                         HttpServletResponse resp){
         if(!userService.registerNewUser(dto)){
             req.setAttribute("bad_attempt", "true");
-            req.setAttribute("sidebar", "adminSidebar.jsp");
             req.setAttribute("content", "register.jsp");
             req.setAttribute("title", "შესვლა");
             return "/template";
