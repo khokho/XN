@@ -6,6 +6,7 @@ import ge.exen.models.User;
 import ge.exen.services.ExamService;
 import ge.exen.services.IExamService;
 import ge.exen.services.IUserService;
+import ge.exen.services.Zipper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -27,6 +28,8 @@ public class InterceptConfig implements HandlerInterceptor {
     IExamService examService;
     @Autowired
     ExamDao examDAO;
+    @Autowired
+    Zipper zip;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -79,5 +82,15 @@ public class InterceptConfig implements HandlerInterceptor {
 
         }
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        String url = request.getRequestURL().toString();
+        url = url.substring(8);
+        url = url.substring(url.indexOf("/"));
+        if(url.startsWith("/lecturer/getAll")){
+            zip.enumerate(-1);
+        }
     }
 }

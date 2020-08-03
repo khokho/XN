@@ -31,6 +31,14 @@ public class Zipper {
     @Autowired
     private ExamDao exams;
 
+    int numerator = 0;
+
+    synchronized public String enumerate(int a){
+        numerator += a;
+        if(numerator == 0) return "";
+        else return "(" + numerator + ")";
+    }
+
     private String getSuffix(String name){
         while(name.contains(".")){
             name = name.substring(name.indexOf(".") + 1);
@@ -39,7 +47,7 @@ public class Zipper {
         return "." + name;
     }
 
-    synchronized public String doZip(int examID) throws IOException {
+    public String doZip(int examID) throws IOException {
 
         File dir = new File("src/main/webapp/resources/files/downloads/");
         if (!current.getCurrentUser().getStatus().equals(User.LECTURER)) return "";
@@ -50,7 +58,7 @@ public class Zipper {
                 se.printStackTrace();
             }
         }
-        String zip = "src/main/webapp/resources/files/downloads/all_student_works.zip";
+        String zip = "src/main/webapp/resources/files/downloads/all_student_works"+enumerate(1)+".zip";
         File zz = new File(zip);
         if (zz.exists()) {
             try {
@@ -69,7 +77,7 @@ public class Zipper {
         for (StudentExam entry : ls) {
             List<Upload> curr = uploads.getForUser(entry);
             String path = "src/main/webapp/";
-            String suffix = null;
+            String suffix;
             if (curr.size() == 0) continue;
             else {
                 path += curr.get(curr.size() - 1).getFileLink();
@@ -90,7 +98,7 @@ public class Zipper {
 
 
     public void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
-        FileInputStream fis = null;
+        FileInputStream fis;
         try {
             fis = new FileInputStream(fileToZip);
 
