@@ -84,13 +84,4 @@ public class InterceptConfig implements HandlerInterceptor {
         return true;
     }
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        String url = request.getRequestURL().toString();
-        url = url.substring(8);
-        url = url.substring(url.indexOf("/"));
-        if(url.startsWith("/lecturer/getAll")){
-            zip.enumerate(-1);
-        }
-    }
 }

@@ -33,11 +33,6 @@ public class Zipper {
 
     int numerator = 0;
 
-    synchronized public String enumerate(int a){
-        numerator += a;
-        if(numerator == 0) return "";
-        else return "(" + numerator + ")";
-    }
 
     private String getSuffix(String name){
         while(name.contains(".")){
@@ -48,17 +43,15 @@ public class Zipper {
     }
 
     public String doZip(int examID) throws IOException {
-
-        File dir = new File("src/main/webapp/resources/files/downloads/");
+        String folder = RandomNameGenerator.generate(10);
+        File dir = new File("src/main/webapp/resources/files/downloads/" + folder + "/");
         if (!current.getCurrentUser().getStatus().equals(User.LECTURER)) return "";
-        if (!dir.exists()) {
-            try {
-                dir.mkdir();
-            } catch (SecurityException se) {
-                se.printStackTrace();
-            }
+        try {
+            dir.mkdir();
+        } catch (SecurityException se) {
+            se.printStackTrace();
         }
-        String zip = "src/main/webapp/resources/files/downloads/all_student_works"+enumerate(1)+".zip";
+        String zip = "src/main/webapp/resources/files/downloads/" + folder + "/all_student_works.zip";
         File zz = new File(zip);
         if (zz.exists()) {
             try {
