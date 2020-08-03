@@ -16,15 +16,17 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
 
     @Override
     public long create(Exam ex) {
-
-        String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE(\"" + ex.getStartDate() + "\", \"%Y/%m/%d %H:%i\"), " + ex.getDurationInMinutes() + ", " +
-                ex.getVariants() + ", '" + ex.getFullName() + "')";
+        String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE( ? , '%Y-%m-%d %H:%i'), ?, ?, ?)";
 
 
 
         PreparedStatement insertStatement;
         try {
             insertStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            insertStatement.setString(1, ex.getStartDate());
+            insertStatement.setInt(2, ex.getDurationInMinutes());
+            insertStatement.setInt(3, ex.getVariants());
+            insertStatement.setString(4, ex.getFullName());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return ERR_UNKNOWN;
