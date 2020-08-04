@@ -20,7 +20,7 @@ public class ExamLecturersSQLDAO extends AbstractSQLDAO implements ExamLecturers
             if (st.executeUpdate() == 0) throw new SQLException("something went wrong while inserting a pair of exam and a lecturer");
             return true;
         } catch (SQLException throwables) {
-            //throwables.printStackTrace();
+            throwables.printStackTrace();
             return false;
         }
     }

@@ -92,7 +92,7 @@ public class ExamServiceTest {
         MultipartFile result = new MockMultipartFile("foo.txt",
                 "foo.txt", "text/plain", content);
         Map<String, MultipartFile> mp = new HashMap<>();
-        mp.put("2", result);
+        mp.put("statement_2", result);
 
         testObject.setFiles(mp, id);
         ExamMaterial got = examMaterialDao.get(id, 2);
@@ -196,7 +196,7 @@ public class ExamServiceTest {
 
         withoutHours = withoutHours.substring(0,withoutHours.lastIndexOf("/")) + "/" +
                 (Integer.parseInt(withoutHours.substring(withoutHours.lastIndexOf("/")+1 ))-1) + "";
-        startDate = withoutHours + onlyHours;
+        startDate = withoutHours + " " + onlyHours;
         Exam testEx3 = new Exam( "foo Exam2",
                 startDate,
                 Integer.MAX_VALUE,
