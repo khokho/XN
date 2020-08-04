@@ -1,7 +1,5 @@
 package ge.exen.dto;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.validation.constraints.NotNull;
 
 public class ExamDTO {
@@ -43,11 +41,12 @@ public class ExamDTO {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
     /**
      * Set start date with format 'yyyy-MM-dd hh:mm'
      */
     public void setStartDate(String startDate) {
-        this.startDate = startDate;
+        this.startDate = startDate.replace('-', '/');
     }
 
     public void setHours(String hours) {

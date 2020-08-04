@@ -1,8 +1,11 @@
 package ge.exen.controllers;
 
 import ge.exen.DAO.ExamDao;
+import ge.exen.configs.GlobalConstants;
 import ge.exen.models.Exam;
-import ge.exen.services.*;
+import ge.exen.services.FileWorkerService;
+import ge.exen.services.IExamMaterial;
+import ge.exen.services.RandomNameGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -28,15 +32,19 @@ public class lecturerExam {
 
 
     @GetMapping("/lecturer/exam/{exam_id}")
-    public String statementEditor( @PathVariable Integer exam_id, Model model, HttpServletRequest req){
-
+    public String statementEditor( @PathVariable Integer exam_id, Model model){
         Exam e = exam.get(exam_id);
         model.addAttribute("varNum", e.getVariants());
         model.addAttribute("content", "changeStatements.jsp");
         model.addAttribute("title", "პირობების პანელი");
+        if(GlobalConstants.DEBUG)
+            System.out.println("variantebis raod.: "+e.getVariants());
+
+        List<Boolean> uploaded = new ArrayList<>();
         for(int i = 1; i <= e.getVariants(); i ++){
-            if(material.getMaterial(i, exam_id) != null) req.setAttribute("" + i, "1");
+            uploaded.add(material.getMaterial(i, exam_id) != null);
         }
+        model.addAttribute("uploaded", uploaded);
         return "template";
     }
 

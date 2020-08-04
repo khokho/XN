@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 public class ExamControllerForAdmin {
-    private int EXAMS_PER_PAGE = 1;
+    private int EXAMS_PER_PAGE = 10;
     @Autowired
     IExamService examService;
 

@@ -33,7 +33,6 @@ public class ExamMaterial {
   }
 
   public void setMaterialLink(String materialLink) {
-
     this.materialLink = materialLink.substring(materialLink.indexOf("resources"));
   }
 
