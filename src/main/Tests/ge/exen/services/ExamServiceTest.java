@@ -120,25 +120,25 @@ public class ExamServiceTest {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime now = LocalDateTime.now();
         String currentTime = dtf.format(now);
-        String withoutHours = currentTime.substring(0,currentTime.indexOf(" "));
-        String onlyHours = currentTime.substring(currentTime.indexOf(" ")+1);
-        String newOnlyHours = onlyHours.charAt(0)+"";
-        if(onlyHours.charAt(1) != '0') {
-            newOnlyHours += onlyHours.charAt(1)-'0' -1+"" + onlyHours.substring(2);
-        }
+        String oneHourBefore = dtf.format(now.minusHours(1));
+        String threeHourBefore = dtf.format(now.minusHours(3));
+        String oneHourInFuture = dtf.format(now.plusHours(1));
 
-        String startDate = withoutHours + " " + newOnlyHours;
+
         Exam testEx = new Exam( "foo Exam",
-                startDate, 120,
+                oneHourBefore, 120,
                 6);
         long status =examDao.create(testEx);
-        assertEquals(status,SQLExamDao.OK);
+        assertEquals(SQLExamDao.OK, status);
+        assertTrue(testEx.getID()>=0);
         StudentExam ex = new StudentExam();
         ex.setExamId(testEx.getID());
         ex.setStudentId(userService.getCurrentUser().getId());
         ex.setCompIndex(23);
         ex.setVariant(6);
+
         System.out.println(testEx.getID());
+
         assertTrue(studentExamDAO.create(ex));
       //  System.out.println(userService.getCurrentUser().getEmail());
         System.out.println(testEx.getID());
@@ -148,6 +148,11 @@ public class ExamServiceTest {
         assertEquals(ex,ans);
 
 
+        ans = testObject.getLiveExamForCurrentStudent();
+        assertEquals(ex, ans);
+
+
+
     }
 
     @Test
@@ -155,64 +160,77 @@ public class ExamServiceTest {
     public void testGetExamsForHighStatus() {
 
     }
+
     @Test
     @DirtiesContext
     public void testGetAllCurrentExam(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+
         LocalDateTime now = LocalDateTime.now();
         String currentTime = dtf.format(now);
-        String withoutHours = currentTime.substring(0,currentTime.indexOf(" "));
-        String onlyHours = currentTime.substring(currentTime.indexOf(" ")+1);
-        String newOnlyHours = onlyHours.charAt(0)+"";
-        //test with 1 hour
-        if(onlyHours.charAt(1) != '0') {
-           newOnlyHours += onlyHours.charAt(1)-'0' -1+"" + onlyHours.substring(2);
-        }
-        //please dont test it on 00: .. 10: .. or 20:.. just please
-        String startDate = withoutHours + " " + newOnlyHours;
+        String oneHourBefore = dtf.format(now.minusHours(1));
+        String threeHourBefore = dtf.format(now.minusHours(3));
+        String oneHourInFuture = dtf.format(now.plusHours(1));
+
+        int startingCount = testObject.getAllCurrentExams().size();
+
+        //new exam current
         Exam testEx = new Exam( "foo Exam",
-                startDate, 120,
+                oneHourBefore, 120,
                 6);
         long status = examDao.create(testEx);
         assertEquals(SQLExamDao.OK, status);
         List<Exam> exams = testObject.getAllCurrentExams();
-        assertEquals(exams.size(),2);
+        assertEquals(startingCount+1, exams.size());
+
+        //new exam not current
         Exam testEx1 = new Exam( "foo Exam1",
-                startDate,
-                13,
+                oneHourBefore, 13,
                 5);
         long status1 = examDao.create(testEx1);
         assertEquals(SQLExamDao.OK, status1);
         exams = testObject.getAllCurrentExams();  //still 1
-        assertEquals(exams.size(),2);
+        assertEquals(startingCount+1, exams.size());
 
+        //new exam current
         Exam testEx2 = new Exam( "foo Exam2",
-                startDate,
-                60,
+                oneHourBefore, 90,
                 7);
         long status2 = examDao.create(testEx2);
-        exams = testObject.getAllCurrentExams();  //now2
-        assertEquals(exams.size(),3);
+        exams = testObject.getAllCurrentExams();  //now 2
+        assertEquals(startingCount + 2, exams.size());
 
-        withoutHours = withoutHours.substring(0,withoutHours.lastIndexOf("/")) + "/" +
-                (Integer.parseInt(withoutHours.substring(withoutHours.lastIndexOf("/")+1 ))-1) + "";
-        startDate = withoutHours + " " + onlyHours;
+        //new exam current
         Exam testEx3 = new Exam( "foo Exam2",
-                startDate,
+                oneHourBefore,
                 Integer.MAX_VALUE,
                 7);
         long status3 = examDao.create(testEx3);
         assertEquals(SQLExamDao.OK,status3);
         exams = testObject.getAllCurrentExams();  //now 3
-        assertEquals(exams.size(),4);
+        assertEquals(startingCount + 3, exams.size());
+
+        //new exam not current
         Exam testEx4 = new Exam( "foo Exam2",
-                startDate,
-                10,
+                threeHourBefore,
+                150,
                 7);
         long status4 = examDao.create(testEx4);
         assertEquals(SQLExamDao.OK,status4);
         exams = testObject.getAllCurrentExams();  //still 3
-        assertEquals(exams.size(),4);
+        assertEquals(startingCount + 3, exams.size());
+
+        //exam in future
+        Exam testEx5 = new Exam( "foo Exam2",
+                oneHourInFuture,
+                150,
+                7);
+        long status5 = examDao.create(testEx4);
+        assertEquals(SQLExamDao.OK,status5);
+        exams = testObject.getAllCurrentExams();  //still 3
+        assertEquals(startingCount + 3, exams.size());
+
+
 
     }
 

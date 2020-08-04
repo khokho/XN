@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component("exdao")
+@Component("exdao")//FIXME exdao არ ერქვას
 public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
 
 
