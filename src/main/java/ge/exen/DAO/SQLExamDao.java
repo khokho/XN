@@ -10,18 +10,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component("exdao")
+@Component("exdao")//FIXME exdao არ ერქვას
 public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
 
 
     @Override
     public long create(Exam ex) {
-
+        //FIXME
         String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE(\"" + ex.getStartDate() + "\", \"%Y/%m/%d %H:%i\"), " + ex.getDurationInMinutes() + ", " +
                 ex.getVariants() + ", '" + ex.getFullName() + "')";
-
-
-
         PreparedStatement insertStatement;
         try {
             insertStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -32,7 +29,9 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
         ResultSet ans;
 
         try {
+            System.out.println(insertStatement);
             insertStatement.executeUpdate();
+
             ans = insertStatement.getGeneratedKeys();
             ans.next();
             ex.setID(ans.getLong(1));
@@ -53,6 +52,7 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
 
     @Override
     public Exam get(long ID) {
+        //FIXME
         String query = "SELECT exam_id, DATE_FORMAT(start_time, \"%Y/%m/%d %H:%i\") start_time, exam_subj, var_num, duration FROM exam WHERE exam_id =" +  ID + ";";
 
         try {
@@ -80,6 +80,7 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
 
     @Override
     public List<Exam> getAll() {
+        //FIXME
         String query = "SELECT exam_id, DATE_FORMAT(start_time, \"%Y/%m/%d %H:%i\") start_time, exam_subj, var_num, duration FROM exam order by start_time";
         List<Exam> ans = new ArrayList<>();
         try {
