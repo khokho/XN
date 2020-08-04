@@ -82,7 +82,7 @@ public class SidebarController {
         }
         if(curUser.getStatus().equals(User.LECTURER)){
             sidebar.add(new SidebarElement("გამოცდები", "/lecturer/exams"));
-            List<Exam> exams = examService.getExamsForHighStatus();
+            List<Exam> exams = examService.getLiveExamsForHighStatus();
             System.out.println(exams.size());
             for(Exam exam:exams){
                 sidebar.add(new SidebarElement(exam.getFullName() + " პოსტები", "/posts/"+exam.getID()));
