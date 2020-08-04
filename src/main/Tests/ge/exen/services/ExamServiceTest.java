@@ -92,7 +92,7 @@ public class ExamServiceTest {
         MultipartFile result = new MockMultipartFile("foo.txt",
                 "foo.txt", "text/plain", content);
         Map<String, MultipartFile> mp = new HashMap<>();
-        mp.put("2", result);
+        mp.put("statement_2", result);
 
         testObject.setFiles(mp, id);
         ExamMaterial got = examMaterialDao.get(id, 2);
@@ -100,7 +100,6 @@ public class ExamServiceTest {
         assertNotNull(got);
         assertEquals(2, got.getVar());
         assertEquals(id, got.getExamId());
-        assertEquals(ExamMaterialService.directory.replace("%id%", "" + id) + "/foo.txt", got.getMaterialLink());
     }
 
     @Test

@@ -14,7 +14,6 @@
 
     </bean>
 
-
     <bean id="db" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/exen?useUnicode=yes&amp;characterEncoding=utf8"/>
@@ -35,7 +34,10 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-<!--    <mvc:interceptors>-->
+    <mvc:interceptors>
+        <bean class="ge.exen.configuration.InterceptConfig" />
+    </mvc:interceptors>
+<!---    <mvc:interceptors>-->
 <!--        <bean class="ge.exen.configuration.InterceptConfig" />-->
 <!--    </mvc:interceptors>-->
 

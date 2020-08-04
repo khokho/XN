@@ -27,6 +27,8 @@ public class ExamService implements IExamService {
     @Autowired
     IExamMaterial materials;
     @Autowired
+    FileWorkerService fileService;
+    @Autowired
     IUserService userService;
     @Autowired
     StudentExamDAO studentExamDao;
@@ -54,17 +56,18 @@ public class ExamService implements IExamService {
     }
 
 
-    public int setFiles(Map<String, MultipartFile> input, Long id) {
+    public void setFiles(Map<String, MultipartFile> input, Long id) {
         HashMap<Integer, MultipartFile> files = new HashMap<>();
+        String dir = "src/main/webapp/resources/files/statements/exam_"+id+"/";
         for (Map.Entry<String, MultipartFile> ent : input.entrySet()) {
 
             if (!ent.getValue().isEmpty()) {
-                System.out.println(ent.getKey());
+                String path = fileService.storeMultiPartFile(dir, ent.getValue(), RandomNameGenerator.generate(10));
+                materials.setMaterial(Integer.parseInt(ent.getKey().substring(10)), id, path);
                 files.put(Integer.parseInt(ent.getKey().substring(10)), ent.getValue());
             }
         }
 
-        return materials.storeFiles(files, id);
     }
 
 
@@ -72,7 +75,7 @@ public class ExamService implements IExamService {
         User user = userService.getCurrentUser();
         List<Exam> exams = dao.getAll();
         for (int i = 0; i < exams.size(); i++) {
-           //if(!isCurrentlyLive(exams.get(i))) continue;
+           if(!isCurrentlyLive(exams.get(i))) continue;
            System.out.println(user.getId()+ " " + exams.get(i).getID());
             StudentExam exam = studentExamDao.get(user.getId(), exams.get(i).getID());
             if (exam != null) return exam;

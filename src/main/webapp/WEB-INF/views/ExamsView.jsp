@@ -5,7 +5,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!--<div class="row d-flex justify-content-center container">
 <div class="col-md-8">-->
-<% List<ExamControllerForAdmin.ExamInfo> exams = (List<ExamControllerForAdmin.ExamInfo>) session.getAttribute("list");%>
+<% List<ExamControllerForAdmin.ExamInfo> exams = (List<ExamControllerForAdmin.ExamInfo>) request.getAttribute("list");%>
 
 <div class="card-hover-shadow-2x mb-3 card" style="height: 65%!important;">
     <div id="box" class="scroll-area-sm">
@@ -92,33 +92,20 @@
 </div>
 <div id="upBox" class="d-block card-footer fixed-bottom row"
      style="opacity: 100%;background-color: white!important;">
-    <form action="${pageContext.request.contextPath}/admin/list">
-    <button onclick = "window.location.href='/l?pageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'" class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
 
-        <input type="number" min="1" max="<%=request.getAttribute("pageNum")%>" name="pageNum"
-        value="<%=request.getAttribute("current")%>">
+    <button onclick = "window.location.href='/admin/list?pageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'" class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
+        <div style="display:inline;">
+            <form style="display:inline; width: 15%;">
+                <input type="number" min="1" max="<%=request.getAttribute("pageNum")%>" name="pageNum"
+                value="<%=request.getAttribute("current")%>">
+            </form>
+        </div>
 
-
-    <button onclick= "window.location.href='/l?pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'" class="mr-2 btn btn-link btn-sm row" style="margin-left: 10px"><i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i></button>
+    <button onclick= "window.location.href='/admin/list?pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'" class="mr-2 btn btn-link btn-sm row" style="margin-left: 10px"><i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i></button>
     <button onclick= "window.location.href='/admin/newExam'" class="btn btn-primary row">გამოცდის შექმნა</button>
-    </form>
+
 </div>
-<script>
-    function setW() {
 
-        document.getElementById("bottomboy").style.marginLeft = (document.getElementById("sidebar-wrapper").offsetWidth).toString() + 'px';
-    }
 
-    function getHeight() {
-        return (document.getElementById("bottomboy").offsetHeight.toString()) + "px";
-    }
-
-    function setMargin() {
-        document.getElementById("box").style.marginBottom = getHeight();
-    }
-
-    setW();
-    setMargin();
-</script>
 <!-- </div> -->
 <!--</div>-->

@@ -16,12 +16,17 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
 
     @Override
     public long create(Exam ex) {
-        //FIXME
-        String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE(\"" + ex.getStartDate() + "\", \"%Y/%m/%d %H:%i\"), " + ex.getDurationInMinutes() + ", " +
-                ex.getVariants() + ", '" + ex.getFullName() + "')";
+        String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE( ? , '%Y/%m/%d %H:%i'), ?, ?, ?)";
+
+
+
         PreparedStatement insertStatement;
         try {
             insertStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            insertStatement.setString(1, ex.getStartDate());
+            insertStatement.setInt(2, ex.getDurationInMinutes());
+            insertStatement.setInt(3, ex.getVariants());
+            insertStatement.setString(4, ex.getFullName());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return ERR_UNKNOWN;
@@ -29,9 +34,7 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
         ResultSet ans;
 
         try {
-            System.out.println(insertStatement);
             insertStatement.executeUpdate();
-
             ans = insertStatement.getGeneratedKeys();
             ans.next();
             ex.setID(ans.getLong(1));
@@ -52,12 +55,12 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
 
     @Override
     public Exam get(long ID) {
-        //FIXME
-        String query = "SELECT exam_id, DATE_FORMAT(start_time, \"%Y/%m/%d %H:%i\") start_time, exam_subj, var_num, duration FROM exam WHERE exam_id =" +  ID + ";";
+        String query = "SELECT exam_id, DATE_FORMAT(start_time, '%Y/%m/%d %H:%i') start_time, exam_subj, var_num, duration FROM exam WHERE exam_id = ?";
 
         try {
-            Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery(query);
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setLong(1, ID);
+            ResultSet res = stat.executeQuery();
             if(!res.next()) {return null;}
             Exam ret = new Exam();
             ret.setID(ID);
@@ -80,8 +83,7 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
 
     @Override
     public List<Exam> getAll() {
-        //FIXME
-        String query = "SELECT exam_id, DATE_FORMAT(start_time, \"%Y/%m/%d %H:%i\") start_time, exam_subj, var_num, duration FROM exam order by start_time";
+        String query = "SELECT exam_id, DATE_FORMAT(start_time, '%Y/%m/%d %H:%i') start_time, exam_subj, var_num, duration FROM exam order by start_time";
         List<Exam> ans = new ArrayList<>();
         try {
             PreparedStatement st = conn.prepareStatement(query);
