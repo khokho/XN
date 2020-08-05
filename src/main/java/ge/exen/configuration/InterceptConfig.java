@@ -1,50 +1,64 @@
 package ge.exen.configuration;
 
+import ge.exen.DAO.ExamDao;
+import ge.exen.models.StudentExam;
 import ge.exen.models.User;
-import ge.exen.services.UserService;
+import ge.exen.services.ExamService;
+import ge.exen.services.IExamService;
+import ge.exen.services.IUserService;
+import ge.exen.services.Zipper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static ge.exen.configs.GlobalConstants.DEBUG;
+
+
 public class InterceptConfig implements HandlerInterceptor {
 
     @Autowired
-    UserService user;
+    IUserService userService;
+    @Autowired
+    IExamService examService;
+    @Autowired
+    ExamDao examDAO;
+    @Autowired
+    Zipper zip;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        /*
-        User currentUser = user.getCurrentUser();
+        //if(DEBUG)return true;
+        User currentUser = userService.getCurrentUser();
         String url = request.getRequestURL().toString();
         url = url.substring(8);
         url = url.substring(url.indexOf("/"));
-        System.out.println(url);
+        if(url.startsWith("/resources/")){
+            return true;
+        }
+        if(url.startsWith("/getSidebar")){
+            return true;
+        }
 
         if(currentUser == null && !url.equals("/login")) {
-
             response.sendRedirect("/login");
             return false;
         }
         if(currentUser == null) {
             request.setAttribute("loggedin", "0");
-            request.setAttribute("sidebar", "adminSidebar.jsp");
             return true;
         }
         request.setAttribute("loggedin", "1");
         switch (currentUser.getStatus()) {
             case User.ADMIN :
-                request.setAttribute("sidebar", "adminSidebar.jsp");
             break;
 
             case User.LECTURER:
-                if(!url.startsWith("/lecturer")) {
-                    response.sendRedirect("/accessDenied");
-                    return false;
-                }
-                request.setAttribute("sidebar", "adminSidebar.jsp");
             break;
 
             case User.STUDENT:
@@ -53,14 +67,21 @@ public class InterceptConfig implements HandlerInterceptor {
                     response.sendRedirect("/accessDenied");
                     return false;
                 }
-                request.setAttribute("sidebar", "adminSidebar.jsp");
+
+                StudentExam ex = examService.getExamForCurrentUser();
+                int mn = examDAO.get(ex.getExamId()).getDurationInMinutes();
+                Date time = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(examDAO.get(ex.getExamId()).getStartDate());
+                long ONE_MINUTE_IN_MILLIS=60000;
+                long t= time.getTime() + ONE_MINUTE_IN_MILLIS * mn;
+
+                request.setAttribute("time", t);
+                request.setAttribute("sidebar", "sidebar.jsp");
             break;
 
 
 
         }
-
-         */
         return true;
     }
+
 }

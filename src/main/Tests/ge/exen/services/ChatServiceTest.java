@@ -108,13 +108,14 @@ public class ChatServiceTest {
         tamtaExam1.setVariant(1L);
         //ACTION
         userService.login(nanaLogin);
-        studentExamService.assignStudentToExam(tamtaExam1);
+        boolean bb1 = studentExamService.assignStudentToExam(tamtaExam1);
+        bb1 = false;
     }
 
     @Test
     @DirtiesContext
     void startChat() {
-        userService.login(tamtaLogin);
+        boolean bb = userService.login(tamtaLogin);
         Chat chatLekvaTamta = chatService.startChat(lekvaId);
         assertNotNull(chatLekvaTamta);
         assertEquals(1, chatLekvaTamta.getExamId());

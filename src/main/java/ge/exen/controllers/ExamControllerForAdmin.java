@@ -1,7 +1,6 @@
 package ge.exen.controllers;
 
 
-import ge.exen.DAO.ExamDao;
 import ge.exen.models.Exam;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.StudentExam;
@@ -18,11 +17,11 @@ import java.util.List;
 
 @Controller
 public class ExamControllerForAdmin {
-    private int EXAMS_PER_PAGE = 1;
+    private int EXAMS_PER_PAGE = 10;
     @Autowired
     IExamService examService;
 
-    @GetMapping(value = "/l")
+    @GetMapping(value = "/admin/list")
     public String toAdminHomePage(HttpServletRequest req, HttpSession ses) {
         List<Exam> exams = examService.getAllExams();
         List<ExamInfo> list = new ArrayList<>();
@@ -32,19 +31,18 @@ public class ExamControllerForAdmin {
             if(i == exams.size()) break;
             list.add(new ExamInfo(exams.get(i),examService.isCurrentlyLive(exams.get(i))));
         }
-        ses.setAttribute("list",list);
+
         int pageNum = exams.size() / EXAMS_PER_PAGE+1;
-        req.setAttribute("list", list);
+        ses.setAttribute("list", list);
         req.setAttribute("current",index);
-        ses.setAttribute("list",list);
+        req.setAttribute("list",list);
         req.setAttribute("pageNum", pageNum);
         req.setAttribute("content", "ExamsView.jsp");
-        req.setAttribute("sidebar", "adminSidebar.jsp");
         return "template";
     }
 
-    @PostMapping(value = "/l")
-    public String rendeerExams(HttpServletRequest req,HttpSession ses) {
+    @PostMapping(value = "/admin/list")
+    public String renderExams(HttpServletRequest req,HttpSession ses) {
         List<Exam> exams = examService.getAllExams();
         List<ExamInfo> list = new ArrayList<>();
         int index = Integer.parseInt(req.getParameter("pageNum"));
@@ -53,7 +51,6 @@ public class ExamControllerForAdmin {
         }
         ses.setAttribute("list",list);
         req.setAttribute("current",index);
-       // req.setAttribute("current",index);
         return "";
     }
 

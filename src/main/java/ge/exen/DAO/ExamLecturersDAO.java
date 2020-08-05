@@ -2,6 +2,8 @@ package ge.exen.DAO;
 
 import ge.exen.models.ExamLecturers;
 
+import java.util.List;
+
 public interface ExamLecturersDAO {
     /**
      * @param examLecturers pair of exam_id and lecturer_id
@@ -16,4 +18,10 @@ public interface ExamLecturersDAO {
      *          false if it doesn't exist
      */
     boolean check(ExamLecturers examLecturers);
+
+    /**
+     * @param examId get lecturers for this exam id
+     * @return
+     */
+    List<Long> getLecturerIds(long examId);
 }

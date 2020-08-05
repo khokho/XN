@@ -1,8 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
 
-<div class="align-content-center" style="vertical-align: middle;">
-
+<div class="align-content-center" style="margin-left: -240px;">
         <form id="form" accept-charset="UTF-8" role="form" style="margin-top: 100px">
             <div class="form-group row justify-content-center">
 

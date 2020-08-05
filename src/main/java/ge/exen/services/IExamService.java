@@ -2,6 +2,7 @@ package ge.exen.services;
 
 import ge.exen.dto.ExamDTO;
 import ge.exen.models.Exam;
+import ge.exen.models.ExamLecturers;
 import ge.exen.models.StudentExam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,7 +24,7 @@ public interface IExamService {
      * @param id exam ID
      * @return output message.
      */
-    int setFiles(Map<String, MultipartFile> input, Long id);
+    void setFiles(Map<String, MultipartFile> input, Long id);
 
     /**
      * Gets current user and returns exam
@@ -53,6 +54,12 @@ public interface IExamService {
      * @return list of exams
      */
     List<Exam> getExamsForHighStatus();
+
+    List<Exam> getLiveExamsForHighStatus();
+
+    List<ExamLecturers> getLiveExamForCurrentLecturer();
+
+    StudentExam getLiveExamForCurrentStudent();
     /**
      * @param  exam exam which is checked
      * @return  true if exam is currently on, false otherwise

@@ -19,7 +19,7 @@
 <% List<ExamControllerForAdmin.ExamInfo> exams = (List<ExamControllerForAdmin.ExamInfo>) session.getAttribute("list");
 
 %>
-<div class="container" style="padding-top: 70px">
+<div class="container" style="padding-top: 70px; ">
     <form id="form" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
 
         <div class="form-group row">
@@ -66,16 +66,16 @@
         </div>
 
         <div class="form-group row">
-            <label for="duration_hr" class="col-sm-3 control-label">გამოცდის ხანგრძლივობა:</label>
+            <label for="hours" class="col-sm-3 control-label">გამოცდის ხანგრძლივობა:</label>
             <div class="col-sm-4 input-group">
-                <input type="number" name="duration_hr" class="form-control inputstl"
-                       style="width: 60px; margin-right: 5px" min="0" max="99" id="duration_hr" <% String duration = "სთ";
+                <input type="number" name="hours" class="form-control inputstl"
+                       style="width: 60px; margin-right: 5px" min="0" max="99" id="hours" <% String duration = "სთ";
                        if(request.getParameter("index")!=null) {
                             duration = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getDurationInMinutes()/60+"სთ";
                        }
                          %>
                        placeholder= <%= duration%>>
-                <input type="number" name="duration_mn" class="form-control inputstl" id="duration_mn"
+                <input type="number" name="minutes" class="form-control inputstl" id="minutes"
                        style="width: 60px" min="0" max="59" <% duration = "წთ";
                        if(request.getParameter("index")!=null) {
                             duration = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getDurationInMinutes()%60 + "წთ";

@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public interface IExamMaterial {
 
-    int storeFiles(HashMap<Integer, MultipartFile> fileMap, Long id);
+    void setMaterial(long var, long id, String name);
 
+    String getMaterial(long var, long examID);
 }
