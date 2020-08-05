@@ -8,7 +8,7 @@ var stomp = Stomp.over(ws);
 //this function will be bound to button !this!
 function onmessage(responseJSON){
     console.log("Hi my name is bob and I'm from wesocket")
-    this.updateBtn()
+    this.update()
 }
 
 class StudentButtons extends React.Component {
@@ -85,9 +85,9 @@ var wcStudent = ReactDOM.render(
     document.getElementById('wc-student')
 );
 
+
 stomp.connect({}, function () {
     paperStudent.startListen()
     examerStudent.startListen()
     wcStudent.startListen()
-
 });

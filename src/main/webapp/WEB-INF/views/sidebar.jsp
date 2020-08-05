@@ -15,6 +15,9 @@
         constructor(props) {
             super(props);
             this.state = {elements:[]}
+        }
+
+        componentWillMount(){
             var sidebarURL = window.location.protocol + "//" + window.location.host + "/getSidebar"
             fetch(sidebarURL)
                 .then(resp=>resp.json())

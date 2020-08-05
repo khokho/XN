@@ -35,6 +35,7 @@ class AdminButtons extends React.Component {
         var button = this
         fetch('http://' + window.location.host + '/get-anticipants/'+button.queueName)
             .then(resp=>{
+                console.log(resp)
                 return resp.json()
             })
             .then(res=>{

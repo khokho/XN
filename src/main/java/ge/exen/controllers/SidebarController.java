@@ -79,6 +79,7 @@ public class SidebarController {
             sidebar.add(new SidebarElement("იუზერის დამატება", "/admin/register"));
             sidebar.add(new SidebarElement("გამოცდის დამატება", "/admin/newExam"));
             sidebar.add(new SidebarElement("გამოცდები", "/admin/list"));
+            sidebar.add(new SidebarElement("რიგები", "/queues"));
         }
         if(curUser.getStatus().equals(User.LECTURER)){
             sidebar.add(new SidebarElement("გამოცდები", "/lecturer/exams"));
@@ -96,6 +97,7 @@ public class SidebarController {
 
         if(curUser.getStatus().equals(User.STUDENT)){
             sidebar.add(new SidebarElement("გამოცდა", "/eh"));
+            sidebar.add(new SidebarElement("რიგები", "/queues"));
             StudentExam exam = examService.getExamForCurrentUser();
             sidebar.add(new SidebarElement("პოსტები","/posts/"+exam.getExamId()));
             List<Long> users = examLecturersDAO.getLecturerIds(exam.getExamId());
@@ -104,11 +106,6 @@ public class SidebarController {
                 sidebar.add(new SidebarElement("ჩატი: " + user.getName() + " " + user.getLastName(), "/startChat/"+userId));
             }
         }
-
-
-
-
-
         return sidebar;
     }
 

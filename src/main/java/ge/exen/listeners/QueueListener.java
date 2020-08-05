@@ -30,7 +30,7 @@ public class QueueListener implements IQueueListener {
 
     @Override
     public void fireQueueUpdate(String name) {
-        System.out.println("hi dudes I am weboscket other end");
+        System.out.println("hi dudes I am websocket other end");
         System.out.println("/topic/queue-"+name);
         messagingTemplate.convertAndSend("/topic/queue-"+name, "g");
     }

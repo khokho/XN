@@ -64,6 +64,7 @@ public class QueueService implements IQueueService {
         User currentStudent = userService.getCurrentUser();
         waitingStudents.add(currentStudent);
         notifyListeners(PUSH);
+        changeDisabledState(getType());
     }
 
     public void enqueueCurrentStudent(User currentStudent) {
@@ -117,6 +118,7 @@ public class QueueService implements IQueueService {
             }
         }
         notifyListeners(CANCEL);
+        changeDisabledState(getType());
     }
 
     public void cancelWaitingCurrentStudent(User currentStudent) {
@@ -137,6 +139,7 @@ public class QueueService implements IQueueService {
             firstInQueue = waitingStudents.get(0);
             waitingStudents.remove(0);
             notifyListeners(POP);
+            changeDisabledState(getType());
             return firstInQueue;
         }
         return null;
@@ -147,6 +150,9 @@ public class QueueService implements IQueueService {
         waitingStudents.clear();
         notifyListeners(CLEAR);
         firstInQueue = null;
+        if (getDisabledState(getType())) {
+            changeDisabledState(getType());
+        }
     }
 
     @Override
@@ -174,7 +180,9 @@ public class QueueService implements IQueueService {
      * notifys all listeners when queue is updated
      */
     private void notifyListeners(int type) {
+        System.out.println("notifyiiing");
         for (IQueueListener listener : listeners) {
+            System.out.println(getType());
             listener.fireQueueUpdate(getType());
         }
     }
