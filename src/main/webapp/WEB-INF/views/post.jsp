@@ -121,7 +121,10 @@
         const newPost = document.querySelector('#newPost');
         ReactDOM.render(<NewPosts/>, newPost);
     </c:if>
+
 </script>
+
+<iframe style="display:none" name="hidden-form"></iframe>
 
 </body>
 </html>

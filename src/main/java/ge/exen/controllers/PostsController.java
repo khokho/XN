@@ -3,6 +3,8 @@ package ge.exen.controllers;
 import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.UserDAO;
 import ge.exen.dto.PostWriteDTO;
+import ge.exen.dto.UserLoginDTO;
+import ge.exen.dto.UserRegisterDTO;
 import ge.exen.models.Exam;
 import ge.exen.models.Post;
 import ge.exen.models.PostJSON;
@@ -37,9 +39,10 @@ public class PostsController {
     ExamDao examDao;
 
     @PostMapping("/newPost")
-    public RedirectView writeNewPost(PostWriteDTO postWriteDTO){
+    public String writeNewPost(PostWriteDTO postWriteDTO){
         postsService.writeNewPost(postWriteDTO);
-        return new RedirectView("/posts/"+postWriteDTO.getExamId());
+      //  return new RedirectView("/posts/"+postWriteDTO.getExamId());
+        return "ok";
     }
     @GetMapping("/posts/{examId}")
     public String getPostsView(Model model, @PathVariable Integer examId){
@@ -63,7 +66,7 @@ public class PostsController {
     @ResponseBody
     @GetMapping(value = "/getPosts/{examId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PostJSON> getPosts(@PathVariable Integer examId){
-        List<Post> posts = postsService.getPostsByUserId();
+        List<Post> posts = postsService.getPostsByExamId(examId);
         List<PostJSON> postJSONs = new ArrayList<>();
         for (Post post : posts) {
             if(post.getExamId() != examId) continue;

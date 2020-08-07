@@ -72,7 +72,7 @@ class Posts extends React.Component{
 class NewPosts extends React.Component{
     render(){
         return (
-            <form action={"/newPost"} method={"post"} name={"text-box"}>
+            <form action={"/newPost"} method={"post"} name={"text-box"} target={"hidden-form"}>
             <div className="card">
             <div className="card-header">
                 <div className={"p-2"}>Announcement</div>
@@ -91,7 +91,7 @@ class NewPosts extends React.Component{
             </div>
             </form>
 
-        );
+            );
     }
 }
 
