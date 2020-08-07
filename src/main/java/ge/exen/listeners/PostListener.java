@@ -31,6 +31,7 @@ public class PostListener implements IPostListener{
     @Override
     public void postReceived(Post post){
         PostJSON postJSON = new PostJSON();
+        postJSON.setAction("add");
         postJSON.setText(post.getText());
         User lecturer = userDAO.getUser(post.getFromId());
         postJSON.setLecturer(lecturer.getName() + " " + lecturer.getLastName());
@@ -41,5 +42,10 @@ public class PostListener implements IPostListener{
         messagingTemplate.convertAndSend("/topic/posts-"+post.getExamId(), postJSON);
     }
 
-
+    public void postRemoved(long postId, long examId){
+        PostJSON postJSON = new PostJSON();
+        postJSON.setAction("remove");
+        postJSON.setPostId(postId);
+        messagingTemplate.convertAndSend("/topic/posts-"+examId, postJSON);
+    }
 }

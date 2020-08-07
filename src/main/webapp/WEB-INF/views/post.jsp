@@ -125,6 +125,7 @@
 </script>
 
 <iframe style="display:none" name="hidden-form"></iframe>
+<iframe style="display:none" name="hidden-remove"></iframe>
 
 </body>
 </html>

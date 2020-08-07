@@ -70,11 +70,16 @@ public class PostsService implements IPostsService{
         return false;
     }
 
-    public boolean removePost(Long postId){
+    public boolean removePost(Long postId, Long examId){
+        boolean removed = false;
         if (checkEditPrivileges(postId)) {
-            return postsDao.removePostByID(postId);
+            removed = postsDao.removePostByID(postId);
+
+            for (IPostListener listener: postListeners) {
+                listener.postRemoved(postId, examId);
+            }
         }
-        return false;
+        return removed;
     }
 
     private boolean checkEditPrivileges(Long postId){

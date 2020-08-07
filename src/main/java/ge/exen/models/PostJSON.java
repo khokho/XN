@@ -3,11 +3,27 @@ package ge.exen.models;
 import java.util.Date;
 
 public class PostJSON {
+    public static String REMOVE = "remove";
+    public static String ADD = "add";
+    public static String BUG = "bug";
     String exam;
     String lecturer;
     Date date;
     String text;
     long postId;
+    String action;
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        if(action.equals(REMOVE))
+            this.action = REMOVE;
+        else if(action.equals(ADD))
+            this.action = ADD;
+        else this.action = BUG;
+    }
 
     public String getExam() {
         return exam;

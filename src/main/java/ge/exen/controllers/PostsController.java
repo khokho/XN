@@ -78,15 +78,17 @@ public class PostsController {
             postJSON.setExam(exam.getFullName());
             postJSON.setDate(post.getDate());
             postJSON.setPostId(post.getPostId());
+            postJSON.setAction("add");
             postJSONs.add(postJSON);
         }
         return postJSONs;
     }
 
     @PostMapping("/removePost/{examId}")
-    public RedirectView removePost(long postId, @PathVariable Integer examId){
-        postsService.removePost(postId);
-        return new RedirectView("/posts/"+examId);
+    public String removePost(long postId, @PathVariable Integer examId){
+        postsService.removePost(postId, (long) examId);
+        //return new RedirectView("/posts/"+examId);
+        return "ok";
     }
 
     /**

@@ -11,7 +11,7 @@ function Post(props){
                 <div className="card-header d-flex">
                     <div className={"p-2"}>{props.post.exam} Announcement</div>
                     <div className={"d-flex justify-content-end"}>
-                        <form action={"/removePost/"+window.examId} method={"post"}>
+                        <form action={"/removePost/"+window.examId} method={"post"} target={"hidden-remove"}>
                             <input type={"submit"} value={"remove"}/>
                             <input type="hidden" name="postId" value={props.post.postId}/>
                         </form>
@@ -50,9 +50,20 @@ class Posts extends React.Component{
             console.log(postJSON)
             var post = JSON.parse(postJSON.body)
             console.log("teeext:" + post.text)
-            this.setState((state) => {
-                return {posts: ([post]).concat(state.posts)}
-            })
+            if(post.action === "add") {
+                this.setState((state) => {
+                    return {posts: ([post]).concat(state.posts)}
+                })
+            } else if (post.action === "remove"){
+                this.setState((state) => {
+                    for(var i = state.posts.length - 1; i >= 0; i--) {
+                        if(state.posts[i].postId === post.postId) {
+                            state.posts.splice(i, 1);
+                        }
+                    }
+                    return{posts: state.posts}
+                })
+            }
         }
         onmessage.bind(this)
 
