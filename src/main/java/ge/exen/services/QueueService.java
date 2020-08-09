@@ -11,17 +11,22 @@ import java.util.HashMap;
 
 @Service
 public class QueueService implements IQueueService {
-    private User firstInQueue;
-    private final ArrayList<User> waitingStudents;
-    private final ArrayList<IQueueListener> listeners;
 
     public static final String ATTR_NAME = "Queue Type";
     public static final String BTNS_ATTR_NAME = "Buttons";
+
     public static final int POP = 0;
     public static final int PUSH = 1;
     public static final int CANCEL = 2;
     public static final int CLEAR = 3;
 
+    public static final boolean NOT_IN_QUEUE = false;
+    public static final boolean IN_QUEUE = true;
+
+    private User firstInQueue;
+    private ArrayList<User> waitingStudents;
+    private ArrayList<IQueueListener> listeners;
+    private HashMap<Long, Boolean> disabledStates;
 
     @Autowired
     UserService userService;
@@ -33,42 +38,42 @@ public class QueueService implements IQueueService {
     public QueueService() {
         waitingStudents = new ArrayList<>();
         listeners = new ArrayList<>();
+        disabledStates = new HashMap<>();
     }
 
     @Override
-    public void createDisabledStates() {
-        HashMap<String, Boolean> buttons = new HashMap<>();
-        buttons.put(BlankPaperQueueService.TYPE,  false);
-        buttons.put(CallExamerQueueService.TYPE,  false);
-        buttons.put(WCQueueService.TYPE,  false);
-
-        session.setAttribute(BTNS_ATTR_NAME, buttons);
+    public synchronized void setDisabledState(User user, boolean state) {
+        Long currentId = user.getId();
+        disabledStates.put(currentId, state);
     }
 
     @Override
-    public Boolean getDisabledState(String queueType) {
-        HashMap<String, Boolean> buttons = (HashMap<String, Boolean>) session.getAttribute(BTNS_ATTR_NAME);
-        return buttons.get(queueType);
+    public synchronized Boolean getDisabledState() {
+        User currentUser = userService.getCurrentUser();
+        if (!disabledStates.containsKey(currentUser.getId())) {
+            setDisabledState(currentUser, NOT_IN_QUEUE);
+        }
+        return disabledStates.get(currentUser.getId());
+    }
+
+    protected Boolean getDisabledStateForCurrentUser(User currentUser) {
+        if (!disabledStates.containsKey(currentUser.getId())) {
+            setDisabledState(currentUser, NOT_IN_QUEUE);
+        }
+        return disabledStates.get(currentUser.getId());
     }
 
     @Override
-    public void changeDisabledState(String queueType){
-        HashMap<String, Boolean> buttons = (HashMap<String, Boolean>) session.getAttribute(BTNS_ATTR_NAME);
-        boolean currentStatus = buttons.get(queueType);
-        buttons.put(queueType, !currentStatus);
-        session.setAttribute(BTNS_ATTR_NAME, buttons);
-    }
-
-    @Override
-    public void enqueue() {
+    public synchronized void enqueue() {
         User currentStudent = userService.getCurrentUser();
         waitingStudents.add(currentStudent);
+        setDisabledState(currentStudent, IN_QUEUE);
         notifyListeners(PUSH);
-        changeDisabledState(getType());
     }
 
-    public void enqueueCurrentStudent(User currentStudent) {
+    protected void enqueueCurrentStudent(User currentStudent) {
         waitingStudents.add(currentStudent);
+        setDisabledState(currentStudent, IN_QUEUE);
         notifyListeners(PUSH);
     }
 
@@ -87,7 +92,7 @@ public class QueueService implements IQueueService {
         return aheadOfCurrent;
     }
 
-    public int getAnticipantsCurrentUser(User currentStudent) {
+    protected int getAnticipantsCurrentUser(User currentStudent) {
         int aheadOfCurrent = 0;
         for (User student : waitingStudents) {
             if (student.getId() == currentStudent.getId()) break;
@@ -102,7 +107,7 @@ public class QueueService implements IQueueService {
         return firstInQueue != null && currentStudent.getId() == firstInQueue.getId();
     }
 
-    public boolean checkQueueStatusCurrentStudent(User currentStudent) {
+    protected boolean checkQueueStatusCurrentStudent(User currentStudent) {
         return firstInQueue != null && currentStudent.getId() == firstInQueue.getId();
     }
 
@@ -117,11 +122,12 @@ public class QueueService implements IQueueService {
                 break;
             }
         }
+        setDisabledState(currentStudent, NOT_IN_QUEUE);
         notifyListeners(CANCEL);
-        changeDisabledState(getType());
+        //changeDisabledState(getType());
     }
 
-    public void cancelWaitingCurrentStudent(User currentStudent) {
+    protected void cancelWaitingCurrentStudent(User currentStudent) {
         for (int i = 0; i < waitingStudents.size(); i++) {
             User student = waitingStudents.get(i);
             if (student.getId() == currentStudent.getId()) {
@@ -129,6 +135,7 @@ public class QueueService implements IQueueService {
                 break;
             }
         }
+        setDisabledState(currentStudent, NOT_IN_QUEUE);
         notifyListeners(CANCEL);
     }
 
@@ -139,20 +146,18 @@ public class QueueService implements IQueueService {
             firstInQueue = waitingStudents.get(0);
             waitingStudents.remove(0);
             notifyListeners(POP);
-            changeDisabledState(getType());
+            setDisabledState(firstInQueue, NOT_IN_QUEUE);
             return firstInQueue;
         }
         return null;
     }
 
     @Override
-    public void clearQueue() {
+    public synchronized void clearQueue() {
         waitingStudents.clear();
+        disabledStates.replaceAll((key, oldValue) -> NOT_IN_QUEUE);
         notifyListeners(CLEAR);
         firstInQueue = null;
-        if (getDisabledState(getType())) {
-            changeDisabledState(getType());
-        }
     }
 
     @Override
@@ -176,7 +181,7 @@ public class QueueService implements IQueueService {
         }
     }
 
-    /*
+    /**
      * notifys all listeners when queue is updated
      */
     private void notifyListeners(int type) {

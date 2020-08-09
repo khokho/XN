@@ -29,25 +29,25 @@ public class QueueController {
 
 
     @GetMapping(value = "/queues")
-    public String getQueues(Model model){
+    public String getQueues(Model model) {
         User user = userService.getCurrentUser();
-        if(user.getStatus().equals(User.STUDENT))
+        if (user.getStatus().equals(User.STUDENT))
             return getQueuesStudent(model);
-        else if(user.getStatus().equals(User.ADMIN))
+        else if (user.getStatus().equals(User.ADMIN))
             return getQueuesAdmin(model);
         else
             return "insuffPriv";
     }
 
-//    @GetMapping(value = "/queues-admin")
-    public String getQueuesAdmin(Model model){
+    @GetMapping(value = "/queues-admin")
+    public String getQueuesAdmin(Model model) {
         model.addAttribute("content", "queues_admin.jsp");
         model.addAttribute("title", "რიგები");
         return "/template";
     }
 
-//    @GetMapping(value = "/queues-student")
-    public String getQueuesStudent(Model model){
+    @GetMapping(value = "/queues-student")
+    public String getQueuesStudent(Model model) {
         model.addAttribute("content", "queues_student.jsp");
         model.addAttribute("title", "რიგები");
         return "/template";
@@ -56,69 +56,69 @@ public class QueueController {
 
     @ResponseBody
     @RequestMapping(value = "/enqueue/{queueName}")
-    public String enqueueStudent(HttpServletRequest req, @PathVariable String queueName){
+    public String enqueueStudent(HttpServletRequest req, @PathVariable String queueName) {
         if (getQueueByType(queueName) != null) {
             System.out.println(getQueueByType(queueName));
             getQueueByType(queueName).enqueue();
             return "{res:yes}";
         }
         return "{res:no}";
-
-//        System.out.println("vitom daemata");
     }
 
     @ResponseBody
     @RequestMapping(value = "/cancel-waiting/{queueName}")
-    public String cancelWaiting(HttpServletRequest req, @PathVariable String queueName){
+    public String cancelWaiting(HttpServletRequest req, @PathVariable String queueName) {
         getQueueByType(queueName).cancelWaiting();
-//        System.out.println("vitom daacancela");
         return "{res:yes}";
     }
 
     @ResponseBody
     @RequestMapping(value = "/admin/dequeue/{queueName}")
-    public String dequeue(@PathVariable String queueName){
+    public String dequeue(@PathVariable String queueName) {
         getQueueByType(queueName).dequeue();
-//        System.out.println("vitom amoigo");
         return "{res:yes}";
     }
 
     @ResponseBody
     @RequestMapping(value = "/admin/clear-queue/{queueName}")
-    public String clearQueue(@PathVariable String queueName){
+    public String clearQueue(@PathVariable String queueName) {
         getQueueByType(queueName).clearQueue();
-//        System.out.println("vitom gaasuptava");
         return "{res:yes}";
     }
+
     @ResponseBody
     @RequestMapping(value = "/get-disabled/{queueName}")
-    public Boolean getDisabledState(@PathVariable String queueName){
-        Boolean status = getQueueByType(queueName).getDisabledState(queueName);
-//        System.out.println("state aris");
+    public Boolean getDisabledState(@PathVariable String queueName) {
+        Boolean status = getQueueByType(queueName).getDisabledState();
         return status;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/get-anticipants/{queueName}")
-    public Integer getAnticipants(@PathVariable String queueName){
+    public Integer getAnticipants(@PathVariable String queueName) {
         Integer cnt = getQueueByType(queueName).getAnticipants();
         return cnt;
-//        System.out.println("raodenoba aris");
-//        return 34;
     }
 
     @ResponseBody
     @GetMapping("/getqueuesize")
-    public Integer getVal(){
+    public Integer getVal() {
         return 100;
     }
 
     @ResponseBody
     @GetMapping("/getdisabled")
-    public Boolean disabled(){
+    public Boolean disabled() {
         return false;
     }
 
+
+    /**
+     * returns queueservice of the given queue type
+     *
+     * @param queueType String representing the queue
+     * @return QueueService
+     */
     private QueueService getQueueByType(String queueType) {
         switch (queueType) {
             case BlankPaperQueueService.TYPE:

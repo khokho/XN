@@ -54,7 +54,7 @@ public class UserService implements IUserService {
         if (user == null) return false;
         if (!checkPassword(user, loginDTO.getPassword())) return false;
         httpSession.setAttribute(userAttrName, user);
-        queueService.createDisabledStates();
+        //queueService.createDisabledStates();
         return true;
     }
 

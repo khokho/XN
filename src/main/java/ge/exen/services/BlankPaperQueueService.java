@@ -1,5 +1,6 @@
 package ge.exen.services;
 
+import ge.exen.models.User;
 import org.springframework.stereotype.Component;
 
 @Component
