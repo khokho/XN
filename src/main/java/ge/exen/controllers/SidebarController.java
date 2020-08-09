@@ -80,18 +80,18 @@ public class SidebarController {
         User curUser = userService.getCurrentUser();
 
         if(curUser==null){
-            sidebar.add(new SidebarElement("!login", "შესვლა", "/login"));
+            sidebar.add(new SidebarElement("login", "შესვლა", "/login"));
             return sidebar;
         }
 
 
         if(curUser.getStatus().equals(User.ADMIN)){
-            sidebar.add(new SidebarElement("!register", "იუზერის დამატება", "/admin/register"));
-            sidebar.add(new SidebarElement("!newExam", "გამოცდის დამატება", "/admin/newExam"));
-            sidebar.add(new SidebarElement("!examList", "გამოცდები", "/admin/list"));
+            sidebar.add(new SidebarElement("register", "იუზერის დამატება", "/admin/register"));
+            sidebar.add(new SidebarElement("newExam", "გამოცდის დამატება", "/admin/newExam"));
+            sidebar.add(new SidebarElement("examList", "გამოცდები", "/admin/list"));
         }
         if(curUser.getStatus().equals(User.LECTURER)){
-            sidebar.add(new SidebarElement("!examList", "გამოცდები", "/lecturer/exams"));
+            sidebar.add(new SidebarElement("examList", "გამოცდები", "/lecturer/exams"));
             List<Exam> exams = examService.getLiveExamsForHighStatus();
             System.out.println(exams.size());
             for(Exam exam:exams){
@@ -105,7 +105,7 @@ public class SidebarController {
         }
 
         if(curUser.getStatus().equals(User.STUDENT)){
-            sidebar.add(new SidebarElement("!exam", "გამოცდა", "/eh"));
+            sidebar.add(new SidebarElement("exam", "გამოცდა", "/eh"));
             StudentExam exam = examService.getExamForCurrentUser();
             sidebar.add(new SidebarElement("posts-"+exam.getExamId(), "პოსტები","/posts/"+exam.getExamId()));
             List<Long> lectors = examLecturersDAO.getLecturerIds(exam.getExamId());
@@ -120,7 +120,7 @@ public class SidebarController {
 
             for(Long lectorId:lectors){
                 User user = userDAO.getUser(lectorId);
-                sidebar.add(new SidebarElement("!newchat-" + lectorId, "ჩატი: " + user.getName() + " " + user.getLastName(), "/startChat/"+lectorId));
+                sidebar.add(new SidebarElement("newchat-" + lectorId, "ჩატი: " + user.getName() + " " + user.getLastName(), "/startChat/"+lectorId));
             }
         }
 
