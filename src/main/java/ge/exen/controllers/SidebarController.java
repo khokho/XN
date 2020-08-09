@@ -89,7 +89,7 @@ public class SidebarController {
             sidebar.add(new SidebarElement("register", "იუზერის დამატება", "/admin/register"));
             sidebar.add(new SidebarElement("newExam", "გამოცდის დამატება", "/admin/newExam"));
             sidebar.add(new SidebarElement("examList", "გამოცდები", "/admin/list"));
-            sidebar.add(new SidebarElement("რიგები", "/queues"));
+            sidebar.add(new SidebarElement("queues", "რიგები", "/queues"));
         }
         if(curUser.getStatus().equals(User.LECTURER)){
             sidebar.add(new SidebarElement("examList", "გამოცდები", "/lecturer/exams"));
@@ -107,7 +107,7 @@ public class SidebarController {
 
         if(curUser.getStatus().equals(User.STUDENT)){
             sidebar.add(new SidebarElement("exam", "გამოცდა", "/eh"));
-            sidebar.add(new SidebarElement("რიგები", "/queues"));
+            sidebar.add(new SidebarElement("queues","რიგები", "/queues"));
             StudentExam exam = examService.getExamForCurrentUser();
             sidebar.add(new SidebarElement("posts-"+exam.getExamId(), "პოსტები","/posts/"+exam.getExamId()));
             List<Long> lectors = examLecturersDAO.getLecturerIds(exam.getExamId());

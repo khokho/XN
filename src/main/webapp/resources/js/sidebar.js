@@ -11,7 +11,7 @@ function getTopic(id){
     if(id.startsWith("chat-")){
         return CHAT_TOPIC
     }
-    if(id.startsWith("queue-")){
+    if(id.startsWith("queues")){
         return QUEUE_TOPIC
     }
     return INVALID_TOPIC;
@@ -27,6 +27,10 @@ function notifySidebar(topic, e){
     console.log("message received:" + topic)
     var id = getTopic(topic)
     if(id === INVALID_TOPIC) return
+    if (id === QUEUE_TOPIC && e !== window.userId) return;
+    if (id === CHAT_TOPIC && e.from === window.userId) return;
+    if (id === POST_TOPIC && e.fromId === window.userId) return;
+
 
     this.setState((state)=>{
         if(topic in state.notifications)
@@ -36,9 +40,12 @@ function notifySidebar(topic, e){
         return state;
     })
 
-    var text = 'Something happened please check!';
-    var notification = new Notification('Exam Enviroment', { body: text, icon: undefined });
-
+    if (id === QUEUE_TOPIC)
+        new Notification('Exam Enviroment', { body: 'you can go', icon: undefined });
+    if (id === POST_TOPIC)
+        new Notification('Exam Enviroment', { body: 'new post boyz', icon: undefined });
+    if (id === CHAT_TOPIC)
+        new Notification('Exam Enviroment', { body: 'new message arrived', icon: undefined });
 }
 
 
@@ -48,7 +55,7 @@ function listenForNotification(topics) {
         topics.map((topic)=>{
             var id = getTopic(topic)
             if(id === INVALID_TOPIC) return
-            stomp.subscribe("/topic/"+topic, ()=>notifySidebar(topic), {});
+            stomp.subscribe("/topic/"+topic, (msg)=>notifySidebar(topic, JSON.parse(msg.body)), {});
         })
     })
 }
