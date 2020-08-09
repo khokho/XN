@@ -68,4 +68,11 @@ public interface StudentExamDAO {
      * @return true when successfully changed, false when fails.
      */
     boolean changeComputer(long studentId, long examId, long newCompIndex);
+
+    /**
+     * removes student from exam
+     * @param studentId
+     * @param examId
+     */
+    void remove(long studentId,long examId);
 }

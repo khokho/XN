@@ -83,7 +83,7 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
 
     @Override
     public List<Exam> getAll() {
-        String query = "SELECT exam_id, DATE_FORMAT(start_time, '%Y/%m/%d %H:%i') start_time, exam_subj, var_num, duration FROM exam order by start_time";
+        String query = "SELECT exam_id, DATE_FORMAT(start_time, '%Y/%m/%d %H:%i') start_time, exam_subj, var_num, duration FROM exam order by start_time desc";
         List<Exam> ans = new ArrayList<>();
         try {
             PreparedStatement st = conn.prepareStatement(query);

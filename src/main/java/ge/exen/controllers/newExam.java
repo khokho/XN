@@ -5,14 +5,15 @@ import ge.exen.dto.ExamDTO;
 import ge.exen.services.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +30,12 @@ public class newExam {
     private IExamService examFactory;
 
     @GetMapping("/admin/newExam")
-    public String getInfo(HttpSession session) {
-        session.setAttribute("content", "examForm.jsp");
-        session.setAttribute("title", "ახალი გამოცდის შექმნა");
+    public String getInfo(@Nullable Integer index, Model model) {
+        model.addAttribute("content", "examForm.jsp");
+        if(index == null)
+            model.addAttribute("title", "ახალი გამოცდის შექმნა");
+        else
+            model.addAttribute("title", "გამოცდის პარამეტრების შეცვლა");
         return "template";
     }
 

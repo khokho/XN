@@ -143,6 +143,18 @@ public class  StudentExamSQLDAO extends AbstractSQLDAO implements StudentExamDAO
         }
     }
 
+    @Override
+    public void remove(long studentId, long examId) {
+        try {
+            PreparedStatement st = conn.prepareStatement("DELETE FROM student_exam WHERE student_id = ? AND exam_id = ?");
+            st.setLong(1,studentId);
+            st.setLong(2,examId);
+            st.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Given a ResultSet, returns corresponding StudentExam.
