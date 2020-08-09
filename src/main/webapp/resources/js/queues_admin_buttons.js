@@ -6,31 +6,9 @@ var ws = new SockJS("/ws");
 var stomp = Stomp.over(ws);
 
 //this function will be bound to button !this!
-function onmessage(responseJSON){
-    console.log("Hi my name is bob and I'm from wesocket")
+function onmessage(){
     this.update()
 }
-
-const divStyle = {
-    color: 'black',
-};
-
-const fontStyle = {
-    color : 'darkred',
-    marginRight:'3vh',
-    fontSize: '4vh',
-};
-
-const dequeueButtonStyle = {
-    background:'seagreen',
-    marginRight:'3vh',
-    fontSize: '4vh',
-};
-
-const clearButtonStyle = {
-    background:'darkgreen',
-    fontSize: '4vh',
-};
 
 class AdminButtons extends React.Component {
     constructor(props) {
@@ -81,17 +59,17 @@ class AdminButtons extends React.Component {
     }
 
     render() {
-        return (<div  style={divStyle}>
-                <div style={{ display:'inline-block'}}>
-                    <button style={dequeueButtonStyle} disabled={this.state.disabled} onClick={this.handleClickDequeue}> {this.buttonName} </button>
+        return (<div  className={"d-flex"}>
+                <div className={"flex-fill"}>
+                    <button className={"btn btn-warning btn-lg btn-block"} disabled={this.state.disabled} onClick={this.handleClickDequeue}> {this.buttonName} </button>
                 </div>
 
-                <div style={{ display:'inline-block'}}>
-                    <p style={fontStyle}>რიგში არის {this.state.count} სტუდენტი</p>
+                <div className={"flex-fill"}>
+                    <p className={"p-2 text-center"}>რიგში არის {this.state.count} სტუდენტი</p>
                 </div>
 
-                <div style={{ display:'inline-block'}}>
-                    <button style={clearButtonStyle} disabled={this.state.disabled} onClick={this.handleClickClear}> რიგის გასუფთავება </button>
+                <div className={"flex-fill"}>
+                    <button className={"btn btn-warning btn-lg btn-block"} disabled={this.state.disabled} onClick={this.handleClickClear}> რიგის გასუფთავება </button>
                 </div>
         </div>);
     }
