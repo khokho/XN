@@ -1,6 +1,7 @@
 package ge.exen.controllers;
 
 
+import ge.exen.DAO.StudentExamDAO;
 import ge.exen.models.Exam;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.StudentExam;
@@ -20,9 +21,12 @@ public class ExamControllerForAdmin {
     private int EXAMS_PER_PAGE = 10;
     @Autowired
     IExamService examService;
+    @Autowired
+    StudentExamDAO dao;
 
     @GetMapping(value = "/admin/list")
     public String toAdminHomePage(HttpServletRequest req, HttpSession ses) {
+
         List<Exam> exams = examService.getAllExams();
         List<ExamInfo> list = new ArrayList<>();
         int index = 1;
@@ -52,6 +56,14 @@ public class ExamControllerForAdmin {
         ses.setAttribute("list",list);
         req.setAttribute("current",index);
         return "";
+    }
+    @GetMapping("/admin/removeUser")
+    public String removeAndReturnToView(HttpServletRequest req,HttpSession ses) {
+        long examId = Long.parseLong(req.getParameter("examId"));
+        long removeUserId = Long.parseLong(req.getParameter("index"));
+        dao.remove(removeUserId,examId);
+        req.setAttribute("content", "ExamsView.jsp");
+        return "template";
     }
 
 
