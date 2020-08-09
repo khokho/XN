@@ -74,17 +74,17 @@
 <script>
     function setW() {
 
-        document.getElementById("bottomboy").style.marginLeft = (document.getElementById("sidebar-wrapper").offsetWidth).toString() + 'px';
+        document.getElementById("upBox").style.marginLeft = (document.getElementById("sidebar-wrapper").offsetWidth).toString() + 'px';
     }
 
     function getHeight() {
-        return (document.getElementById("bottomboy").offsetHeight.toString()) + "px";
+        return (document.getElementById("upBox").offsetHeight.toString()) + "px";
     }
 
     function setMargin() {
         document.getElementById("box").style.marginBottom = getHeight();
     }
 
-    setW();
+   // setW();
     setMargin();
 </script>

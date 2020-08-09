@@ -22,8 +22,6 @@ public class ExamControllerForAdmin {
     @Autowired
     IExamService examService;
 
-    @Autowired
-    StudentExamDAO dao;
 
 
     @GetMapping(value = "/admin/list")
