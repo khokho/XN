@@ -13,27 +13,23 @@ function onmessage(responseJSON){
 
 const divStyle = {
     color: 'black',
-    height: 16,
-    margin: 0,
-    top: 80,
-    left: 20,
 };
 
 const fontStyle = {
     color : 'darkred',
-    fontSize: 30,
-    marginRight:'22px',
+    marginRight:'3vh',
+    fontSize: '4vh',
 };
 
 const enqueueButtonStyle = {
     background:'seagreen',
-    fontSize: 25,
-    marginRight:'22px',
+    marginRight:'3vh',
+    fontSize: '4vh',
 };
 
 const cancelButtonStyle = {
     background:'darkgreen',
-    fontSize: 25,
+    fontSize: '4vh',
 };
 
 class StudentButtons extends React.Component {
@@ -73,7 +69,7 @@ class StudentButtons extends React.Component {
             })
 
 
-        fetch('http://' + window.location.host + '/get-disabled/'+button.queueName)
+        fetch('http://' + window.location.host + '/student/get-disabled/'+button.queueName)
             .then(resp=>{
                 return resp.json()
             })

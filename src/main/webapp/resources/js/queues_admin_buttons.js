@@ -13,27 +13,23 @@ function onmessage(responseJSON){
 
 const divStyle = {
     color: 'black',
-    height: 16,
-    margin: 0,
-    top: 80,
-    left: 20,
 };
 
 const fontStyle = {
     color : 'darkred',
-    marginRight:'22px',
-    fontSize: 30,
+    marginRight:'3vh',
+    fontSize: '4vh',
 };
 
 const dequeueButtonStyle = {
     background:'seagreen',
-    marginRight:'22px',
-    fontSize: 25,
+    marginRight:'3vh',
+    fontSize: '4vh',
 };
 
 const clearButtonStyle = {
     background:'darkgreen',
-    fontSize: 25,
+    fontSize: '4vh',
 };
 
 class AdminButtons extends React.Component {

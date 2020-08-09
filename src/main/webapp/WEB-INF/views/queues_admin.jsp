@@ -15,6 +15,19 @@
     <style>
         body{
             background: darkseagreen;
+            position:fixed;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+        }
+
+        html{
+            position:fixed;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
         }
 
         .wrapperdiv {
@@ -23,7 +36,7 @@
             position: relative;
             border: 3px solid green;
             margin:0;
-            padding: 20px;
+            padding: 3vh;
         }
 
         .innerdiv {
@@ -31,13 +44,13 @@
             margin: 0;
             position: absolute;
             top: 11%;
-            left: 13%;
+            left: 8%;
 
         }
 
         label {
             color:black;
-            font-size: 47px;
+            font-size: 8vh;
         }
         .buttonsdiv {
             height: 20vh;

@@ -58,7 +58,6 @@ public class QueueController {
     @RequestMapping(value = "/enqueue/{queueName}")
     public String enqueueStudent(HttpServletRequest req, @PathVariable String queueName) {
         if (getQueueByType(queueName) != null) {
-            System.out.println(getQueueByType(queueName));
             getQueueByType(queueName).enqueue();
             return "{res:yes}";
         }
@@ -68,28 +67,36 @@ public class QueueController {
     @ResponseBody
     @RequestMapping(value = "/cancel-waiting/{queueName}")
     public String cancelWaiting(HttpServletRequest req, @PathVariable String queueName) {
-        getQueueByType(queueName).cancelWaiting();
-        return "{res:yes}";
+        if (getQueueByType(queueName) != null) {
+            getQueueByType(queueName).cancelWaiting();
+            return "{res:yes}";
+        }
+        return "{res:no}";
     }
 
     @ResponseBody
     @RequestMapping(value = "/admin/dequeue/{queueName}")
     public String dequeue(@PathVariable String queueName) {
-        getQueueByType(queueName).dequeue();
-        return "{res:yes}";
+        if (getQueueByType(queueName) != null) {
+            getQueueByType(queueName).dequeue();
+            return "{res:yes}";
+        }
+        return "{res:no}";
     }
 
     @ResponseBody
     @RequestMapping(value = "/admin/clear-queue/{queueName}")
     public String clearQueue(@PathVariable String queueName) {
-        getQueueByType(queueName).clearQueue();
-        return "{res:yes}";
+        if (getQueueByType(queueName) != null) {
+            getQueueByType(queueName).clearQueue();
+            return "{res:yes}";
+        }
+        return "{res:no}";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/get-disabled/{queueName}")
+    @RequestMapping(value = "/student/get-disabled/{queueName}")
     public Boolean getDisabledStateForStudent(@PathVariable String queueName) {
-        System.out.println("movedii\n");
         Boolean status = getQueueByType(queueName).getDisabledState();
         return status;
     }
@@ -104,7 +111,10 @@ public class QueueController {
     @ResponseBody
     @RequestMapping(value = "/get-anticipants/{queueName}")
     public Integer getAnticipants(@PathVariable String queueName) {
-        Integer cnt = getQueueByType(queueName).getAnticipants();
+        Integer cnt = 0;
+        if (getQueueByType(queueName) != null) {
+            cnt = getQueueByType(queueName).getAnticipants();
+        }
         return cnt;
     }
 
