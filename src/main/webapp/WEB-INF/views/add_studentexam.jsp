@@ -1,5 +1,4 @@
-<%@ page import="ge.exen.models.User" %>
-<%@ page import="java.util.List" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: MyLaptop
   Date: 10-Aug-20
@@ -13,9 +12,9 @@
     Long variants = (Long) session.getAttribute("variants");
 %>
 
-<div class="align-content-center" style="vertical-align: middle;">
+<div class="container" style="padding: 15px;">
 
-    <form id="form" accept-charset="UTF-8" role="form" style="margin-top: 100px; margin-left: -240px;">
+    <form id="form" accept-charset="UTF-8" role="form">
 
         <div class="form-group row justify-content-center">
             <label for="studentMail" class="col-sm-1 control-label">მეილი: </label>
@@ -36,7 +35,7 @@
             <div class="col-sm-4 input-group">
                 <select name="variant" class="form-control" id="variant">
                     <% for (int i = 1; i <= variants; i++) { %>
-                        <option value="student"> <%=i%></option>
+                        <option value="<%=i%>"> <%=i%></option>
                     <%}%>
                 </select>
             </div>

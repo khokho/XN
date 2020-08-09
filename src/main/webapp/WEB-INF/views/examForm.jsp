@@ -1,25 +1,11 @@
 <%@ page import="ge.exen.controllers.ExamControllerForAdmin" %>
 <%@ page import="java.util.List" %>
-<%@ page import="ge.exen.models.Exam" %>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <title></title>
-
-</head>
-
-<body>
-<% List<ExamControllerForAdmin.ExamInfo> exams = (List<ExamControllerForAdmin.ExamInfo>) session.getAttribute("list");
-
-%>
-<div class="container" style="padding-top: 70px; ">
+<% List<ExamControllerForAdmin.ExamInfo> exams = (List<ExamControllerForAdmin.ExamInfo>) session.getAttribute("list");%>
+<div class="container" style="padding: 15px; ">
     <form id="form" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
 
         <div class="form-group row">
@@ -149,6 +135,3 @@
         </script>
     </form>
 </div>
-
-</body>
-</html>

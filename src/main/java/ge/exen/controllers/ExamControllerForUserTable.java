@@ -2,7 +2,6 @@ package ge.exen.controllers;
 
 import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.StudentExamDAO;
-import ge.exen.DAO.UserDAO;
 import ge.exen.Utils.JavaMailUtil;
 import ge.exen.dto.StudentExamRegisterDTO;
 import ge.exen.models.Exam;
@@ -11,16 +10,13 @@ import ge.exen.models.User;
 import ge.exen.services.IExamService;
 import ge.exen.services.IStudentExamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,18 +88,17 @@ public class ExamControllerForUserTable {
                 " თარიღი: " + xm.getStartDate() + " \n ხანგძლივობა: " + xm.getDurationInMinutes() + " წთ \n ვარიანტი : " +exam.getVariant() + "\n ადგილი: " + exam.getCompIndex();
     }
 
-    @GetMapping(value = "/admin/newStudentexam")
+    @GetMapping(value = "/admin/newStudentExam")
     public String addStudentExam(HttpServletRequest req, HttpSession session) {
         req.setAttribute("content", "add_studentexam.jsp");
         System.out.println((long)session.getAttribute("examId"));
         return "template";
     }
 
-    @PostMapping(value = "/admin/newStudentexam")
-    public String addStudentExam(StudentExamRegisterDTO dto,
+    @PostMapping(value = "/admin/newStudentExam")
+    public RedirectView addStudentExam(StudentExamRegisterDTO dto,
                         HttpServletRequest req){
         studentExamsService.assignStudentToExam(dto);
-        req.setAttribute("content", "UserTable.jsp");
-        return "/template";
+        return new RedirectView("/admin/list");
     }
 }
