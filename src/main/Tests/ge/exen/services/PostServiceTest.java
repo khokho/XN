@@ -50,8 +50,6 @@ public class PostServiceTest {
 
     UserRegisterDTO nanaAdmin;
 
-    private Long OOP_ID = 123456789L;
-
     @BeforeEach
     public void setup(){
         nanaAdmin = new UserRegisterDTO();
@@ -78,11 +76,12 @@ public class PostServiceTest {
 
         oop = new ExamDTO();
         oop.setVariants("1");
-        oop.setStartDate("2020/08/01 16:00");
+        oop.setStartDate("2019/08/01 16:00");
         oop.setFullName("OOP");
-        oop.setHours("900000000");
+        oop.setHours("9000000");
         oop.setMinutes("0");
         oopId = examService.process(oop);
+        System.out.println(oopId);
 
         oopLekva = new ExamLecturersRegisterDTO();
         oopLekva.setExamId(oopId);
@@ -125,9 +124,16 @@ public class PostServiceTest {
         tamtaOOP.setExamId(oopId);
         tamtaOOP.setCompIndex(133L);
         tamtaOOP.setVariant(1L);
+
         //ACTION
         userService.login(nanaLogin);
         studentExamService.assignStudentToExam(tamtaOOP);
+
+
+        ExamLecturersRegisterDTO examLecturersRegisterDTO = new ExamLecturersRegisterDTO();
+        examLecturersRegisterDTO.setExamId(oopId);
+        examLecturersRegisterDTO.setLecturerMail(lekva.getEmail());
+        assertTrue(examLecturerService.assignLecturerToExam(examLecturersRegisterDTO));
     }
 
     @Test
@@ -137,7 +143,7 @@ public class PostServiceTest {
         userService.login(lekvaLogin);
         assertNotNull(postsService.writeNewPost(lekvasPost));
         System.out.println(userService.getCurrentUser().getEmail());
-        System.out.println(postsService.getPostsByExamId(OOP_ID));
+        System.out.println(postsService.getPostsByExamId(oopId));
         userService.logout();
 
         //non lecturer trying to write a post
@@ -148,7 +154,7 @@ public class PostServiceTest {
         //lecturer trying to write a post in other lecturer's subject
         assertNull(postsService.writeNewPost(tamtasPost));
         System.out.println(userService.getCurrentUser().getEmail());
-        System.out.println(postsService.getPostsByExamId(OOP_ID));
+        System.out.println(postsService.getPostsByExamId(oopId));
         userService.logout();
     }
 
@@ -156,7 +162,7 @@ public class PostServiceTest {
     @DirtiesContext
     public void testEditPost(){
         System.out.println(userService.getCurrentUser().getEmail());
-        System.out.println(postsService.getPostsByExamId(OOP_ID));
+        System.out.println(postsService.getPostsByExamId(oopId));
     }
 
     //TODO fix bugs here :')
@@ -165,20 +171,21 @@ public class PostServiceTest {
     @DirtiesContext
     public void testGetPostsByUserIdLecturer(){
         userService.login(lekvaLogin);
+        assertTrue(examService.getLiveExamForCurrentLecturer().size()>0);
         assertNotNull(postsService.writeNewPost(lekvasPost));
-        assertEquals(1, postsService.getPostsByExamId(OOP_ID).size());
-        assertEquals(userService.getCurrentUser().getId(), postsService.getPostsByExamId(OOP_ID).get(0).getFromId());
-        assertEquals(oopId, postsService.getPostsByExamId(OOP_ID).get(0).getExamId());
-        assertEquals(lekvasPost.getText(), postsService.getPostsByExamId(OOP_ID).get(0).getText());
+        assertEquals(1, postsService.getPostsByExamId(oopId).size());
+        assertEquals(userService.getCurrentUser().getId(), postsService.getPostsByExamId(oopId).get(0).getFromId());
+        assertEquals(oopId, postsService.getPostsByExamId(oopId).get(0).getExamId());
+        assertEquals(lekvasPost.getText(), postsService.getPostsByExamId(oopId).get(0).getText());
 
         lekvasNextPost = new PostWriteDTO();
         lekvasNextPost.setText("chemi meore posti - lekva");
         lekvasNextPost.setExamId(oopId);
         postsService.writeNewPost(lekvasNextPost);
 
-        assertEquals(2, postsService.getPostsByExamId(OOP_ID).size());
-        assertEquals(lekvasNextPost.getText(), postsService.getPostsByExamId(OOP_ID).get(1).getText());
-        assertEquals(oopId, postsService.getPostsByExamId(OOP_ID).get(1).getExamId());
+        assertEquals(2, postsService.getPostsByExamId(oopId).size());
+        assertEquals(lekvasNextPost.getText(), postsService.getPostsByExamId(oopId).get(1).getText());
+        assertEquals(oopId, postsService.getPostsByExamId(oopId).get(1).getExamId());
 
         userService.logout();
     }
@@ -188,14 +195,14 @@ public class PostServiceTest {
     public void testGetPostsByUserIdStudent(){
         userService.login(nanaLogin);
         //when admin is logged in there are no posts to show
-        assertNull(postsService.getPostsByExamId(OOP_ID));
+        assertNull(postsService.getPostsByExamId(oopId));
         userService.logout();
 
         //TODO make oop current exam, otherwise there will be no posts shown
         userService.login(tamtaLogin);
         //only lekvas first post
-        assertEquals(1, postsService.getPostsByExamId(OOP_ID).size());
-        assertEquals(lekvasPost.getText(), postsService.getPostsByExamId(OOP_ID).get(0).getText());
+        assertEquals(1, postsService.getPostsByExamId(oopId).size());
+        assertEquals(lekvasPost.getText(), postsService.getPostsByExamId(oopId).get(0).getText());
     }
 
 }

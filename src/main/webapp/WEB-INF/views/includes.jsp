@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- JS-s -->
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- Core JQuery -->
 <script
         src="https://code.jquery.com/jquery-3.5.1.min.js"

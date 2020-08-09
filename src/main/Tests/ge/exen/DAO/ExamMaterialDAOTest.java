@@ -24,7 +24,7 @@ public class ExamMaterialDAOTest {
     @Test
     @DirtiesContext
     public void testMaterials(){
-        ExamMaterial testMat = new ExamMaterial("classpath:tests/foo.txt",
+        ExamMaterial testMat = new ExamMaterial("classpath:resources/tests/foo.txt",
                                                 2,
                                                 1);
         int status = dao.create(testMat);
@@ -32,7 +32,7 @@ public class ExamMaterialDAOTest {
 
         ExamMaterial got = dao.get(1, 2);
         assertNotNull(got);
-        assertEquals("classpath:tests/foo.txt", got.getMaterialLink());
+        assertEquals("resources/tests/foo.txt", got.getMaterialLink());
         assertEquals(2, got.getVar());
         assertEquals(1, got.getExamId());
     }

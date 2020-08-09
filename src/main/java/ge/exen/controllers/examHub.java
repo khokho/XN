@@ -1,6 +1,10 @@
 package ge.exen.controllers;
 
 import ge.exen.DAO.UserUploadDAO;
+import ge.exen.models.Exam;
+import ge.exen.models.StudentExam;
+import ge.exen.models.Upload;
+import ge.exen.services.IExamMaterial;
 import ge.exen.models.Upload;
 import ge.exen.services.IExamService;
 import ge.exen.services.IUserService;
@@ -23,6 +27,9 @@ public class examHub {
     private UserUploadFactory factory;
 
     @Autowired
+    private IExamMaterial material;
+
+    @Autowired
     private IUserService users;
 
     @Autowired
@@ -35,7 +42,9 @@ public class examHub {
     public String displayHub(HttpServletRequest req){
         req.setAttribute("content", "examHub.jsp");
         req.setAttribute("title", "გამოცდა");
-        System.out.println(uploadDAO.getForUser(exams.getExamForCurrentUser()).size());
+        StudentExam exam = exams.getExamForCurrentUser();
+        String link = material.getMaterial(exam.getVariant(), exam.getExamId());
+        req.setAttribute("statement", link);
 
         req.setAttribute("links", uploadDAO.getForUser(exams.getExamForCurrentUser()));
         return "template";

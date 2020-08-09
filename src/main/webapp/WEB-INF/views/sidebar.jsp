@@ -3,7 +3,7 @@
 
 
 <div class="my-sidebar bg-light border-right" id="sidebar-wrapper" style="position: fixed; z-index: 10; overflow: auto;" >
-    <div class="sidebar-heading">Start Bootstrap </div>
+    <div class="sidebar-heading">weeeee </div>
     <div class="list-group list-group-flush">
         <div id="sidebar-elements">
         </div>

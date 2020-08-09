@@ -31,6 +31,7 @@ public class UserService implements IUserService {
 
     @Override
     public boolean registerNewUser(final UserRegisterDTO userDto){
+        System.out.println(userDto.getName());
         //TODO check proper status
         if(checkMailExists(userDto.getEmail()))return false;
         //TODO check other stuff(password maybe

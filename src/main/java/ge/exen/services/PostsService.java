@@ -112,7 +112,7 @@ public class PostsService implements IPostsService{
     private List<Post> getPostsByStudentId(Long examId) {
          // remove comment when getCurrentExam() is written in ExamService
         StudentExam currExam = examService.getLiveExamForCurrentStudent(); //gives the exam curr user is writing
-        if(examId != currExam.getExamId()) return null;
+        if(currExam == null || examId != currExam.getExamId()) return null;
         return postsDao.getAllByExamId(currExam.getExamId());
     }
 

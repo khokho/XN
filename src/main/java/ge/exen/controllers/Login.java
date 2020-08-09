@@ -1,11 +1,13 @@
 package ge.exen.controllers;
 
 import ge.exen.dto.UserLoginDTO;
+import ge.exen.models.User;
 import ge.exen.services.IUserService;
 import ge.exen.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +23,20 @@ public class Login {
     IUserService userService;
 
     @GetMapping(value = "/login")
-    public String render(HttpServletRequest req){
+    public String render(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if(userService.getCurrentUser() != null){
+            switch (userService.getCurrentUser().getStatus()){
+                case User.ADMIN :
+                    resp.sendRedirect("/admin/register");
+                    break;
+                case User.LECTURER:
+                    resp.sendRedirect("/lecturer/exams");
+                    break;
+                case User.STUDENT:
+                    resp.sendRedirect("/eh");
+                    break;
+            }
+        }
         req.setAttribute("content", "login.jsp");
         req.setAttribute("title", "შესვლა");
         return "/template";
@@ -43,14 +58,17 @@ public class Login {
 
     @PostMapping(value = "/login")
     public String login(UserLoginDTO dto,
-                        HttpServletRequest req){
+                        HttpServletRequest req,
+                        Model model,
+                        HttpServletResponse resp) throws IOException {
         if(!userService.login(dto)){
             req.setAttribute("bad_attempt", "true");
-            req.setAttribute("content", "login.jsp");
-            req.setAttribute("title", "შესვლა");
+            model.addAttribute("content", "login.jsp");
+            model.addAttribute("title", "შესვლა");
             return "/template";
         }
-        req.setAttribute("loggedin", "1");
+        model.addAttribute("loggedin", "1");
+        resp.sendRedirect("/login");
         return "/template";
     }
 }
