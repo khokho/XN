@@ -10,8 +10,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<% List<User> users = (List<User>)session.getAttribute("students"); %>
-<% List<lecturerExamList.ExamInfo> exams = (List<lecturerExamList.ExamInfo>) request.getAttribute("list");%>
+<% List<User> users = (List<User>)session.getAttribute("students");
+    Long examId = (Long) session.getAttribute("examId");
+    Long variants = (Long) session.getAttribute("variants");
+    %>
 
 <div class="card-hover-shadow-2x mb-3 card" style="height: 65%!important;">
     <div id="box" class="scroll-area-sm">
@@ -37,11 +39,8 @@
                                         </div>
                                         <div class="widget-subheading"><i><%= users.get(i).getName() + " " + users.get(i).getLastName()%></i></div>
                                     </div>
-                                    <div class="widget-content-right" style="margin-left: auto">
-                                        <button onclick="window.location.href='/admin/removeUser?index=<%=i%>?&examId=<%=exams.get(i).getExam().getID()%>'"
-                                                class="border-0 btn-transition btn btn-outline-danger"><i
-                                                class="fa fa-times" aria-hidden="true"></i></button>
-                                    </div>
+
+
                                 </div>
                             </div>
                         </li>
@@ -55,6 +54,11 @@
 </div>
 
 <div id="upBox" class="d-block card-footer fixed-bottom row">
+    <div id = "addStudexam"  >
+        <button onclick="window.location.href='/admin/newStudentexam'" style="background-color: dodgerblue; margin-bottom: 2vh" class="btn"><i
+                class="fa fa-plus"></i> სტუდენტის დამატება</button>
+    </div>
+
     <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
             class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
     <div style="display:inline;">

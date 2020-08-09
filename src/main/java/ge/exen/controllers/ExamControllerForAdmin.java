@@ -21,8 +21,7 @@ public class ExamControllerForAdmin {
     private int EXAMS_PER_PAGE = 10;
     @Autowired
     IExamService examService;
-    @Autowired
-    StudentExamDAO dao;
+
 
     @GetMapping(value = "/admin/list")
     public String toAdminHomePage(HttpServletRequest req, HttpSession ses) {
@@ -57,14 +56,7 @@ public class ExamControllerForAdmin {
         req.setAttribute("current",index);
         return "";
     }
-    @GetMapping("/admin/removeUser")
-    public String removeAndReturnToView(HttpServletRequest req,HttpSession ses) {
-        long examId = Long.parseLong(req.getParameter("examId"));
-        long removeUserId = Long.parseLong(req.getParameter("index"));
-        dao.remove(removeUserId,examId);
-        req.setAttribute("content", "ExamsView.jsp");
-        return "template";
-    }
+
 
 
     public class ExamInfo {
@@ -72,7 +64,7 @@ public class ExamControllerForAdmin {
         private boolean isCurrentlyOn;
         private List<ExamLecturers> lecturer;
         private List<StudentExam> students;
-        
+
 
         public ExamInfo(Exam exam, boolean isCurrentlyOn) {
             this.exam = exam;
