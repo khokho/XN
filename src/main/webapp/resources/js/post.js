@@ -11,10 +11,12 @@ function Post(props){
                 <div className="card-header d-flex">
                     <div className={"p-2"}>{props.post.exam} Announcement</div>
                     <div className={"d-flex justify-content-end"}>
-                        <form action={"/removePost/"+window.examId} method={"post"} target={"hidden-remove"}>
+                        {props.post.fromId === window.curUserId &&
+                        <form action={"/removePost/" + window.examId} method={"post"} target={"hidden-remove"}>
                             <input type={"submit"} value={"remove"}/>
                             <input type="hidden" name="postId" value={props.post.postId}/>
                         </form>
+                        }
                     </div>
                 </div>
                 <div className="card-body">
@@ -62,6 +64,14 @@ class Posts extends React.Component{
                         }
                     }
                     return{posts: state.posts}
+                })
+            } else if (post.action === "edit"){
+                this.setState((state) =>{
+                    for(var i = state.posts.length - 1; i >= 0; i--) {
+                        if(state.posts[i].postId === post.postId) {
+                            state.posts[i].text = post.text;
+                        }
+                    }
                 })
             }
         }

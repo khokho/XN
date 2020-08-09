@@ -2,6 +2,7 @@ package ge.exen.controllers;
 
 import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.UserDAO;
+import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
 import ge.exen.dto.UserLoginDTO;
 import ge.exen.dto.UserRegisterDTO;
@@ -11,6 +12,7 @@ import ge.exen.models.PostJSON;
 import ge.exen.models.User;
 import ge.exen.services.IPostsService;
 import ge.exen.services.IUserService;
+import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -39,8 +41,9 @@ public class PostsController {
     ExamDao examDao;
 
     @PostMapping("/newPost")
-    public String writeNewPost(PostWriteDTO postWriteDTO){
+    public String writeNewPost(PostWriteDTO postWriteDTO, Model model){
         postsService.writeNewPost(postWriteDTO);
+        model.addAttribute("curUserId", userService.getCurrentUser().getId());
       //  return new RedirectView("/posts/"+postWriteDTO.getExamId());
         return "ok";
     }
@@ -57,15 +60,17 @@ public class PostsController {
 //        lekvaLogin.setPassword("rabbit");
 //        lekvaLogin.setEmail("g.lekveishvili@freeuni.edu.ge");
 //        userService.login(lekvaLogin);
+        User curUser = userService.getCurrentUser();
         model.addAttribute("examId", examId);
-        model.addAttribute("status", userService.getCurrentUser().getStatus());
+        model.addAttribute("status", curUser.getStatus());
         model.addAttribute("content", "post.jsp");
+        model.addAttribute("curUserId", curUser.getId());
         return "/template";
     }
 
     @ResponseBody
     @GetMapping(value = "/getPosts/{examId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PostJSON> getPosts(@PathVariable Integer examId){
+    public List<PostJSON> getPosts(@PathVariable Integer examId, Model model){
         List<Post> posts = postsService.getPostsByExamId(examId);
         List<PostJSON> postJSONs = new ArrayList<>();
         for (Post post : posts) {
@@ -75,11 +80,13 @@ public class PostsController {
             User lecturer = userDAO.getUser(post.getFromId());
             postJSON.setLecturer(lecturer.getName() + " " + lecturer.getLastName());
             Exam exam = examDao.get(post.getExamId());
+            postJSON.setFromId(post.getFromId());
             postJSON.setExam(exam.getFullName());
             postJSON.setDate(post.getDate());
             postJSON.setPostId(post.getPostId());
             postJSON.setAction("add");
             postJSONs.add(postJSON);
+            model.addAttribute("curUserId", userService.getCurrentUser().getId());
         }
         return postJSONs;
     }
@@ -93,11 +100,12 @@ public class PostsController {
 
     /**
      * TODO uncommnet when there is time for writing its front
+     * */
     @PostMapping("/editPost/{examId}")
-    public RedirectView editPost(PostEditDTO postEditDTO, @PathVariable Integer examId){
+    public String editPost(PostEditDTO postEditDTO, @PathVariable Integer examId){
         postsService.editPost(postEditDTO);
-        return new RedirectView("/posts/"+examId);
+        return "ok";
     }
-     */
+
 
 }

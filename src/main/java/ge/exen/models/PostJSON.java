@@ -5,6 +5,7 @@ import java.util.Date;
 public class PostJSON {
     public static String REMOVE = "remove";
     public static String ADD = "add";
+    public static String EDIT = "edit";
     public static String BUG = "bug";
     String exam;
     String lecturer;
@@ -12,6 +13,7 @@ public class PostJSON {
     String text;
     long postId;
     String action;
+    long fromId;
 
     public String getAction() {
         return action;
@@ -22,6 +24,8 @@ public class PostJSON {
             this.action = REMOVE;
         else if(action.equals(ADD))
             this.action = ADD;
+        else if(action.equals(EDIT))
+            this.action = EDIT;
         else this.action = BUG;
     }
 
@@ -63,5 +67,13 @@ public class PostJSON {
 
     public void setPostId(long postId) {
         this.postId = postId;
+    }
+
+    public long getFromId() {
+        return fromId;
+    }
+
+    public void setFromId(long fromId) {
+        this.fromId = fromId;
     }
 }

@@ -63,11 +63,16 @@ public class PostsService implements IPostsService{
     }
 
     public boolean editPost(PostEditDTO postEditDTO){
+        boolean edited = false;
         if (checkEditPrivileges(postEditDTO.getPostId())) {
             postsDao.updatePostByID(postEditDTO);
-            return postEditDTO.getPostId() != -1;
+            edited = postEditDTO.getPostId() != -1;
         }
-        return false;
+
+        for (IPostListener listener: postListeners) {
+            listener.postEdited(postEditDTO, 3);//FIXME: what is examID
+        }
+        return edited;
     }
 
     public boolean removePost(Long postId, Long examId){
