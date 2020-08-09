@@ -24,7 +24,7 @@ public interface IExamService {
      * @param id exam ID
      * @return output message.
      */
-    int setFiles(Map<String, MultipartFile> input, Long id);
+    void setFiles(Map<String, MultipartFile> input, Long id);
 
     /**
      * Gets current user and returns exam

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ContextConfiguration(locations = { "classpath:testing-setup.xml" })
 
 public class QueueServiceTest {
+    @Qualifier("queueService")
     @Autowired
     private QueueService qservice;
 
@@ -218,4 +220,47 @@ public class QueueServiceTest {
         assertEquals(0, qservice.getAnticipantsCurrentUser(vano));
     }
 
+    @Test
+    @DirtiesContext
+    public void testGetDisabledState(){
+        qservice.enqueueCurrentStudent(ana);
+        qservice.enqueueCurrentStudent(tamta);
+
+        assertTrue(qservice.getDisabledStateForCurrentUser(ana));
+        assertTrue(qservice.getDisabledStateForCurrentUser(tamta));
+
+        assertFalse(qservice.getDisabledStateForCurrentUser(sandro));
+        assertFalse(qservice.getDisabledStateForCurrentUser(vano));
+        assertFalse(qservice.getDisabledStateForCurrentUser(sandro));
+    }
+
+    @Test
+    @DirtiesContext
+    public void testGetDisabledStateCancelWaiting(){
+        qservice.enqueueCurrentStudent(ana);
+        qservice.enqueueCurrentStudent(tamta);
+        assertTrue(qservice.getDisabledStateForCurrentUser(tamta));
+
+        qservice.cancelWaitingCurrentStudent(tamta);
+
+        assertTrue(qservice.getDisabledStateForCurrentUser(ana));
+        assertFalse(qservice.getDisabledStateForCurrentUser(tamta));
+        assertFalse(qservice.getDisabledStateForCurrentUser(shota));
+        assertFalse(qservice.getDisabledStateForCurrentUser(vano));
+    }
+
+    @Test
+    @DirtiesContext
+    public void testGetDisabledStateDequeue(){
+        qservice.enqueueCurrentStudent(shota);
+        qservice.enqueueCurrentStudent(ana);
+        qservice.enqueueCurrentStudent(tamta);
+
+        qservice.dequeue();
+
+        assertFalse(qservice.getDisabledStateForCurrentUser(shota));
+        assertTrue(qservice.getDisabledStateForCurrentUser(ana));
+        assertTrue(qservice.getDisabledStateForCurrentUser(tamta));
+        assertFalse(qservice.getDisabledStateForCurrentUser(sandro));
+    }
 }

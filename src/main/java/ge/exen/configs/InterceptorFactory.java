@@ -61,7 +61,7 @@ public class InterceptorFactory {
          */
         @Override
         public Message<?> preSend(Message<?> message, MessageChannel channel) {
-
+            if(DEBUG)return message;
             StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(message);
 
             // we only allow receiving messages though /app

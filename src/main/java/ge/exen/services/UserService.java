@@ -22,17 +22,20 @@ public class UserService implements IUserService {
     @Autowired
     private HttpSession httpSession;
 
+    @Autowired
+    private QueueService queueService;
+
     private final static String userAttrName = "user";
 
     @Override
-    public boolean checkMailExists(final String email){
-        return userDAO.getUserByMail(email)!=null;
+    public boolean checkMailExists(final String email) {
+        return userDAO.getUserByMail(email) != null;
     }
 
     @Override
-    public boolean registerNewUser(final UserRegisterDTO userDto){
+    public boolean registerNewUser(final UserRegisterDTO userDto) {
         //TODO check proper status
-        if(checkMailExists(userDto.getEmail()))return false;
+        if (checkMailExists(userDto.getEmail())) return false;
         //TODO check other stuff(password maybe
         final User user = new User();
         user.setEmail(userDto.getEmail());
@@ -45,41 +48,41 @@ public class UserService implements IUserService {
     }
 
 
-
     @Override
-    public boolean login(final UserLoginDTO loginDTO){
+    public boolean login(final UserLoginDTO loginDTO) {
         User user = userDAO.getUserByMail(loginDTO.getEmail());
-        if(user == null)return false;
-        if(!checkPassword(user, loginDTO.getPassword())) return false;
+        if (user == null) return false;
+        if (!checkPassword(user, loginDTO.getPassword())) return false;
         httpSession.setAttribute(userAttrName, user);
+        //queueService.createDisabledStates();
         return true;
     }
 
     @Override
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         return (User) httpSession.getAttribute(userAttrName);
     }
 
     @Override
-    public void logout(){
+    public void logout() {
         httpSession.removeAttribute(userAttrName);
     }
 
 
     @Override
-    public boolean updateUser(UserUpdateDTO updateDTO){
+    public boolean updateUser(UserUpdateDTO updateDTO) {
         User user = userDAO.getUserByMail(updateDTO.getOldEmail());
-        if(user == null)return false;
-        if(!checkPassword(user, updateDTO.getOldPassword())) return false;
-        if(updateDTO.getEmail()!=null)
+        if (user == null) return false;
+        if (!checkPassword(user, updateDTO.getOldPassword())) return false;
+        if (updateDTO.getEmail() != null)
             user.setEmail(updateDTO.getEmail());
-        if(updateDTO.getPassword()!=null)
+        if (updateDTO.getPassword() != null)
             user.setPasswordHash(hashService.encode(updateDTO.getPassword()));
-        if(updateDTO.getName()!=null)
-        user.setName(updateDTO.getName());
-        if(updateDTO.getLastName()!=null)
+        if (updateDTO.getName() != null)
+            user.setName(updateDTO.getName());
+        if (updateDTO.getLastName() != null)
             user.setLastName(updateDTO.getLastName());
-        if(updateDTO.getStatus()!=null)
+        if (updateDTO.getStatus() != null)
             user.setStatus(updateDTO.getStatus());
         userDAO.updateRowById(user);
         return user.getId() != -1;
@@ -88,7 +91,7 @@ public class UserService implements IUserService {
     @Override
     public boolean removeUser() {
         User cur = getCurrentUser();
-        if(cur==null) return false;
+        if (cur == null) return false;
         userDAO.removeUserById(cur.getId());
         httpSession.removeAttribute(userAttrName);
         return true;
@@ -97,11 +100,12 @@ public class UserService implements IUserService {
 
     /**
      * utility function
-     * @param toCheck user to check
+     *
+     * @param toCheck  user to check
      * @param password password
      * @return true is correct password
      */
-    private boolean checkPassword(User toCheck, String password){
+    private boolean checkPassword(User toCheck, String password) {
         return hashService.matches(password, toCheck.getPasswordHash());
     }
 
