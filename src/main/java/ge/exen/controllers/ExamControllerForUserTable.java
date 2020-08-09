@@ -3,6 +3,7 @@ package ge.exen.controllers;
 import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.StudentExamDAO;
 import ge.exen.DAO.UserDAO;
+import ge.exen.Utils.JavaMailUtil;
 import ge.exen.models.Exam;
 import ge.exen.models.StudentExam;
 import ge.exen.models.User;
@@ -31,6 +32,8 @@ public class ExamControllerForUserTable {
     IStudentExamService studentExamsService;
     @Autowired
     StudentExamDAO dao;
+    @Autowired
+    ExamDao examdao;
 
     @GetMapping("/admin/users")
     public String showUsers(HttpServletRequest req, HttpSession ses) {
@@ -65,5 +68,21 @@ public class ExamControllerForUserTable {
         System.out.println(dao.getByExam(examId).size());
         return showUsers(req, ses);
         //return "/login";
+    }
+
+    @GetMapping("/admin/sendMails")
+    public String sendMails(HttpServletRequest req, HttpSession ses) {
+        List<User> students = (List<User>)ses.getAttribute("students");
+        long examId = Long.parseLong(req.getParameter("examId"));
+        for(User user : students) {
+            JavaMailUtil.sendMail(user.getEmail(),"საგამოცდო რეგისტრაცია",getExamText(user,examId));
+        }
+        return showUsers(req, ses);
+    }
+    private String getExamText(User user,long examId) {
+        StudentExam exam = dao.get(user.getId(),examId);
+        Exam xm = examdao.get(examId);
+        return "გამარჯობა " + user.getName() + " " + user.getLastName() + " გიგზავნით " + xm.getFullName() + " რეგისტრაციას  +\n" +
+                " თარიღი: " + xm.getStartDate() + " \n ხანგძლივობა: " + xm.getDurationInMinutes() + " წთ \n ვარიანტი : " +exam.getVariant() + "\n ადგილი: " + exam.getCompIndex();
     }
 }

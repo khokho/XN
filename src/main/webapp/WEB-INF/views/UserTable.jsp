@@ -68,7 +68,7 @@
         <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'"
                 class="mr-2 btn btn-link btn-sm row" style="margin-left: 10px"><i class="fa fa-arrow-right fa-2x"
                                                                                   aria-hidden="true"></i></button>
-        <button onclick="window.location.href='/admin/newExam'" class="btn btn-primary row">მეილების გაგზავნა</button>
+        <button onclick="window.location.href='/admin/sendMails?examId=<%=request.getParameter("examId")%>'" class="btn btn-primary row">მეილების გაგზავნა</button>
     </div>
 </div>
 <script>

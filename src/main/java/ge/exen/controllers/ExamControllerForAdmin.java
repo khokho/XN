@@ -1,10 +1,14 @@
 package ge.exen.controllers;
 
 
+import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.StudentExamDAO;
+import ge.exen.DAO.UserDAO;
+import ge.exen.Utils.JavaMailUtil;
 import ge.exen.models.Exam;
 import ge.exen.models.ExamLecturers;
 import ge.exen.models.StudentExam;
+import ge.exen.models.User;
 import ge.exen.services.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +28,13 @@ public class ExamControllerForAdmin {
     @Autowired
     IExamService examService;
 
+    @Autowired
+    UserDAO userdao;
+
+    @Autowired
+    StudentExamDAO dao;
+    @Autowired
+    ExamDao d;
 
 
     @GetMapping(value = "/admin/list")
