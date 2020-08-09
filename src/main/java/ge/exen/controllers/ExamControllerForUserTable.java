@@ -100,7 +100,7 @@ public class ExamControllerForUserTable {
     }
 
     @PostMapping(value = "/admin/newStudentexam")
-    public String login(StudentExamRegisterDTO dto,
+    public String addStudentExam(StudentExamRegisterDTO dto,
                         HttpServletRequest req){
         studentExamsService.assignStudentToExam(dto);
         req.setAttribute("content", "UserTable.jsp");
