@@ -4,15 +4,12 @@ import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.UserDAO;
 import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
-import ge.exen.dto.UserLoginDTO;
-import ge.exen.dto.UserRegisterDTO;
 import ge.exen.models.Exam;
 import ge.exen.models.Post;
 import ge.exen.models.PostJSON;
 import ge.exen.models.User;
 import ge.exen.services.IPostsService;
 import ge.exen.services.IUserService;
-import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +36,7 @@ public class PostsController {
     @Autowired
     ExamDao examDao;
 
+    @ResponseBody
     @PostMapping("/newPost")
     public String writeNewPost(PostWriteDTO postWriteDTO, Model model){
         postsService.writeNewPost(postWriteDTO);
@@ -47,6 +44,7 @@ public class PostsController {
       //  return new RedirectView("/posts/"+postWriteDTO.getExamId());
         return "ok";
     }
+
     @GetMapping("/posts/{examId}")
     public String getPostsView(Model model, @PathVariable Integer examId){
 //        UserRegisterDTO lekva = new UserRegisterDTO();
@@ -91,6 +89,7 @@ public class PostsController {
         return postJSONs;
     }
 
+    @ResponseBody
     @PostMapping("/removePost/{examId}")
     public String removePost(long postId, @PathVariable Integer examId){
         postsService.removePost(postId, (long) examId);
@@ -101,6 +100,7 @@ public class PostsController {
     /**
      * TODO uncommnet when there is time for writing its front
      * */
+    @ResponseBody
     @PostMapping("/editPost/{examId}")
     public String editPost(PostEditDTO postEditDTO, @PathVariable Integer examId){
         postsService.editPost(postEditDTO);
