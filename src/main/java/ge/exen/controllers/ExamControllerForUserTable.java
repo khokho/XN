@@ -4,6 +4,7 @@ import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.StudentExamDAO;
 import ge.exen.DAO.UserDAO;
 import ge.exen.Utils.JavaMailUtil;
+import ge.exen.dto.StudentExamRegisterDTO;
 import ge.exen.models.Exam;
 import ge.exen.models.StudentExam;
 import ge.exen.models.User;
@@ -41,6 +42,7 @@ public class ExamControllerForUserTable {
         long index = Long.parseLong(req.getParameter("examId"));
         List<User> gotStudents = studentExamsService.getUsersByExamId(index);
         int listIndex = 1;
+        long examId = index;
         if (req.getParameter("pageNum") != null) listIndex = Integer.parseInt(req.getParameter("pageNum"));
         List<User> students = new ArrayList<>();
         for (int i = (listIndex - 1) * USERS_PER_PAGE; i < listIndex * USERS_PER_PAGE; i++) {
@@ -51,6 +53,10 @@ public class ExamControllerForUserTable {
         req.setAttribute("pageNum", pageNum);
         req.setAttribute("current", listIndex);
         ses.setAttribute("students", students);
+        ses.setAttribute("examId", examId);
+        long variants = examdao.get(examId).getVariants();
+        ses.setAttribute("variants", variants);
+        System.out.println(variants);
         return "template";
     }
 
@@ -84,5 +90,20 @@ public class ExamControllerForUserTable {
         Exam xm = examdao.get(examId);
         return "გამარჯობა " + user.getName() + " " + user.getLastName() + " გიგზავნით " + xm.getFullName() + " რეგისტრაციას  +\n" +
                 " თარიღი: " + xm.getStartDate() + " \n ხანგძლივობა: " + xm.getDurationInMinutes() + " წთ \n ვარიანტი : " +exam.getVariant() + "\n ადგილი: " + exam.getCompIndex();
+    }
+
+    @GetMapping(value = "/admin/newStudentexam")
+    public String addStudentExam(HttpServletRequest req, HttpSession session) {
+        req.setAttribute("content", "add_studentexam.jsp");
+        System.out.println((long)session.getAttribute("examId"));
+        return "template";
+    }
+
+    @PostMapping(value = "/admin/newStudentexam")
+    public String addStudentExam(StudentExamRegisterDTO dto,
+                        HttpServletRequest req){
+        studentExamsService.assignStudentToExam(dto);
+        req.setAttribute("content", "UserTable.jsp");
+        return "/template";
     }
 }
