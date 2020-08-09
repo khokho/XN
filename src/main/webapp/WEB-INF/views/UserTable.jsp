@@ -10,8 +10,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<% List<User> users = (List<User>)session.getAttribute("students"); %>
-<% List<lecturerExamList.ExamInfo> exams = (List<lecturerExamList.ExamInfo>) request.getAttribute("list");%>
+<% List<User> users = (List<User>) session.getAttribute("students"); %>
 
 <div class="card-hover-shadow-2x mb-3 card" style="height: 65%!important;">
     <div id="box" class="scroll-area-sm">
@@ -35,10 +34,13 @@
                                     <div class="widget-content-left">
                                         <div class="widget-heading"><%=users.get(i).getEmail()%>
                                         </div>
-                                        <div class="widget-subheading"><i><%= users.get(i).getName() + " " + users.get(i).getLastName()%></i></div>
+                                        <div class="widget-subheading">
+                                            <i><%= users.get(i).getName() + " " + users.get(i).getLastName()%>
+                                            </i></div>
                                     </div>
                                     <div class="widget-content-right" style="margin-left: auto">
-                                        <button onclick="window.location.href='/admin/removeUser?index=<%=i%>?&examId=<%=exams.get(i).getExam().getID()%>'"
+                                        <button onclick="window.location.href='/admin/removeUser?index=<%=users
+.get(i).getId()%>&examId=<%=request.getParameter("examId")%>'"<%-- examId=<%=request.getParameter("examId")%>--%>
                                                 class="border-0 btn-transition btn btn-outline-danger"><i
                                                 class="fa fa-times" aria-hidden="true"></i></button>
                                     </div>
@@ -58,7 +60,8 @@
     <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
             class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
     <div style="display:inline;">
-        <form  action="/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=(Integer)request.getAttribute("current")%>" style="display:inline; width: 15%;">
+        <form action="/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=(Integer)request.getAttribute("current")%>"
+              style="display:inline; width: 15%;">
             <input type="number" min="1" max="<%=request.getAttribute("pageNum")%>" name="pageNum"
                    value="<%=request.getAttribute("current")%>">
         </form>

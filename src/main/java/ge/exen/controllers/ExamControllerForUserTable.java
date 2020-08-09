@@ -29,6 +29,8 @@ public class ExamControllerForUserTable {
     IExamService service;
     @Autowired
     IStudentExamService studentExamsService;
+    @Autowired
+    StudentExamDAO dao;
 
     @GetMapping("/admin/users")
     public String showUsers(HttpServletRequest req, HttpSession ses) {
@@ -36,20 +38,32 @@ public class ExamControllerForUserTable {
         long index = Long.parseLong(req.getParameter("examId"));
         List<User> gotStudents = studentExamsService.getUsersByExamId(index);
         int listIndex = 1;
-        if(req.getParameter("pageNum") != null) listIndex = Integer.parseInt(req.getParameter("pageNum"));
+        if (req.getParameter("pageNum") != null) listIndex = Integer.parseInt(req.getParameter("pageNum"));
         List<User> students = new ArrayList<>();
-        for(int i = (listIndex-1)*USERS_PER_PAGE; i<listIndex*USERS_PER_PAGE; i++) {
-            if(i == gotStudents.size()) break;
+        for (int i = (listIndex - 1) * USERS_PER_PAGE; i < listIndex * USERS_PER_PAGE; i++) {
+            if (i == gotStudents.size()) break;
             students.add(gotStudents.get(i));
         }
-        int pageNum = students.size()/USERS_PER_PAGE + 1;
+        int pageNum = students.size() / USERS_PER_PAGE + 1;
         req.setAttribute("pageNum", pageNum);
-        req.setAttribute("current",listIndex);
+        req.setAttribute("current", listIndex);
         ses.setAttribute("students", students);
         return "template";
     }
+
     @PostMapping("/admin/users")
     public String showUsersPost(HttpServletRequest req, HttpSession ses) {
-        return showUsers(req,ses);
+        return showUsers(req, ses);
+    }
+
+
+    @GetMapping("/admin/removeUser")
+    public String removeAndReturnToView(HttpServletRequest req, HttpSession ses) {
+        long examId = Long.parseLong(req.getParameter("examId"));
+        long removeUserId = Long.parseLong(req.getParameter("index"));
+        dao.remove(removeUserId, examId);
+        System.out.println(dao.getByExam(examId).size());
+        return showUsers(req, ses);
+        //return "/login";
     }
 }
