@@ -9,39 +9,73 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <jsp:include page="includes.jsp"/>
+    <title>რიგები</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"
             integrity="sha512-wMmlpbPCY778BJObxSz1tBYZTaz8q6eAJGiQke+r0AtqqgYPfAmwcip5p1HAmWKA7pxcqNeY8hz1mkHgZhqIiQ=="
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
             integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
             crossorigin="anonymous"></script>
+    <style>
+        body{
+            background: darkseagreen;
+        }
+
+        .wrapperdiv {
+            text-align: center;
+            height: 33vh;
+            position: relative;
+            border: 3px solid green;
+        }
+
+        .innerdiv {
+            height: 16vh;
+            margin: 0;
+            position: absolute;
+            top: 11%;
+            left: 13%;
+
+        }
+
+        label {
+            color:black;
+            font-size: 47px;
+        }
+        .buttonsdiv {
+            height: 20vh;
+            color: green;
+        }
+    </style>
+
 </head>
 <body>
-<ul class="list-group">
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <label class="list-group-item list-group-item-action bg-light">შავი ფურცლის მოთხოვნა </label>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='paper-student'></div>
-    </li>
+<div id="student-queues">
+    <div class="wrapperdiv">
+        <div class="innerdiv">
+            <div class = "labeldiv"><label>შავი ფურცლის მოთხოვნა</label> </div>
+            <div id ='paper-student' class='buttonsdiv' style="margin-top:22px;"></div>
+        </div>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <label class="list-group-item list-group-item-action bg-light">დამკვირვებლის დაძახება</label>
-    </li>
+    </div>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='examer-student'></div>
-    </li>
+    <div class="wrapperdiv">
+        <div class="innerdiv">
+            <div class = "labeldiv"><label>დამკვირვებლის დაძახება</label> </div>
+            <div id ='examer-student'  class='buttonsdiv' style="margin-top:22px;"></div>
+        </div>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <label class="list-group-item list-group-item-action bg-light">WC</label>
-    </li>
+    </div>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='wc-student'></div>
-    </li>
-</ul>
+    <div class="wrapperdiv">
+        <div class="innerdiv">
+            <div class = "labeldiv"><label>WC</label> </div>
+
+            <div id ='wc-student' class='buttonsdiv' style="margin-top:22px;"></div>
+        </div>
+
+    </div>
+</div>
 
 <!-- Load React. -->
 <!-- Note: when deploying, replace "development.js" with "production.min.js". -->

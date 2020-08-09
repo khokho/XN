@@ -1,16 +1,41 @@
 'use strict';
 
 const e = React.createElement;
-/*
+
 var ws = new SockJS("/ws");
 var stomp = Stomp.over(ws);
 
 //this function will be bound to button !this!
 function onmessage(responseJSON){
     console.log("Hi my name is bob and I'm from wesocket")
-    this.updateBtn()
+    this.update()
 }
- */
+
+const divStyle = {
+    color: 'black',
+    height: 16,
+    margin: 0,
+    top: 80,
+    left: 20,
+};
+
+const fontStyle = {
+    color : 'darkred',
+    marginRight:'22px',
+    fontSize: 30,
+};
+
+const dequeueButtonStyle = {
+    background:'seagreen',
+    marginRight:'22px',
+    fontSize: 25,
+};
+
+const clearButtonStyle = {
+    background:'darkgreen',
+    fontSize: 25,
+};
+
 class AdminButtons extends React.Component {
     constructor(props) {
         super(props);
@@ -19,6 +44,11 @@ class AdminButtons extends React.Component {
         this.queueName = props.queueName;
         this.handleClickDequeue = this.handleClickDequeue.bind(this);
         this.handleClickClear = this.handleClickClear.bind(this);
+    }
+
+    startListen(){
+        const my_onmessage = onmessage.bind(this);
+        stomp.subscribe("/topic/queue-" + this.queueName, my_onmessage, {});
     }
 
     handleClickDequeue() {
@@ -46,13 +76,19 @@ class AdminButtons extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <button disabled={this.state.disabled} onClick={this.handleClickDequeue}> {this.buttonName} </button>
-                <p>რიგში არის {this.state.count} სტუდენტი</p>
-                <button disabled={this.state.disabled} onClick={this.handleClickClear}> რიგის გასუფთავება </button>
-            </div>
-        );
+        return (<div  style={divStyle}>
+                <div style={{ display:'inline-block'}}>
+                    <button style={dequeueButtonStyle} disabled={this.state.disabled} onClick={this.handleClickDequeue}> {this.buttonName} </button>
+                </div>
+
+                <div style={{ display:'inline-block'}}>
+                    <p style={fontStyle}>რიგში არის {this.state.count} სტუდენტი</p>
+                </div>
+
+                <div style={{ display:'inline-block'}}>
+                    <button style={clearButtonStyle} onClick={this.handleClickClear}> რიგის გასუფთავება </button>
+                </div>
+        </div>);
     }
 }
 
@@ -72,12 +108,9 @@ var wcAdmin= ReactDOM.render(
     document.getElementById('wc-admin')
 );
 
-/*
 stomp.connect({}, function () {
     paperAdmin.startListen()
     examerAdmin.startListen()
     wcAdmin.startListen()
 
 });
-
- */

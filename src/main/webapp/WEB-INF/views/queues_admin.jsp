@@ -7,36 +7,76 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
-    <title>Title</title>
+    <jsp:include page="includes.jsp"/>
+    <title>რიგები</title>
+    <style>
+        body{
+            background: darkseagreen;
+        }
+
+        .wrapperdiv {
+            text-align: center;
+            height: 33vh;
+            position: relative;
+            border: 3px solid green;
+            margin:0;
+            padding: 20px;
+        }
+
+        .innerdiv {
+            height: 16vh;
+            margin: 0;
+            position: absolute;
+            top: 11%;
+            left: 13%;
+
+        }
+
+        label {
+            color:black;
+            font-size: 47px;
+        }
+        .buttonsdiv {
+            height: 20vh;
+            color: green;
+        }
+
+    </style>
 </head>
-<body>
+<body >
 
-<ul class="list-group">
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <label class="list-group-item list-group-item-action bg-light">შავი ფურცლის მოთხოვნა </label>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='paper-admin'></div>
-    </li>
+<div id = 'admin-queues'>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <label class="list-group-item list-group-item-action bg-light">დამკვირვებლის დაძახება</label>
-    </li>
+    <div class="wrapperdiv" >
+        <div class="innerdiv">
+            <div class = "labeldiv"><label>შავი ფურცლის რიგი</label> </div>
+            <div id ='paper-admin' class='buttonsdiv' style="margin-top:22px;"></div>
+        </div>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='examer-admin'></div>
-    </li>
+    </div>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <label class="list-group-item list-group-item-action bg-light">WC</label>
-    </li>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div id ='wc-admin'></div>
-    </li>
-</ul>
+    <div class="wrapperdiv" >
+        <div class="innerdiv">
+            <div class = "labeldiv"><label>დამკვირვებლის რიგი</label> </div>
+            <div id ='examer-admin'  class='buttonsdiv' style="margin-top:22px;"></div>
+        </div>
+
+    </div>
+
+    <div class="wrapperdiv">
+        <div class="innerdiv">
+            <div class = "labeldiv"><label>WC</label> </div>
+
+            <div id ='wc-admin' class='buttonsdiv' style="margin-top:22px;"></div>
+        </div>
+
+    </div>
+</div>
+
 
 <!-- Load React. -->
 <!-- Note: when deploying, replace "development.js" with "production.min.js". -->

@@ -11,6 +11,31 @@ function onmessage(responseJSON){
     this.update()
 }
 
+const divStyle = {
+    color: 'black',
+    height: 16,
+    margin: 0,
+    top: 80,
+    left: 20,
+};
+
+const fontStyle = {
+    color : 'darkred',
+    fontSize: 30,
+    marginRight:'22px',
+};
+
+const enqueueButtonStyle = {
+    background:'seagreen',
+    fontSize: 25,
+    marginRight:'22px',
+};
+
+const cancelButtonStyle = {
+    background:'darkgreen',
+    fontSize: 25,
+};
+
 class StudentButtons extends React.Component {
     constructor(props) {
         super(props);
@@ -59,14 +84,19 @@ class StudentButtons extends React.Component {
     }
 
     render() {
-        return (
-            <div >
-                <button disabled={this.state.disabled} onClick={this.handleClickEnqueue}> რიგში ჩადგომა </button>
-                <p>რიგში არის {this.state.count} სტუდენტი</p>
-                <button disabled={!this.state.disabled} onClick={this.handleClickCancel}> მოთხოვნის გაუქმება </button>
+        return(<div style={divStyle} >
+            <div style={{ display:'inline-block'}}>
+                <button style={enqueueButtonStyle} disabled={this.state.disabled} onClick={this.handleClickEnqueue}> რიგში ჩადგომა </button>
             </div>
 
-        );
+            <div style={{ display:'inline-block'}}>
+                <p style={fontStyle} >რიგში არის {this.state.count} სტუდენტი</p>
+            </div>
+
+            <div style={{ display:'inline-block'}}>
+                <button style={cancelButtonStyle} disabled={!this.state.disabled} onClick={this.handleClickCancel}> მოთხოვნის გაუქმება </button>
+            </div>
+        </div>);
     }
 }
 
