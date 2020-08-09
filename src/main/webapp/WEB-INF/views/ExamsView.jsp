@@ -67,7 +67,7 @@
     </div>
 
 </div>
-<div id="upBox" class="d-block card-footer fixed-bottom row">
+<div id="upBox" class="d-block card-footer fixed-bottom row" style="background: white">
     <button onclick="window.location.href='/admin/list?pageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
             class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
     <div style="display:inline;">
@@ -84,18 +84,16 @@
 <script>
     function setW() {
 
-        document.getElementById("bottomboy").style.marginLeft = (document.getElementById("sidebar-wrapper").offsetWidth).toString() + 'px';
+        document.getElementById("upBox").style.marginLeft = (document.getElementById("sidebar-wrapper").offsetWidth).toString() + 'px';
     }
 
     function getHeight() {
-        return (document.getElementById("bottomboy").offsetHeight.toString()) + "px";
+        return (document.getElementById("upBox").offsetHeight.toString()) + "px";
     }
 
     function setMargin() {
         document.getElementById("box").style.marginBottom = getHeight();
     }
-
-    setW();
     setMargin();
 </script>
 <!-- </div> -->
