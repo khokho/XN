@@ -46,6 +46,8 @@
 
 
 <link href="<c:url value="/resources/css/simple-sidebar.css" />"  rel="stylesheet"/>
+<script src="<c:url value="/resources/js/websockets.js" />"></script>
+<script src="<c:url value="/resources/js/notifications.js" />"></script>
 
 <!-- Styles -->
 

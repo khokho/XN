@@ -1,7 +1,7 @@
 
-drop database if exists testexen; #exen or testexen
-create database testexen; #exen or testexen
-use testexen; #exen or testexen
+drop database if exists exen; #exen or testexen
+create database exen; #exen or testexen
+use exen; #exen or testexen
 
 create table IF NOT EXISTS exam
 (
@@ -61,7 +61,9 @@ create table IF NOT EXISTS exam_lecturers
 	constraint exam_lectors_exam_exam_id_fk
 		foreign key (exam_id) references exam (exam_id),
 	constraint exam_lectors_user_Id_fk
-		foreign key (lecturer_id) references user (Id)
+		foreign key (lecturer_id) references user (Id),
+    constraint unique_exam_lecturer
+        unique (exam_id, lecturer_id)
 );
 
 create table IF NOT EXISTS message

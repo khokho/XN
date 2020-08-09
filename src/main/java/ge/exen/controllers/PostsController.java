@@ -2,6 +2,7 @@ package ge.exen.controllers;
 
 import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.UserDAO;
+import ge.exen.dto.PostEditDTO;
 import ge.exen.dto.PostWriteDTO;
 import ge.exen.models.Exam;
 import ge.exen.models.Post;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +36,14 @@ public class PostsController {
     @Autowired
     ExamDao examDao;
 
+    @ResponseBody
     @PostMapping("/newPost")
-    public RedirectView writeNewPost(PostWriteDTO postWriteDTO){
+    public String writeNewPost(PostWriteDTO postWriteDTO){
         postsService.writeNewPost(postWriteDTO);
-        return new RedirectView("/posts/"+postWriteDTO.getExamId());
+      //  return new RedirectView("/posts/"+postWriteDTO.getExamId());
+        return "ok";
     }
+
     @GetMapping("/posts/{examId}")
     public String getPostsView(Model model, @PathVariable Integer examId){
 //        UserRegisterDTO lekva = new UserRegisterDTO();
@@ -54,8 +57,9 @@ public class PostsController {
 //        lekvaLogin.setPassword("rabbit");
 //        lekvaLogin.setEmail("g.lekveishvili@freeuni.edu.ge");
 //        userService.login(lekvaLogin);
+        User curUser = userService.getCurrentUser();
         model.addAttribute("examId", examId);
-        model.addAttribute("status", userService.getCurrentUser().getStatus());
+        model.addAttribute("status", curUser.getStatus());
         model.addAttribute("content", "post.jsp");
         return "/template";
     }
@@ -72,27 +76,33 @@ public class PostsController {
             User lecturer = userDAO.getUser(post.getFromId());
             postJSON.setLecturer(lecturer.getName() + " " + lecturer.getLastName());
             Exam exam = examDao.get(post.getExamId());
+            postJSON.setFromId(post.getFromId());
             postJSON.setExam(exam.getFullName());
             postJSON.setDate(post.getDate());
             postJSON.setPostId(post.getPostId());
+            postJSON.setAction("add");
             postJSONs.add(postJSON);
         }
         return postJSONs;
     }
 
+    @ResponseBody
     @PostMapping("/removePost/{examId}")
-    public RedirectView removePost(long postId, @PathVariable Integer examId){
-        postsService.removePost(postId);
-        return new RedirectView("/posts/"+examId);
+    public String removePost(long postId, @PathVariable Integer examId){
+        postsService.removePost(postId, (long) examId);
+        //return new RedirectView("/posts/"+examId);
+        return "ok";
     }
 
     /**
      * TODO uncommnet when there is time for writing its front
+     * */
+    @ResponseBody
     @PostMapping("/editPost/{examId}")
-    public RedirectView editPost(PostEditDTO postEditDTO, @PathVariable Integer examId){
+    public String editPost(PostEditDTO postEditDTO, @PathVariable Integer examId){
         postsService.editPost(postEditDTO);
-        return new RedirectView("/posts/"+examId);
+        return "ok";
     }
-     */
+
 
 }

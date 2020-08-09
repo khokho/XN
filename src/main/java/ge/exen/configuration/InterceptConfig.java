@@ -3,7 +3,6 @@ package ge.exen.configuration;
 import ge.exen.DAO.ExamDao;
 import ge.exen.models.StudentExam;
 import ge.exen.models.User;
-import ge.exen.services.ExamService;
 import ge.exen.services.IExamService;
 import ge.exen.services.IUserService;
 import ge.exen.services.Zipper;
@@ -12,12 +11,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static ge.exen.configs.GlobalConstants.DEBUG;
 
 
 public class InterceptConfig implements HandlerInterceptor {
@@ -54,6 +49,7 @@ public class InterceptConfig implements HandlerInterceptor {
             return true;
         }
         request.setAttribute("loggedin", "1");
+        request.setAttribute("userId", currentUser.getId());
         switch (currentUser.getStatus()) {
             case User.ADMIN :
             break;

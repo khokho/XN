@@ -26,7 +26,7 @@ public interface IPostsService {
      * @param postId
      * @return true if successfully edited, false otherwise
      */
-    boolean removePost(Long postId);
+    boolean removePost(Long postId, Long examId);
 
     /**
      * If logged in user is a lecturer, they get their posts

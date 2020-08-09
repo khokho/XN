@@ -63,18 +63,28 @@ public class PostsService implements IPostsService{
     }
 
     public boolean editPost(PostEditDTO postEditDTO){
+        boolean edited = false;
         if (checkEditPrivileges(postEditDTO.getPostId())) {
             postsDao.updatePostByID(postEditDTO);
-            return postEditDTO.getPostId() != -1;
+            edited = postEditDTO.getPostId() != -1;
         }
-        return false;
+
+        for (IPostListener listener: postListeners) {
+            listener.postEdited(postEditDTO, 3);//FIXME: what is examID
+        }
+        return edited;
     }
 
-    public boolean removePost(Long postId){
+    public boolean removePost(Long postId, Long examId){
+        boolean removed = false;
         if (checkEditPrivileges(postId)) {
-            return postsDao.removePostByID(postId);
+            removed = postsDao.removePostByID(postId);
+
+            for (IPostListener listener: postListeners) {
+                listener.postRemoved(postId, examId);
+            }
         }
-        return false;
+        return removed;
     }
 
     private boolean checkEditPrivileges(Long postId){
@@ -112,7 +122,7 @@ public class PostsService implements IPostsService{
     private List<Post> getPostsByStudentId(Long examId) {
          // remove comment when getCurrentExam() is written in ExamService
         StudentExam currExam = examService.getLiveExamForCurrentStudent(); //gives the exam curr user is writing
-        if(currExam == null || examId != currExam.getExamId()) return null;
+        if(examId != currExam.getExamId()) return null;
         return postsDao.getAllByExamId(currExam.getExamId());
     }
 
