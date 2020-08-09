@@ -34,9 +34,6 @@
 <script src="<c:url value="/resources/js/chat.js" />" type="text/babel"></script>
 
 <script>
-
-
     window.chatId = ${chatId}
-        window.userId = ${userId}
 
 </script>

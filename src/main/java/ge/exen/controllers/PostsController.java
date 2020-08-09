@@ -38,9 +38,8 @@ public class PostsController {
 
     @ResponseBody
     @PostMapping("/newPost")
-    public String writeNewPost(PostWriteDTO postWriteDTO, Model model){
+    public String writeNewPost(PostWriteDTO postWriteDTO){
         postsService.writeNewPost(postWriteDTO);
-        model.addAttribute("curUserId", userService.getCurrentUser().getId());
       //  return new RedirectView("/posts/"+postWriteDTO.getExamId());
         return "ok";
     }
@@ -62,13 +61,12 @@ public class PostsController {
         model.addAttribute("examId", examId);
         model.addAttribute("status", curUser.getStatus());
         model.addAttribute("content", "post.jsp");
-        model.addAttribute("curUserId", curUser.getId());
         return "/template";
     }
 
     @ResponseBody
     @GetMapping(value = "/getPosts/{examId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PostJSON> getPosts(@PathVariable Integer examId, Model model){
+    public List<PostJSON> getPosts(@PathVariable Integer examId){
         List<Post> posts = postsService.getPostsByExamId(examId);
         List<PostJSON> postJSONs = new ArrayList<>();
         for (Post post : posts) {
@@ -84,7 +82,6 @@ public class PostsController {
             postJSON.setPostId(post.getPostId());
             postJSON.setAction("add");
             postJSONs.add(postJSON);
-            model.addAttribute("curUserId", userService.getCurrentUser().getId());
         }
         return postJSONs;
     }

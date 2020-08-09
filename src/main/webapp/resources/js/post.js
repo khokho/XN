@@ -11,7 +11,7 @@ function Post(props){
                 <div className="card-header d-flex">
                     <div className={"p-2"}>{props.post.exam} Announcement</div>
                     <div className={"d-flex justify-content-end"}>
-                        {props.post.fromId === window.curUserId &&
+                        {props.post.fromId === window.userId &&
                         <form action={"/removePost/" + window.examId} method={"post"} target={"hidden-remove"}>
                             <input type={"submit"} value={"remove"}/>
                             <input type="hidden" name="postId" value={props.post.postId}/>
@@ -85,7 +85,7 @@ class Posts extends React.Component{
 
     render(){
         return this.state.posts.map((post)=>(
-            <Post key={post} post={post}/>
+            <Post key={post.postId} post={post}/>
         ))
     }
 }

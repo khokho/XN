@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
 
@@ -10,45 +11,4 @@
     </div>
 </div>
 
-<script type="text/babel">
-    class SidebarElements extends React.Component{
-        constructor(props) {
-            super(props);
-            this.state = {elements:[]}
-        }
-
-        componentWillMount(){
-            var sidebarURL = window.location.protocol + "//" + window.location.host + "/getSidebar"
-            fetch(sidebarURL)
-                .then(resp=>resp.json())
-                .then(data=>{
-                    this.setState({elements:data})
-                })
-        }
-
-        render(){
-            return (
-                <div>
-                    {this.state.elements.map(el=>
-                        (<a key={el.path} href={el.path} className="list-group-item list-group-item-action bg-light" >{el.name}</a>))
-                    }
-                </div>
-            );
-        }
-    }
-
-    const inputContainer = document.querySelector('#sidebar-elements');
-
-
-    ReactDOM.render(<SidebarElements/>, inputContainer);
-</script>
-
-    <!-- Menu Toggle Script -->
-    <!--<script>
-
-      $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-      });
-    </script>
-    -->
+<script src="<c:url value="/resources/js/sidebar.js" />" type="text/babel"></script>

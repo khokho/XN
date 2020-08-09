@@ -146,6 +146,7 @@ public class QueueService implements IQueueService {
             firstInQueue = waitingStudents.get(0);
             waitingStudents.remove(0);
             notifyListeners(POP);
+            notifyPop(firstInQueue.getId());
             setDisabledState(firstInQueue, NOT_IN_QUEUE);
             return firstInQueue;
         }
@@ -191,6 +192,19 @@ public class QueueService implements IQueueService {
             listener.fireQueueUpdate(getType());
         }
     }
+
+    /**
+     * notifys all listeners when queue is updated
+     */
+    private void notifyPop(long userid) {
+        System.out.println("notifyiiing");
+        for (IQueueListener listener : listeners) {
+            System.out.println(getType());
+            listener.fireQueuePop(userid);
+        }
+    }
+
+
 
     public String getType() {
         return null;

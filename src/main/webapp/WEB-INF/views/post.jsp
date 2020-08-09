@@ -107,7 +107,6 @@
 
 <script>
     window.examId = ${examId}
-    window.curUserId = ${curUserId}
 </script>
 
 <!-- Load our React component. -->

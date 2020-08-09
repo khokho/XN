@@ -34,4 +34,9 @@ public class QueueListener implements IQueueListener {
         System.out.println("/topic/queue-"+name);
         messagingTemplate.convertAndSend("/topic/queue-"+name, "g");
     }
+
+    @Override
+    public void fireQueuePop(long userid) {
+        messagingTemplate.convertAndSend("/topic/queues", userid);
+    }
 }
