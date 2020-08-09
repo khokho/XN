@@ -36,10 +36,20 @@ public class SidebarController {
     private ExamLecturersDAO examLecturersDAO;
 
     public static class SidebarElement {
+        String id;
         String name;
         String path;
 
-        public SidebarElement(String name, String path) {
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public SidebarElement(String id, String name, String path) {
+            this.id = id;
             this.name = name;
             this.path = path;
         }
@@ -70,38 +80,47 @@ public class SidebarController {
         User curUser = userService.getCurrentUser();
 
         if(curUser==null){
-            sidebar.add(new SidebarElement("შესვლა", "/login"));
+            sidebar.add(new SidebarElement("!login", "შესვლა", "/login"));
             return sidebar;
         }
 
 
         if(curUser.getStatus().equals(User.ADMIN)){
-            sidebar.add(new SidebarElement("იუზერის დამატება", "/admin/register"));
-            sidebar.add(new SidebarElement("გამოცდის დამატება", "/admin/newExam"));
-            sidebar.add(new SidebarElement("გამოცდები", "/admin/list"));
+            sidebar.add(new SidebarElement("!register", "იუზერის დამატება", "/admin/register"));
+            sidebar.add(new SidebarElement("!newExam", "გამოცდის დამატება", "/admin/newExam"));
+            sidebar.add(new SidebarElement("!examList", "გამოცდები", "/admin/list"));
         }
         if(curUser.getStatus().equals(User.LECTURER)){
-            sidebar.add(new SidebarElement("გამოცდები", "/lecturer/exams"));
+            sidebar.add(new SidebarElement("!examList", "გამოცდები", "/lecturer/exams"));
             List<Exam> exams = examService.getLiveExamsForHighStatus();
             System.out.println(exams.size());
             for(Exam exam:exams){
-                sidebar.add(new SidebarElement(exam.getFullName() + " პოსტები", "/posts/"+exam.getID()));
+                sidebar.add(new SidebarElement("posts-" + exam.getID(), exam.getFullName() + " პოსტები", "/posts/"+exam.getID()));
             }
             List<Chat> chats = chatService.getMyChats();
             for(Chat chat:chats){
                 User user = userDAO.getUser(chat.getstudentId());
-                sidebar.add(new SidebarElement("ჩატი: " + user.getName(), "/chat/"+chat.getChatId()));
+                sidebar.add(new SidebarElement("chat-" + chat.getChatId(), "ჩატი: " + user.getName(), "/chat/"+chat.getChatId()));
             }
         }
 
         if(curUser.getStatus().equals(User.STUDENT)){
-            sidebar.add(new SidebarElement("გამოცდა", "/eh"));
+            sidebar.add(new SidebarElement("!exam", "გამოცდა", "/eh"));
             StudentExam exam = examService.getExamForCurrentUser();
-            sidebar.add(new SidebarElement("პოსტები","/posts/"+exam.getExamId()));
-            List<Long> users = examLecturersDAO.getLecturerIds(exam.getExamId());
-            for(Long userId:users){
-                User user = userDAO.getUser(userId);
-                sidebar.add(new SidebarElement("ჩატი: " + user.getName() + " " + user.getLastName(), "/startChat/"+userId));
+            sidebar.add(new SidebarElement("posts-"+exam.getExamId(), "პოსტები","/posts/"+exam.getExamId()));
+            List<Long> lectors = examLecturersDAO.getLecturerIds(exam.getExamId());
+            List<Chat> chats = chatService.getMyChats();
+
+            for(Chat chat:chats){
+                if(!lectors.contains(chat.getlectorId()))continue;
+                User user = userDAO.getUser(chat.getlectorId());
+                sidebar.add(new SidebarElement("chat-"+chat.getChatId(), "ჩატი: " + user.getName(), "/chat/"+chat.getChatId()));
+                lectors.remove(chat.getlectorId());
+            }
+
+            for(Long lectorId:lectors){
+                User user = userDAO.getUser(lectorId);
+                sidebar.add(new SidebarElement("!newchat-" + lectorId, "ჩატი: " + user.getName() + " " + user.getLastName(), "/startChat/"+lectorId));
             }
         }
 
