@@ -50,6 +50,8 @@ public class PostServiceTest {
 
     UserRegisterDTO nanaAdmin;
 
+    private Long OOP_ID = 123456789L;
+
     @BeforeEach
     public void setup(){
         nanaAdmin = new UserRegisterDTO();

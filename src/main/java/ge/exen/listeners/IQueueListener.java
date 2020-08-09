@@ -1,10 +1,10 @@
-package ge.exen.services;
+package ge.exen.listeners;
 
-public interface QueueListener {
+public interface IQueueListener {
     /**
      * is called when the queue is updated
      *
      * @param type int representing the type of update
      */
-    void fireQueueUpdate(int type);
+    void fireQueueUpdate(String type);
 }

@@ -1,7 +1,7 @@
 
-drop database if exists testexen; #exen or testexen
-create database testexen; #exen or testexen
-use testexen; #exen or testexen
+drop database if exists exen; #exen or testexen
+create database exen; #exen or testexen
+use exen; #exen or testexen
 
 create table IF NOT EXISTS exam
 (

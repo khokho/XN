@@ -1,5 +1,6 @@
 package ge.exen.services;
 
+import ge.exen.listeners.IQueueListener;
 import ge.exen.models.User;
 
 public interface IQueueService {
@@ -48,10 +49,27 @@ public interface IQueueService {
     /**
      * adds the QueueListener
      */
-    void addListener(QueueListener listener);
+    void addListener(IQueueListener listener);
 
     /**
      * removes the QueueListener
      */
-    void removeListener(QueueListener listener);
+    void removeListener(IQueueListener listener);
+
+    /**
+     * returns whether the current user is in the queue
+     *
+     * @return false if the enqueue button for the current user is not disabled
+     * and cancel button is disabled,
+     * true if the opposite
+     */
+    Boolean getDisabledState();
+
+    /**
+     * sets Disabled status of enqueue and cancel buttons for given student
+     *
+     * @param user User representing the student
+     *             state boolean representing enqueue button's disabled state
+     */
+    void setDisabledState(User user, boolean state);
 }
