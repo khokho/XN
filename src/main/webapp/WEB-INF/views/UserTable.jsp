@@ -1,7 +1,6 @@
-<%@ page import="ge.exen.models.StudentExam" %>
-<%@ page import="java.util.List" %>
 <%@ page import="ge.exen.models.User" %>
-<%@ page import="ge.exen.controllers.lecturerExamList" %><%--
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: user
   Date: 8/2/2020
@@ -58,7 +57,7 @@
 
 <div id="upBox" class="d-block card-footer fixed-bottom row">
     <div id = "addStudexam"  >
-        <button onclick="window.location.href='/admin/newStudentexam'" style="background-color: dodgerblue; margin-bottom: 2vh" class="btn"><i
+        <button onclick="window.location.href='/admin/newStudentExam'" style="background-color: dodgerblue; margin-bottom: 2vh" class="btn"><i
                 class="fa fa-plus"></i> სტუდენტის დამატება</button>
     </div>
     <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
