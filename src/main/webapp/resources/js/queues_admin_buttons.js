@@ -39,11 +39,12 @@ const clearButtonStyle = {
 class AdminButtons extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {disabled: false, count:0};
+        this.state = {disabled: true, count:0};
         this.buttonName = props.buttonName;
         this.queueName = props.queueName;
         this.handleClickDequeue = this.handleClickDequeue.bind(this);
         this.handleClickClear = this.handleClickClear.bind(this);
+        this.update();
     }
 
     startListen(){
@@ -72,6 +73,14 @@ class AdminButtons extends React.Component {
                 console.log(res)
                 button.setState({count:res})
             })
+        fetch('http://' + window.location.host + '/admin/get-disabled/'+button.queueName)
+            .then(resp=>{
+                return resp.json()
+            })
+            .then(res=>{
+                console.log(res)
+                button.setState({disabled:res})
+            })
 
     }
 
@@ -86,7 +95,7 @@ class AdminButtons extends React.Component {
                 </div>
 
                 <div style={{ display:'inline-block'}}>
-                    <button style={clearButtonStyle} onClick={this.handleClickClear}> რიგის გასუფთავება </button>
+                    <button style={clearButtonStyle} disabled={this.state.disabled} onClick={this.handleClickClear}> რიგის გასუფთავება </button>
                 </div>
         </div>);
     }

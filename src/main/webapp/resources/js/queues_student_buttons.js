@@ -43,6 +43,7 @@ class StudentButtons extends React.Component {
         this.state = {disabled: false, count: 0};
         this.handleClickEnqueue = this.handleClickEnqueue.bind(this);
         this.handleClickCancel = this.handleClickCancel.bind(this);
+        this.update();
     }
 
     startListen(){
@@ -80,7 +81,6 @@ class StudentButtons extends React.Component {
                 console.log(res)
                 button.setState({disabled:res})
             })
-
     }
 
     render() {

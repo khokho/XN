@@ -39,14 +39,14 @@ public class QueueController {
             return "insuffPriv";
     }
 
-    @GetMapping(value = "/queues-admin")
+    //@GetMapping(value = "/queues-admin")
     public String getQueuesAdmin(Model model) {
         model.addAttribute("content", "queues_admin.jsp");
         model.addAttribute("title", "რიგები");
         return "/template";
     }
 
-    @GetMapping(value = "/queues-student")
+    //@GetMapping(value = "/queues-student")
     public String getQueuesStudent(Model model) {
         model.addAttribute("content", "queues_student.jsp");
         model.addAttribute("title", "რიგები");
@@ -88,8 +88,16 @@ public class QueueController {
 
     @ResponseBody
     @RequestMapping(value = "/get-disabled/{queueName}")
-    public Boolean getDisabledState(@PathVariable String queueName) {
+    public Boolean getDisabledStateForStudent(@PathVariable String queueName) {
+        System.out.println("movedii\n");
         Boolean status = getQueueByType(queueName).getDisabledState();
+        return status;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/admin/get-disabled/{queueName}")
+    public Boolean getDisabledStateForAdmin(@PathVariable String queueName) {
+        Boolean status = getQueueByType(queueName).isEmpty();
         return status;
     }
 
