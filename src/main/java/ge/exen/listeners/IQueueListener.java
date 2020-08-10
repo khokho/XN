@@ -9,7 +9,8 @@ public interface IQueueListener {
     void fireQueueUpdate(String type);
 
     /**
-     * @param userid notifys userid that he can go
+     * @param userid user id
+     * @param name queue name
      */
-    void fireQueuePop(long userid);
+    void fireQueuePop(long userid, String name);
 }

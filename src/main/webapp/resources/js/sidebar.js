@@ -27,7 +27,7 @@ function notifySidebar(topic, e){
     console.log("message received:" + topic)
     var id = getTopic(topic)
     if(id === INVALID_TOPIC) return
-    if (id === QUEUE_TOPIC && e !== window.userId) return;
+    if (id === QUEUE_TOPIC && e.userId !== window.userId) return;
     if (id === CHAT_TOPIC && e.from === window.userId) return;
     if (id === POST_TOPIC && e.fromId === window.userId) return;
 
@@ -40,8 +40,19 @@ function notifySidebar(topic, e){
         return state;
     })
 
-    if (id === QUEUE_TOPIC)
-        new Notification('Exam Enviroment', { body: 'you can go', icon: undefined });
+    if (id === QUEUE_TOPIC){
+        switch (e.type) {
+            case 'blank-paper':
+                new Notification('Exam Enviroment', { body: 'შავი ფურცელი მალე მოვა', icon: undefined });
+                break;
+            case 'wc':
+                new Notification('Exam Enviroment', { body: 'შეგიძლია გახვიდე ტუალეტში', icon: undefined });
+                break;
+            case 'call-examer':
+                new Notification('Exam Enviroment', { body: 'დამკვირვებელი მალე მოვა', icon: undefined });
+        }
+
+    }
     if (id === POST_TOPIC)
         new Notification('Exam Enviroment', { body: 'new post boyz', icon: undefined });
     if (id === CHAT_TOPIC)

@@ -1,5 +1,6 @@
 package ge.exen.listeners;
 
+import ge.exen.models.QueueJSON;
 import ge.exen.services.BlankPaperQueueService;
 import ge.exen.services.CallExamerQueueService;
 import ge.exen.services.WCQueueService;
@@ -36,7 +37,7 @@ public class QueueListener implements IQueueListener {
     }
 
     @Override
-    public void fireQueuePop(long userid) {
-        messagingTemplate.convertAndSend("/topic/queues", userid);
+    public void fireQueuePop(long userid, String type) {
+        messagingTemplate.convertAndSend("/topic/queues", new QueueJSON(userid, type));
     }
 }
