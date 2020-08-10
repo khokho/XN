@@ -1,5 +1,6 @@
 package ge.exen.controllers;
 
+import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.ExamLecturersDAO;
 import ge.exen.DAO.UserSQLDAO;
 import ge.exen.models.Chat;
@@ -34,6 +35,9 @@ public class SidebarController {
 
     @Autowired
     private ExamLecturersDAO examLecturersDAO;
+
+    @Autowired
+    private ExamDao examDAO;
 
     public static class SidebarElement {
         String id;
@@ -100,6 +104,7 @@ public class SidebarController {
             }
             List<Chat> chats = chatService.getMyChats();
             for(Chat chat:chats){
+                if(!examService.isCurrentlyLive(examDAO.get(chat.getExamId())) ) continue;
                 User user = userDAO.getUser(chat.getstudentId());
                 sidebar.add(new SidebarElement("chat-" + chat.getChatId(), "ჩატი: " + user.getName(), "/chat/"+chat.getChatId()));
             }
