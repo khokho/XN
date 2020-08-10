@@ -67,13 +67,17 @@ public class InterceptConfig implements HandlerInterceptor {
                 }
 
                 StudentExam ex = examService.getLiveExamForCurrentStudent();
-                int mn = examDAO.get(ex.getExamId()).getDurationInMinutes();
-                Date time = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(examDAO.get(ex.getExamId()).getStartDate());
-                long ONE_MINUTE_IN_MILLIS=60000;
-                long t= time.getTime() + ONE_MINUTE_IN_MILLIS * mn;
+                if(ex != null) {
+                    int mn = examDAO.get(ex.getExamId()).getDurationInMinutes();
+                    Date time = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(examDAO.get(ex.getExamId()).getStartDate());
+                    long ONE_MINUTE_IN_MILLIS = 60000;
+                    long t = time.getTime() + ONE_MINUTE_IN_MILLIS * mn;
 
-                request.setAttribute("time", t);
-                request.setAttribute("sidebar", "sidebar.jsp");
+                    request.setAttribute("time", t);
+                }
+                else
+                    if(!url.startsWith("/eh") && !url.startsWith("/login") && !url.startsWith("/logout"))response.sendRedirect("/eh");
+                    request.setAttribute("sidebar", "sidebar.jsp");
             break;
 
 
