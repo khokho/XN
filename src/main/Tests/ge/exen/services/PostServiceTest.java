@@ -90,7 +90,7 @@ public class PostServiceTest {
         oopLekva.setLecturerMail(lekva.getEmail());
         //ACTION
         userService.login(nanaLogin);
-        examLecturerService.assignLecturerToExam(oopLekva);
+        assertTrue(examLecturerService.assignLecturerToExam(oopLekva));
 
         lekvasPost = new PostWriteDTO();
         lekvasPost.setExamId(oopId);
@@ -129,13 +129,13 @@ public class PostServiceTest {
 
         //ACTION
         userService.login(nanaLogin);
-        studentExamService.assignStudentToExam(tamtaOOP);
+        assertTrue(studentExamService.assignStudentToExam(tamtaOOP));
 
 
-        ExamLecturersRegisterDTO examLecturersRegisterDTO = new ExamLecturersRegisterDTO();
-        examLecturersRegisterDTO.setExamId(oopId);
-        examLecturersRegisterDTO.setLecturerMail(lekva.getEmail());
-        assertTrue(examLecturerService.assignLecturerToExam(examLecturersRegisterDTO));
+//        ExamLecturersRegisterDTO examLecturersRegisterDTO = new ExamLecturersRegisterDTO();
+//        examLecturersRegisterDTO.setExamId(oopId);
+//        examLecturersRegisterDTO.setLecturerMail(lekva.getEmail());
+//        assertTrue(examLecturerService.assignLecturerToExam(examLecturersRegisterDTO));
     }
 
     @Test
