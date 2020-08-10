@@ -200,7 +200,7 @@ public class QueueService implements IQueueService {
         System.out.println("notifyiiing");
         for (IQueueListener listener : listeners) {
             System.out.println(getType());
-            listener.fireQueuePop(userid);
+            listener.fireQueuePop(userid, getType());
         }
     }
 
