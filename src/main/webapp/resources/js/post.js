@@ -48,13 +48,15 @@ function Post(props){
                         {props.post.fromId === window.userId &&
                         <div className={"d-flex justify-content-end"}>
                             <div className={"d-flex justify-content-end"}>
-                            <button type="button" onClick={()=>{
-                                changePostsEditingState(props.post)
-                            }}>Edit</button>
-                            </div>
-                            <div className={"d-flex justify-content-end"}>
-                            <form action={"/removePost/" + window.examId} method={"post"} target={"hidden-remove"}>
-                            <input type={"submit"} value={"remove"}/>
+
+
+
+
+                            <form class={"row"}  action={"/removePost/" + window.examId} method={"post"} target={"hidden-remove"} style={{display: "inline", float: "right"}}>
+                                <button class="button" onClick={()=>{
+                                    changePostsEditingState(props.post)
+                                }}>Edit</button>
+                                <input type={"submit"} value={"remove"}/>
                             <input type="hidden" name="postId" value={props.post.postId}/>
                         </form>
                         </div></div>
