@@ -1,25 +1,33 @@
-<%@ page import="ge.exen.controllers.ExamControllerForAdmin" %>
-<%@ page import="java.util.List" %>
-<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
+<%--@elvariable id="modifyingExam" type="ge.exen.models.Exam"--%>
 
-<% List<ExamControllerForAdmin.ExamInfo> exams = (List<ExamControllerForAdmin.ExamInfo>) session.getAttribute("list");%>
+
+<c:set var="fullName" value="შეიყვანეთ გამოცდის სახელი"/>
+<c:set var="startDate" value="შეიყვანეთ გამოცდის სახელი"/>
+<c:set var="hours" value="სთ"/>
+<c:set var="minutes" value="წთ"/>
+<c:set var="variants" value="ვარიანტების რაოდენობა"/>
+
+<c:if test="${modifyingExam!=null}">
+    <c:set var="fullName" value="${modifyingExam.fullName}"/>
+    <c:set var="startDate" value="${modifyingExam.startDate}"/>
+    <c:set var="hours" value="${fn:substringBefore(modifyingExam.durationInMinutes div 60, '.')}"/>
+    <c:set var="minutes" value="${modifyingExam.durationInMinutes%60}"/>
+    <c:set var="variants" value="${modifyingExam.variants}"/>
+</c:if>
+
+
+
 <div class="container" style="padding: 15px; ">
     <form id="form" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
 
         <div class="form-group row">
             <label for="fullName" class="col-sm-3 control-label">გამოცდის სახელი: </label>
             <div class="col-sm-4 input-group">
-                <input type="text" name="fullName" class="form-control inputstl" id="fullName"
-                    <% String fullName = "შეიყვანეთ გამოცდის სახელი";
-                       if(request.getParameter("index")!=null) {
-                            fullName = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getFullName();
-                       }
-                         %>
-                       placeholder= <%= fullName%>>
-
-
+                <input type="text" name="fullName" class="form-control inputstl" id="fullName" placeholder= "${fullName}">
             </div>
         </div>
         <div class="form-group row">
@@ -28,13 +36,8 @@
                 <div class="input-group">
                     <div class="input-group date" id="startDate" data-target-input="nearest">
                         <input type="text" name="startDate" class="form-control datetimepicker-input inputstl"
-                               data-target="#datetimepicker1" <% String startDate = "შეიყვანეთ დაწყების დრო";
-                       if(request.getParameter("index")!=null) {
-                            startDate = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getStartDate();
-                           System.out.println(startDate);
-                       }
-                         %>
-                               placeholder= <%= startDate%>>
+                               data-target="#datetimepicker1"
+                               placeholder="${startDate}">
 
                         <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -55,19 +58,11 @@
             <label for="hours" class="col-sm-3 control-label">გამოცდის ხანგრძლივობა:</label>
             <div class="col-sm-4 input-group">
                 <input type="number" name="hours" class="form-control inputstl"
-                       style="width: 60px; margin-right: 5px" min="0" max="99" id="hours" <% String duration = "სთ";
-                       if(request.getParameter("index")!=null) {
-                            duration = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getDurationInMinutes()/60+"სთ";
-                       }
-                         %>
-                       placeholder= <%= duration%>>
+                       style="width: 60px; margin-right: 5px" min="0" max="99" id="hours"
+                       placeholder= "${hours}">
                 <input type="number" name="minutes" class="form-control inputstl" id="minutes"
-                       style="width: 60px" min="0" max="59" <% duration = "წთ";
-                       if(request.getParameter("index")!=null) {
-                            duration = exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getDurationInMinutes()%60 + "წთ";
-                       }
-                         %>
-                       placeholder= <%= duration%>>
+                       style="width: 60px" min="0" max="59"
+                       placeholder= "${minutes}">
             </div>
         </div>
 
@@ -76,12 +71,7 @@
             <label for="variants" class="col-sm-3 control-label">ვარიანტები:</label>
             <div class="col-sm-4 input-group">
                 <input type="number" name="variants" class="form-control inputstl" id="variants" min="0" max="99"
-                <% String variant = "ვარიანტების რაოდენობა";
-                    if(request.getParameter("index")!=null) {
-                        variant = ""+exams.get(Integer.parseInt(request.getParameter("index"))).getExam().getVariants();
-                    }
-                %>
-                placeholder= <%= variant%>>
+                placeholder= "${variants}">
             </div>
         </div>
 
@@ -93,11 +83,11 @@
             </div>
         </div>
         <script>
-            addFiles();
+            // addFiles();
             const inp = document.getElementById("variants");
-            inp.addEventListener('change', () => {
-                addFiles()
-            });
+            // inp.addEventListener('change', () => {
+            //     addFiles()
+            // });
 
             function addFiles() {
                 let container = document.getElementById("statements");

@@ -18,8 +18,6 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
     public long create(Exam ex) {
         String query = "INSERT INTO exam (start_time, duration, var_num, exam_subj) VALUES ( STR_TO_DATE( ? , '%Y/%m/%d %H:%i'), ?, ?, ?)";
 
-
-
         PreparedStatement insertStatement;
         try {
             insertStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -101,5 +99,25 @@ public class SQLExamDao extends AbstractSQLDAO implements ExamDao {
             e.printStackTrace();
         }
         return ans;
+    }
+
+    @Override
+    public boolean modify(Long index, Exam ex) {
+
+        PreparedStatement updateStatement;
+        try {
+            updateStatement = conn.prepareStatement("UPDATE exam SET start_time = ?, duration = ?, var_num = ?, exam_subj = ? where exam_id = ?", Statement.RETURN_GENERATED_KEYS);
+            updateStatement.setString(1, ex.getStartDate());
+            updateStatement.setInt(2, ex.getDurationInMinutes());
+            updateStatement.setInt(3, ex.getVariants());
+            updateStatement.setString(4, ex.getFullName());
+            updateStatement.setLong(5, index);
+            System.out.println(updateStatement);
+            int res = updateStatement.executeUpdate();
+            return res>0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
     }
 }

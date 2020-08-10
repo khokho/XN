@@ -1,6 +1,7 @@
 package ge.exen.controllers;
 
 
+import ge.exen.DAO.SQLExamDao;
 import ge.exen.dto.ExamDTO;
 import ge.exen.services.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,64 +11,46 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class newExam {
+
+
+
+    @Autowired
+    private IExamService examService;
+
+    @Autowired
+    private SQLExamDao exdao;
+
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(10000000);
         return multipartResolver;
     }
-    @Autowired
-    private IExamService examFactory;
 
     @GetMapping("/admin/newExam")
-    public String getInfo(@Nullable Integer index, Model model) {
+    public String getInfo(@Nullable Integer examId, Model model) {
         model.addAttribute("content", "examForm.jsp");
-        if(index == null)
+        if(examId == null)
             model.addAttribute("title", "ახალი გამოცდის შექმნა");
         else
             model.addAttribute("title", "გამოცდის პარამეტრების შეცვლა");
+        if(examId != null)
+            model.addAttribute("modifyingExam", exdao.get(examId));
         return "template";
     }
 
 
     @PostMapping(value = "/admin/newExam")
-    public String retreviveForm(ExamDTO values,
-                                MultipartHttpServletRequest req) {
-        List<MultipartFile> rawFiles = new ArrayList<>();
-        Map<String, MultipartFile> files = req.getFileMap();
-/*        ExamDTO values = new ExamDTO();
-
-        values.setVariants(""+variants);
-        values.setStartDate(startDate);
-        values.setFullName(fullName);
-        values.setHours(duration_hr.toString());
-        values.setMinutes(duration_mn.toString());*/
-
-        System.out.println("111");
-        for (int i = 0; i < values.getVariants(); i++) {
-            rawFiles.add(null);
+    public String retreviveForm(@Nullable Long examId, ExamDTO values) {
+        if(examId!=null){
+            examService.modifyExam(examId, values);
+            return "/template";
         }
-
-        for (Map.Entry<String, MultipartFile> ent : files.entrySet()) {
-            if (ent.getKey().contains("statement ")) {
-                int idx = Integer.parseInt(ent.getKey().substring(10)) - 1;
-                rawFiles.set(idx, ent.getValue());
-            }
-        }
-        long ID = examFactory.process(values);
-        if(ID > 0) {
-            examFactory.setFiles(files, ID);
-        }
+        long ID = examService.process(values);
         return "/template";
     }
 }

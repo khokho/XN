@@ -1,6 +1,7 @@
-<%@ page import="ge.exen.models.User" %>
+<%@ page import="ge.exen.models.StudentExam" %>
 <%@ page import="java.util.List" %>
-<%--
+<%@ page import="ge.exen.models.User" %>
+<%@ page import="ge.exen.controllers.lecturerExamList" %><%--
   Created by IntelliJ IDEA.
   User: user
   Date: 8/2/2020
@@ -38,6 +39,10 @@
                                             </i></div>
                                     </div>
                                     <div class="widget-content-right" style="margin-left: auto">
+                                        <button onclick="window.location.href='/admin/seeStudentExam?studentId=<%=
+                                                            users.get(i).getId()%>&examId=<%=request.getParameter("examId")%>'"
+                                                style="background-color: dodgerblue; margin-bottom: 2vh" class="btn"><i></i> მონაცემები</button>
+
                                         <button onclick="window.location.href='/admin/removeUser?index=<%=users
 .get(i).getId()%>&examId=<%=request.getParameter("examId")%>'"<%-- examId=<%=request.getParameter("examId")%>--%>
                                                 class="border-0 btn-transition btn btn-outline-danger"><i
@@ -56,9 +61,11 @@
 </div>
 
 <div id="upBox" class="d-block card-footer fixed-bottom row">
-    <div id = "addStudexam"  >
-        <button onclick="window.location.href='/admin/newStudentExam'" style="background-color: dodgerblue; margin-bottom: 2vh" class="btn"><i
-                class="fa fa-plus"></i> სტუდენტის დამატება</button>
+    <div id="addStudexam">
+        <button onclick="window.location.href='/admin/newStudentExam'"
+                style="background-color: dodgerblue; margin-bottom: 2vh" class="btn"><i
+                class="fa fa-plus"></i> სტუდენტის დამატება
+        </button>
     </div>
     <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
             class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
@@ -71,7 +78,9 @@
         <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&pageNum=<%=Math.min((Integer)request.getAttribute("pageNum"),(Integer)request.getAttribute("current")+1)%>'"
                 class="mr-2 btn btn-link btn-sm row" style="margin-left: 10px"><i class="fa fa-arrow-right fa-2x"
                                                                                   aria-hidden="true"></i></button>
-        <button onclick="window.location.href='/admin/sendMails?examId=<%=request.getParameter("examId")%>'" class="btn btn-primary row">მეილების გაგზავნა</button>
+        <button onclick="window.location.href='/admin/sendMails?examId=<%=request.getParameter("examId")%>'"
+                class="btn btn-primary row">მეილების გაგზავნა
+        </button>
     </div>
 </div>
 <script>
@@ -88,6 +97,6 @@
         document.getElementById("box").style.marginBottom = getHeight();
     }
 
-   // setW();
+    // setW();
     setMargin();
 </script>

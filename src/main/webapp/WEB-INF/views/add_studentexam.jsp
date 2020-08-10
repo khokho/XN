@@ -15,6 +15,7 @@
 <div class="container" style="padding: 15px;">
 
     <form id="form" accept-charset="UTF-8" role="form">
+        <input type="number" name="examId" id="examId" style="display: none" value="<%=examId%>"/>
 
         <input type="number" name="examId" id="examId" style="display: none" value="<%=examId%>"/>
 

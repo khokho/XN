@@ -65,4 +65,6 @@ public interface IExamService {
      * @return  true if exam is currently on, false otherwise
      */
     public boolean isCurrentlyLive(Exam exam);
+
+    boolean modifyExam(Long index, ExamDTO values);
 }

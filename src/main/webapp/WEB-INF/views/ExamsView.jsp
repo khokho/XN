@@ -1,7 +1,5 @@
-<%@ page import="java.util.List" %>
-<%@ page import="ge.exen.models.Exam" %>
-<%@ page import="java.util.HashMap" %>
 <%@ page import="ge.exen.controllers.ExamControllerForAdmin" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!--<div class="row d-flex justify-content-center container">
 <div class="col-md-8">-->
@@ -49,7 +47,7 @@
                                                 class="<%=icon%>" aria-hidden="true"></i></button>
 
 
-                                        <button onclick="window.location.href='/admin/newExam?index=<%=i%>'"
+                                        <button onclick="window.location.href='/admin/newExam?examId=<%=exams.get(i).getExam().getID()%>'"
                                                 class="border-0 btn-transition btn btn-outline-warning"><i
                                                 class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                         <button onclick="window.location.href='/admin/users?examId=<%=exams.get(i).getExam().getID()%>'"
