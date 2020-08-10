@@ -11,7 +11,7 @@
     }
 </style>
 <div class="my-sidebar bg-light border-right" id="sidebar-wrapper" style="position: fixed; z-index: 10; overflow: auto;" >
-    <div class="sidebar-heading" ><span title="${username}">${username}</span> </div>
+    <div class="sidebar-heading" style="height: 62px;"><span title="${username}">${username}</span> </div>
     <div class="list-group list-group-flush">
         <div id="sidebar-elements">
         </div>

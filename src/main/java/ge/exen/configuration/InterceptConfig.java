@@ -46,6 +46,7 @@ public class InterceptConfig implements HandlerInterceptor {
         }
         if(currentUser == null) {
             request.setAttribute("loggedin", "0");
+            request.setAttribute("username", "");
             return true;
         }
         request.setAttribute("loggedin", "1");
