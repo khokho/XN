@@ -50,6 +50,10 @@ public class InterceptorFactory {
                 return POST_TOPIC;
             }
 
+            if (destination.startsWith(COMMON_QUEUE_PREFIX)||destination.startsWith(QUEUE_PREFIX)) {
+                return QUEUE_TOPIC;
+            }
+
             return INVALID_TOPIC;
         }
 
@@ -61,7 +65,7 @@ public class InterceptorFactory {
          */
         @Override
         public Message<?> preSend(Message<?> message, MessageChannel channel) {
-            if(DEBUG)return message;
+//            if(DEBUG)return message;
             StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(message);
 
             // we only allow receiving messages though /app
@@ -103,6 +107,8 @@ public class InterceptorFactory {
                             return null;
                         break;
                     case POST_TOPIC:
+                        break;
+                    case QUEUE_TOPIC:
                         break;
                 }
                 System.out.println("Allowing to connect");
