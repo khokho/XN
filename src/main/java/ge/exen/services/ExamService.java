@@ -54,7 +54,6 @@ public class ExamService implements IExamService {
         long val = dao.create(newex);
         if (val < 0) return val;
 
-
         return newex.getID();
     }
 
@@ -183,5 +182,24 @@ public class ExamService implements IExamService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public boolean modifyExam(Long index, ExamDTO values) {
+        String polishedDate = values.getStartDate().replace('T', ' ');
+        values.setStartDate(polishedDate);
+
+        Exam newex = dao.get(index);
+
+        if(!values.getFullName().equals(""))
+            newex.setName(values.getFullName());
+        if(!values.getStartDate().equals(""))
+            newex.setStartDate(values.getStartDate());
+        if(values.getVariants()!=null)
+            newex.setVariants(values.getVariants());
+        if(values.getHours()!=null&&values.getMinutes()!=null)
+            newex.setDuration(values.getMinutes() + 60 * values.getHours());
+
+        return dao.modify(index, newex);
     }
 }

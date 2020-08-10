@@ -77,11 +77,11 @@ public class PostServiceTest {
         userService.registerNewUser(lekva);
 
         oop = new ExamDTO();
-        oop.setVariants("1");
+        oop.setVariants(1);
         oop.setStartDate("2019/08/01 16:00");
         oop.setFullName("OOP");
-        oop.setHours("9000000");
-        oop.setMinutes("0");
+        oop.setHours(9000000);
+        oop.setMinutes(0);
         oopId = examService.process(oop);
         System.out.println(oopId);
 

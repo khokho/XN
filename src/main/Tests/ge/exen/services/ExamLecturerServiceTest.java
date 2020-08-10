@@ -71,11 +71,11 @@ public class ExamLecturerServiceTest {
         userService.registerNewUser(tamta);
 
         oop = new ExamDTO();
-        oop.setVariants("1");
+        oop.setVariants(1);
         oop.setStartDate("2020/08/03 16:00");
         oop.setFullName("OOP");
-        oop.setHours("3");
-        oop.setMinutes("0");
+        oop.setHours(3);
+        oop.setMinutes(0);
         Long oopId = examService.process(oop);
 
         oopLekva = new ExamLecturersRegisterDTO();

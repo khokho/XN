@@ -25,4 +25,5 @@ public interface ExamDao {
      */
     List<Exam> getAll();
 
+    boolean modify(Long index, Exam newex);
 }

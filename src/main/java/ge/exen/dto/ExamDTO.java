@@ -1,25 +1,31 @@
 package ge.exen.dto;
 
-import javax.validation.constraints.NotNull;
-
 public class ExamDTO {
-    @NotNull
-    private String variants;
-    @NotNull
+//    @NotNull
+    private Integer variants;
+//    @NotNull
     private String fullName;
-    @NotNull
+//    @NotNull
     private String startDate;
-    @NotNull
-    private String hours;
-    @NotNull
-    private String minutes;
+//    @NotNull
+    private Integer hours;
+//    @NotNull
+    private Integer minutes;
 
     public Integer getVariants() {
-        return Integer.parseInt(variants);
+        return variants;
+    }
+
+    public void setVariants(Integer variants) {
+        this.variants = variants;
     }
 
     public String getFullName() {
         return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getStartDate() {
@@ -27,19 +33,19 @@ public class ExamDTO {
     }
 
     public Integer getHours() {
-        return Integer.parseInt(hours);
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
     }
 
     public Integer getMinutes() {
-        return Integer.parseInt(minutes);
+        return minutes;
     }
 
-    public void setVariants(String variants) {
-        this.variants = variants;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setMinutes(Integer minutes) {
+        this.minutes = minutes;
     }
 
     /**
@@ -49,11 +55,4 @@ public class ExamDTO {
         this.startDate = startDate.replace('-', '/');
     }
 
-    public void setHours(String hours) {
-        this.hours = hours;
-    }
-
-    public void setMinutes(String minutes) {
-        this.minutes = minutes;
-    }
 }

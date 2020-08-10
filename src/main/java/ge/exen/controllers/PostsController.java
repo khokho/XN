@@ -61,6 +61,7 @@ public class PostsController {
         model.addAttribute("examId", examId);
         model.addAttribute("status", curUser.getStatus());
         model.addAttribute("content", "post.jsp");
+        model.addAttribute("title", "განცხადებები");
         return "/template";
     }
 
