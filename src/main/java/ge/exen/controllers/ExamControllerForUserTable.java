@@ -91,7 +91,9 @@ public class ExamControllerForUserTable {
     @GetMapping(value = "/admin/newStudentExam")
     public String addStudentExam(HttpServletRequest req, HttpSession session) {
         req.setAttribute("content", "add_studentexam.jsp");
-        req.setAttribute("title", "სტუდენტის დამატება გამოცდაზე");
+        System.out.println((long)session.getAttribute("examId"));
+        Exam exam = examdao.get((long)session.getAttribute("examId"));
+        req.setAttribute("title", exam.getFullName()+" გამოცდაზე სტუდენტის დამატება");
         return "template";
     }
 
