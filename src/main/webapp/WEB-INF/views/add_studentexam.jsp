@@ -12,7 +12,7 @@
     Long variants = (Long) session.getAttribute("variants");
 %>
 
-<div class="container" style="padding: 15px;">
+<div class="container" style="top:40%; left:40%; padding: 15px;">
 
     <form id="form" accept-charset="UTF-8" role="form">
 
@@ -26,7 +26,7 @@
         <div class="form-group row justify-content-center">
             <label for="examId" class="col-sm-1 control-label">გამოცდის აიდი: </label>
             <div class="col-sm-4 input-group">
-                <input type="number" name="examId" class="form-control" id="examId" value="<%=examId%>">
+                <input type="number" name="examId" class="form-control" id="examId" value="<%=examId%>" readonly>
             </div>
         </div>
 

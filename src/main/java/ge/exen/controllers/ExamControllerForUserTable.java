@@ -91,7 +91,7 @@ public class ExamControllerForUserTable {
     @GetMapping(value = "/admin/newStudentExam")
     public String addStudentExam(HttpServletRequest req, HttpSession session) {
         req.setAttribute("content", "add_studentexam.jsp");
-        System.out.println((long)session.getAttribute("examId"));
+        req.setAttribute("title", "სტუდენტის დამატება გამოცდაზე");
         return "template";
     }
 
@@ -101,4 +101,25 @@ public class ExamControllerForUserTable {
         studentExamsService.assignStudentToExam(dto);
         return new RedirectView("/admin/list");
     }
+
+    @GetMapping(value ="/admin/seeStudentExam")
+    public String getStudentExam(HttpServletRequest req, HttpSession session){
+        long examId = Long.parseLong(req.getParameter("examId"));
+        long studentId = Long.parseLong(req.getParameter("studentId"));
+        StudentExam studentExam = dao.get(studentId, examId);
+        session.setAttribute("data", studentExam);
+        req.setAttribute("content", "current_studentexam.jsp");
+        req.setAttribute("title", "საგამოცდო რეგისტრაცია");
+        return "template";
+    }
+
+    @PostMapping(value ="/admin/seeStudentExam")
+    public RedirectView changeComputer(HttpServletRequest req, HttpSession session){
+        long examId = Long.parseLong(req.getParameter("examId"));
+        long studentId = Long.parseLong(req.getParameter("studentId"));
+        long compIndex = Long.parseLong(req.getParameter("compIndex"));
+        dao.changeComputer(studentId, examId, compIndex);
+        return new RedirectView("/admin/list");
+    }
+
 }
