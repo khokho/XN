@@ -1,11 +1,12 @@
 <%@ page import="java.util.List" %>
 <%@ page import="ge.exen.models.StudentExam" %>
 <%@ page import="ge.exen.models.User" %>
+<%@ page import="ge.exen.models.Upload" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!--<div class="row d-flex justify-content-center container">
 <div class="col-md-8">-->
 <% List<User> names = (List<User>) request.getAttribute("names");%>
-<% List<String> uploads = (List<String>) request.getAttribute("uploads");%>
+<% List<Upload> uploads = (List<Upload>) request.getAttribute("uploads");%>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <div class="card-hover-shadow-2x mb-3 card">
     <div id="box" class="scroll-area-sm">
@@ -31,7 +32,7 @@
                                     </div>
                                     <div class="widget-content-right" style="margin-left: auto">
                                         <% if(uploads.get(i) != null) {%>
-                                        <button onclick= "downloadAs('/<%=uploads.get(i)%>','<%=names.get(i).getEmail().substring(0, names.get(i).getEmail().indexOf("@"))%>')" class="border-0 btn-transition btn btn-outline-success"><i
+                                        <button onclick= "downloadAs('/<%=uploads.get(i).getFileLink()%>','<%=names.get(i).getEmail().substring(0, names.get(i).getEmail().indexOf("@"))%>_ვარიანტი_<%=uploads.get(i).getVarId()%>')" class="border-0 btn-transition btn btn-outline-success"><i
                                                 class= "fa fa-download" aria-hidden="true"></i></button>
                                         <%}%>
                                     </div>

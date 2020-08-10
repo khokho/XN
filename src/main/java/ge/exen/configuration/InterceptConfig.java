@@ -50,6 +50,7 @@ public class InterceptConfig implements HandlerInterceptor {
         }
         request.setAttribute("loggedin", "1");
         request.setAttribute("userId", currentUser.getId());
+        request.setAttribute("username", currentUser.getName() + " " + currentUser.getLastName());
         switch (currentUser.getStatus()) {
             case User.ADMIN :
             break;

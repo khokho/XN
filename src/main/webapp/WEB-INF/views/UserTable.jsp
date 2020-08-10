@@ -61,15 +61,17 @@
 </div>
 
 <div id="upBox" class="d-block card-footer fixed-bottom row">
-    <div id="addStudexam">
+
+    <div id="addStudexam" style="display: inline">
         <button onclick="window.location.href='/admin/newStudentExam'"
                 style="background-color: dodgerblue; margin-bottom: 2vh" class="btn"><i
                 class="fa fa-plus"></i> სტუდენტის დამატება
         </button>
     </div>
-    <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
-            class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
-    <div style="display:inline;">
+
+    <div style="float: right;display:inline;margin-right: 20px;">
+        <button onclick="window.location.href='/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=Math.max(1,(Integer)request.getAttribute("current")-1)%>'"
+                                             class="mr-2 btn btn-link btn-sm row"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
         <form action="/admin/users?examId=<%=request.getParameter("examId")%>&ageNum=<%=(Integer)request.getAttribute("current")%>"
               style="display:inline; width: 15%;">
             <input type="number" min="1" max="<%=request.getAttribute("pageNum")%>" name="pageNum"
