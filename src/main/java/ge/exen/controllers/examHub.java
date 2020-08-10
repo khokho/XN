@@ -37,9 +37,14 @@ public class examHub {
 
     @GetMapping(value = "/eh")
     public String displayHub(HttpServletRequest req){
+        StudentExam exam = exams.getLiveExamForCurrentStudent();
+        if(exam == null){
+            req.setAttribute("title", "გამოცდა");
+            req.setAttribute("content", "wait.jsp");
+            return "template";
+        }
         req.setAttribute("content", "examHub.jsp");
         req.setAttribute("title", "გამოცდა");
-        StudentExam exam = exams.getLiveExamForCurrentStudent();
         String link = material.getMaterial(exam.getVariant(), exam.getExamId());
         req.setAttribute("statement", link);
 
@@ -50,6 +55,11 @@ public class examHub {
     @PostMapping("/eh")
     public String handleUpload(@RequestParam("sol") MultipartFile file,HttpServletRequest req) {
         StudentExam exam = exams.getLiveExamForCurrentStudent();
+        if(exam == null){
+            req.setAttribute("title", "გამოცდა");
+            req.setAttribute("content", "wait.jsp");
+            return "template";
+        }
         if(!file.isEmpty()) {
             Upload upload = new Upload();
             upload.setFromId(users.getCurrentUser().getId());

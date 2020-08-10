@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <style>
-    span {
+    .userspan {
     display: inline-block;
     width: 180px;
     white-space: nowrap;
@@ -11,7 +11,7 @@
     }
 </style>
 <div class="my-sidebar bg-light border-right" id="sidebar-wrapper" style="position: fixed; z-index: 10; overflow: auto;" >
-    <div class="sidebar-heading" style="height: 62px;"><span title="${username}">${username}</span> </div>
+    <div class="sidebar-heading" style="height: 62px;"><span class="userspan" title="${username}">${username}</span> </div>
     <div class="list-group list-group-flush">
         <div id="sidebar-elements">
         </div>

@@ -105,7 +105,7 @@ public class SidebarController {
             }
         }
 
-        if(curUser.getStatus().equals(User.STUDENT)){
+        if(curUser.getStatus().equals(User.STUDENT) && examService.getLiveExamForCurrentLecturer() != null){
             sidebar.add(new SidebarElement("exam", "გამოცდა", "/eh"));
             sidebar.add(new SidebarElement("queues","რიგები", "/queues"));
             StudentExam exam = examService.getLiveExamForCurrentStudent();
