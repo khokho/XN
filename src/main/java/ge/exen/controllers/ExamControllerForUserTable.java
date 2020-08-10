@@ -96,29 +96,29 @@ public class ExamControllerForUserTable {
     }
 
     @GetMapping(value = "/admin/newStudentToExam")
-    public String addStudentExam(HttpServletRequest req, HttpSession session) {
-        req.setAttribute("content", "add_user_to_exam.jsp");
+    public String addStudentToExam(HttpServletRequest req, HttpSession session) {
+        req.setAttribute("content", "add_student_to_exam.jsp.jsp");
         Exam exam = examdao.get((long)session.getAttribute("examId"));
         req.setAttribute("title", exam.getFullName()+" გამოცდაზე სტუდენტის დამატება");
         return "template";
     }
     @GetMapping(value = "/admin/newLecturerToExam")
-    public String addLecturerExam(HttpServletRequest req, HttpSession session) {
-        req.setAttribute("content", "addLecturerToExam.jsp");
+    public String addLecturerToExam(HttpServletRequest req, HttpSession session) {
+        req.setAttribute("content", "add_lecturer_to_exam.jsp");
         Exam exam = examdao.get((long)session.getAttribute("examId"));
         req.setAttribute("title", exam.getFullName()+" გამოცდაზე ლექტორის დამატება");
         return "template";
     }
 
     @PostMapping(value = "/admin/newStudentToExam")
-    public RedirectView addStudentExam(StudentExamRegisterDTO dto,
+    public RedirectView addStudentToExam(StudentExamRegisterDTO dto,
                         HttpServletRequest req){
         System.out.println("sdsds");
         studentExamsService.assignStudentToExam(dto);
         return new RedirectView("/admin/list");
     }
     @PostMapping(value = "/admin/newLecturerToExam")
-    public RedirectView addStudentExam(ExamLecturersRegisterDTO dto,
+    public RedirectView addLecturerToExam(ExamLecturersRegisterDTO dto,
                                        HttpServletRequest req){
         System.out.println(dto.toString());
         eService.assignLecturerToExam(dto);
