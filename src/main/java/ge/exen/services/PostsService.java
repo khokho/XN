@@ -69,8 +69,9 @@ public class PostsService implements IPostsService{
             edited = postEditDTO.getPostId() != -1;
         }
 
+        Post post = postsDao.getPost(postEditDTO.getPostId());
         for (IPostListener listener: postListeners) {
-            listener.postEdited(postEditDTO, 3);//FIXME: what is examID
+            listener.postEdited(postEditDTO, post.getExamId());
         }
         return edited;
     }

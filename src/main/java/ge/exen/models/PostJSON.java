@@ -14,6 +14,7 @@ public class PostJSON {
     long postId;
     String action;
     long fromId;
+    boolean editing;
 
     public String getAction() {
         return action;
@@ -75,5 +76,13 @@ public class PostJSON {
 
     public void setFromId(long fromId) {
         this.fromId = fromId;
+    }
+
+    public boolean isEditing() {
+        return editing;
+    }
+
+    public void setEditing(boolean editing) {
+        this.editing = editing;
     }
 }

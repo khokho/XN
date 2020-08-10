@@ -65,7 +65,7 @@
             width: 100%;
         }
 
-        input[type=submit], select {
+        input[type=submit], button, select {
             background-color: #ffc107;
             border: none;
             color: white;
@@ -80,7 +80,7 @@
             transition-duration: 0.4s;
         }
 
-        input[type=submit]:hover {
+        input[type=submit]:hover, button:hover {
             box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
         }
 
@@ -89,10 +89,9 @@
             right: 10px;
             top: 1.5px;
         }
-
-        input[value=Submit], select {
-
-        }
+        /*input[type=button]:hover {*/
+        /*    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);*/
+        /*}*/
 
         #newPostForm{
          resize: none;
@@ -126,6 +125,7 @@
 
 <iframe style="display:none" name="hidden-form"></iframe>
 <iframe style="display:none" name="hidden-remove"></iframe>
+<iframe style="display:none" name="hidden-edit"></iframe>
 
 </body>
 </html>

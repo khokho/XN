@@ -77,6 +77,7 @@ public class PostsController {
             User lecturer = userDAO.getUser(post.getFromId());
             postJSON.setLecturer(lecturer.getName() + " " + lecturer.getLastName());
             Exam exam = examDao.get(post.getExamId());
+            postJSON.setEditing(false);
             postJSON.setFromId(post.getFromId());
             postJSON.setExam(exam.getFullName());
             postJSON.setDate(post.getDate());
@@ -99,8 +100,8 @@ public class PostsController {
      * TODO uncommnet when there is time for writing its front
      * */
     @ResponseBody
-    @PostMapping("/editPost/{examId}")
-    public String editPost(PostEditDTO postEditDTO, @PathVariable Integer examId){
+    @PostMapping("/editPost")
+    public String editPost(PostEditDTO postEditDTO){
         postsService.editPost(postEditDTO);
         return "ok";
     }
