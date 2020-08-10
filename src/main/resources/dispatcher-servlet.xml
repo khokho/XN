@@ -18,7 +18,7 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/exen?useUnicode=yes&amp;characterEncoding=utf8"/>
         <property name="username" value="root"/>
-        <property name="password" value="***REMOVED***"/>
+        <property name="password" value="pass1234"/>
         <property name="initialSize" value="3"/>
     </bean>
 
