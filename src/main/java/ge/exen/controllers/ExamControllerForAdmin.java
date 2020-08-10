@@ -40,6 +40,7 @@ public class ExamControllerForAdmin {
 
     @GetMapping(value = "/admin/list")
     public String toAdminHomePage(HttpServletRequest req, HttpSession ses) {
+       // User user =
         List<Exam> exams = examService.getAllExams();
         List<ExamInfo> list = new ArrayList<>();
         int index = 1;
@@ -48,7 +49,6 @@ public class ExamControllerForAdmin {
             if (i == exams.size()) break;
             list.add(new ExamInfo(exams.get(i), examService.isCurrentlyLive(exams.get(i))));
         }
-
         int pageNum = exams.size() / EXAMS_PER_PAGE + 1;
         ses.setAttribute("list", list);
         req.setAttribute("current", index);

@@ -1,12 +1,15 @@
 package ge.exen.controllers;
 
 import ge.exen.DAO.ExamDao;
+import ge.exen.DAO.ExamLecturersDAO;
 import ge.exen.DAO.StudentExamDAO;
 import ge.exen.Utils.JavaMailUtil;
+import ge.exen.dto.ExamLecturersRegisterDTO;
 import ge.exen.dto.StudentExamRegisterDTO;
 import ge.exen.models.Exam;
 import ge.exen.models.StudentExam;
 import ge.exen.models.User;
+import ge.exen.services.ExamLecturerService;
 import ge.exen.services.IExamService;
 import ge.exen.services.IStudentExamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,10 @@ public class ExamControllerForUserTable {
     StudentExamDAO dao;
     @Autowired
     ExamDao examdao;
+    @Autowired
+    ExamLecturersDAO edao;
+    @Autowired
+    ExamLecturerService eService;
 
     @GetMapping("/admin/users")
     public String showUsers(HttpServletRequest req, HttpSession ses) {
@@ -88,19 +95,34 @@ public class ExamControllerForUserTable {
                 " თარიღი: " + xm.getStartDate() + " \n ხანგძლივობა: " + xm.getDurationInMinutes() + " წთ \n ვარიანტი : " +exam.getVariant() + "\n ადგილი: " + exam.getCompIndex();
     }
 
-    @GetMapping(value = "/admin/newStudentExam")
+    @GetMapping(value = "/admin/newStudentToExam")
     public String addStudentExam(HttpServletRequest req, HttpSession session) {
-        req.setAttribute("content", "add_studentexam.jsp");
-        System.out.println((long)session.getAttribute("examId"));
+        req.setAttribute("content", "add_user_to_exam.jsp");
         Exam exam = examdao.get((long)session.getAttribute("examId"));
         req.setAttribute("title", exam.getFullName()+" გამოცდაზე სტუდენტის დამატება");
         return "template";
     }
+    @GetMapping(value = "/admin/newLecturerToExam")
+    public String addLecturerExam(HttpServletRequest req, HttpSession session) {
+        req.setAttribute("content", "addLecturerToExam.jsp");
+        Exam exam = examdao.get((long)session.getAttribute("examId"));
+        req.setAttribute("title", exam.getFullName()+" გამოცდაზე ლექტორის დამატება");
+        return "template";
+    }
 
-    @PostMapping(value = "/admin/newStudentExam")
+    @PostMapping(value = "/admin/newStudentToExam")
     public RedirectView addStudentExam(StudentExamRegisterDTO dto,
                         HttpServletRequest req){
+        System.out.println("sdsds");
         studentExamsService.assignStudentToExam(dto);
         return new RedirectView("/admin/list");
     }
+    @PostMapping(value = "/admin/newLecturerToExam")
+    public RedirectView addStudentExam(ExamLecturersRegisterDTO dto,
+                                       HttpServletRequest req){
+        System.out.println(dto.toString());
+        eService.assignLecturerToExam(dto);
+        return new RedirectView("/admin/list");
+    }
+
 }
