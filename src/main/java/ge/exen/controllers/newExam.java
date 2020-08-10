@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class newExam {
@@ -45,12 +46,12 @@ public class newExam {
 
 
     @PostMapping(value = "/admin/newExam")
-    public String retreviveForm(@Nullable Long examId, ExamDTO values) {
+    public RedirectView retreviveForm(@Nullable Long examId, ExamDTO values) {
         if(examId!=null){
             examService.modifyExam(examId, values);
-            return "/template";
+            return new RedirectView("/admin/list");
         }
         long ID = examService.process(values);
-        return "/template";
+        return new RedirectView("/admin/list");
     }
 }

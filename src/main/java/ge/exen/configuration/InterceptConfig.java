@@ -1,7 +1,6 @@
 package ge.exen.configuration;
 
 import ge.exen.DAO.ExamDao;
-import ge.exen.configs.GlobalConstants;
 import ge.exen.models.StudentExam;
 import ge.exen.models.User;
 import ge.exen.services.IExamService;
@@ -29,7 +28,7 @@ public class InterceptConfig implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(GlobalConstants.DEBUG)return true;
+//        if(GlobalConstants.DEBUG)return true;
         User currentUser = userService.getCurrentUser();
         String url = request.getRequestURL().toString();
         url = url.substring(8);
@@ -65,7 +64,7 @@ public class InterceptConfig implements HandlerInterceptor {
                     return false;
                 }
 
-                StudentExam ex = examService.getExamForCurrentUser();
+                StudentExam ex = examService.getLiveExamForCurrentStudent();
                 int mn = examDAO.get(ex.getExamId()).getDurationInMinutes();
                 Date time = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(examDAO.get(ex.getExamId()).getStartDate());
                 long ONE_MINUTE_IN_MILLIS=60000;

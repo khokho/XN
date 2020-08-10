@@ -61,7 +61,7 @@
 
 <script>
 
-    window.userId = ${userId}
+    window.userId = ${userId};
 
         hide();
     setMargin();

@@ -86,9 +86,9 @@ public class ChatService implements IChatService {
         if(!user.getStatus().equals(User.STUDENT)) return null;
 
         //check if current user has any exams at the moment
-        if(examService.getExamForCurrentUser() == null) return null;
+        if(examService.getLiveExamForCurrentStudent() == null) return null;
 
-        StudentExam studentExam = examService.getExamForCurrentUser();
+        StudentExam studentExam = examService.getLiveExamForCurrentStudent();
         ExamLecturers examLecturers = new ExamLecturers(studentExam.getExamId(), lectId);
         long examId = studentExam.getExamId();
         examLecturers.setExamId(examId);

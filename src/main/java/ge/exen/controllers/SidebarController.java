@@ -108,7 +108,7 @@ public class SidebarController {
         if(curUser.getStatus().equals(User.STUDENT)){
             sidebar.add(new SidebarElement("exam", "გამოცდა", "/eh"));
             sidebar.add(new SidebarElement("queues","რიგები", "/queues"));
-            StudentExam exam = examService.getExamForCurrentUser();
+            StudentExam exam = examService.getLiveExamForCurrentStudent();
             sidebar.add(new SidebarElement("posts-"+exam.getExamId(), "პოსტები","/posts/"+exam.getExamId()));
             List<Long> lectors = examLecturersDAO.getLecturerIds(exam.getExamId());
             List<Chat> chats = chatService.getMyChats();
