@@ -64,7 +64,7 @@ public class InterceptConfig implements HandlerInterceptor {
                     return false;
                 }
 
-                StudentExam ex = examService.getExamForCurrentUser();
+                StudentExam ex = examService.getLiveExamForCurrentStudent();
                 int mn = examDAO.get(ex.getExamId()).getDurationInMinutes();
                 Date time = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(examDAO.get(ex.getExamId()).getStartDate());
                 long ONE_MINUTE_IN_MILLIS=60000;

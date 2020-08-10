@@ -35,7 +35,7 @@
                                             %>
 
                                         </div>
-                                        <div class="widget-subheading"><i>By Bob</i></div>
+                                        <div class="widget-subheading"><i>ლექტორები: <%= exams.get(i).getAllLecturersNames() %> </i></div>
                                     </div>
                                     <div class="widget-content-right" style="margin-left: auto">
                                         <button class="border-0 btn-transition btn btn-outline-success"><i
