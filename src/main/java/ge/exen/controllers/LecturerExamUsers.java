@@ -35,13 +35,13 @@ public class LecturerExamUsers {
         String name = exams.get(exam_id).getFullName();
 
         List<User> studentNames = new ArrayList<>();
-        List<String> uploads = new ArrayList<>();
+        List<Upload> uploads = new ArrayList<>();
         for(StudentExam entry : ls){
             studentNames.add(users.getUser(entry.getStudentId()));
 
             List<Upload> curr = uploadDAO.getForUser(entry);
             if(curr.size() == 0) uploads.add(null); else
-            uploads.add(curr.get(curr.size()-1).getFileLink());
+            uploads.add(curr.get(curr.size()-1));
         }
 
         req.setAttribute("names", studentNames);

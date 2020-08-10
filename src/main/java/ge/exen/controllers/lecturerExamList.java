@@ -34,6 +34,7 @@ public class lecturerExamList {
 
         int pageNum = Math.max((exams.size()-1) / EXAMS_PER_PAGE, 0)+1;
         req.setAttribute("current",index);
+        req.setAttribute("title","გამოცდები");
         req.setAttribute("list",list);
         req.setAttribute("pageNum", pageNum);
         req.setAttribute("content", "examLecturerView.jsp");

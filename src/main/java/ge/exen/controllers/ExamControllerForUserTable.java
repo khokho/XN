@@ -2,6 +2,7 @@ package ge.exen.controllers;
 
 import ge.exen.DAO.ExamDao;
 import ge.exen.DAO.StudentExamDAO;
+import ge.exen.DAO.UserDAO;
 import ge.exen.Utils.JavaMailUtil;
 import ge.exen.dto.ExamLecturersRegisterDTO;
 import ge.exen.dto.StudentExamRegisterDTO;
@@ -33,6 +34,8 @@ public class ExamControllerForUserTable {
     StudentExamDAO dao;
     @Autowired
     ExamDao examdao;
+    @Autowired
+    UserDAO userDAO;
 
     @Autowired
     ExamLecturerService eService;
@@ -130,7 +133,7 @@ public class ExamControllerForUserTable {
         StudentExam studentExam = dao.get(studentId, examId);
         session.setAttribute("data", studentExam);
         req.setAttribute("content", "current_studentexam.jsp");
-        req.setAttribute("title", "საგამოცდო რეგისტრაცია");
+        req.setAttribute("title", userDAO.getUser(studentId).getName() + " " + userDAO.getUser(studentId).getLastName());
         return "template";
     }
 

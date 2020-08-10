@@ -18,11 +18,7 @@
                             <div class="widget-content p-0">
                                 <div class="widget-content-wrapper row">
                                     <div class="widget-content-left mr-2">
-                                        <div class="custom-checkbox custom-control"><input class="custom-control-input"
-                                                                                           id="exampleCustomCheckbox <%=i%>"
-                                                                                           type="checkbox"><label
-                                                class="custom-control-label"
-                                                for="exampleCustomCheckbox <%=i%>">&nbsp;</label></div>
+
                                     </div>
                                     <div class="widget-content-left">
                                         <div class="widget-heading"><%=exams.get(i).getExam().getFullName()%>
