@@ -1,11 +1,13 @@
 package ge.exen.services;
 
-import ge.exen.DAO.*;
+import ge.exen.DAO.ExamDao;
+import ge.exen.DAO.StudentExamDAO;
+import ge.exen.DAO.UserDAO;
+import ge.exen.DAO.UserUploadDAO;
 import ge.exen.models.StudentExam;
 import ge.exen.models.Upload;
 import ge.exen.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -47,7 +49,8 @@ public class Zipper {
         File dir = new File("src/main/webapp/resources/files/downloads/" + folder + "/");
         if (!current.getCurrentUser().getStatus().equals(User.LECTURER)) return "";
         try {
-            dir.mkdir();
+            if(!dir.mkdirs())
+                System.out.println("folder was not created");
         } catch (SecurityException se) {
             se.printStackTrace();
         }

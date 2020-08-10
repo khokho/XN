@@ -37,7 +37,7 @@ class Chat extends React.Component {
         console.log(this.chatId, this.me)
 
 
-        fetch('http://' + window.location.host + '/getMessages/' + props.chatId + '?from=0&to=10')
+        fetch('http://' + window.location.host + '/getMessages/' + props.chatId + '?from=0&to=1000')
             .then(resp => {return resp.json()})
             .then((jsonData) => {
                 jsonData.reverse()

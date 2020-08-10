@@ -63,10 +63,12 @@
 <div id="upBox" class="d-block card-footer fixed-bottom row">
 
     <div id="addStudexam" style="display: inline">
-        <button onclick="window.location.href='/admin/newStudentExam'"
+        <button onclick="window.location.href='/admin/newStudentToExam'"
                 style="background-color: dodgerblue; margin-bottom: 2vh" class="btn"><i
                 class="fa fa-plus"></i> სტუდენტის დამატება
         </button>
+        <button onclick="window.location.href='/admin/newLecturerToExam'" style="background-color: chartreuse; margin-bottom: 2vh" class="btn"><i
+                class="fa fa-plus"></i> ლექტორის დამატება</button>
     </div>
 
     <div style="float: right;display:inline;margin-right: 20px;">
