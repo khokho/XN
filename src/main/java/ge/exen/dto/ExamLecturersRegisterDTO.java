@@ -23,4 +23,9 @@ public class ExamLecturersRegisterDTO {
     public void setLecturerMail(String lecturerMail) {
         this.lecturerMail = lecturerMail;
     }
+
+    @Override
+    public String toString() {
+        return examId + " " + lecturerMail;
+    }
 }

@@ -1,6 +1,7 @@
 package ge.exen.configuration;
 
 import ge.exen.DAO.ExamDao;
+import ge.exen.configs.GlobalConstants;
 import ge.exen.models.StudentExam;
 import ge.exen.models.User;
 import ge.exen.services.IExamService;
@@ -28,7 +29,7 @@ public class InterceptConfig implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        if(GlobalConstants.DEBUG)return true;
+        if(GlobalConstants.DEBUG)return true;
         User currentUser = userService.getCurrentUser();
         String url = request.getRequestURL().toString();
         url = url.substring(8);
